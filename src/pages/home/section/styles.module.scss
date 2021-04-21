@@ -1,0 +1,20 @@
+.root {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    padding: 40px 10%;
+    font-size: 20px;
+    background: #ffffff;
+
+    &Alt {
+        background: #f0f2f5;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+}
+
+.content {
+    width: 50%;
+}

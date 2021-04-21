@@ -7,13 +7,13 @@ import styles from "./styles.module.scss";
 import "./index.scss";
 
 // FIXME: Улучшить реализацию
-const SCREEN_HEIGHT = 1080;
+const STICKY_LIMIT = 1080 - 170; // Screen - Header - Magic Offse ;D
 
 // FIXME: Улучшить реализацию (ref/event?)
 const useSticky = () => {
     const [isSticky, setSticky] = useState(true);
     const handleScroll = () => {
-        setSticky(window.scrollY < SCREEN_HEIGHT);
+        setSticky(window.scrollY < STICKY_LIMIT);
     };
 
     useEffect(() => {

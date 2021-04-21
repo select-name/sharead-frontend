@@ -9,6 +9,7 @@
     padding: 0 10% !important;
     color: #242424;
     background: #ffffff !important;
+    // FIXME: Поправить анимацию хедера
     transition: top, position, z-index 1s linear;
 
     @include box-shadow-bottom();
@@ -19,8 +20,9 @@
     }
 
     &Sticky {
-        position: relative;
-        background: #131313 !important;
+        position: absolute;
+        z-index: 10;
+        background: transparent !important;
         box-shadow: none;
 
         h1 {

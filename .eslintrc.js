@@ -93,6 +93,7 @@ module.exports = {
         // plugin: react
         "react/jsx-uses-react": 0,
         "react/react-in-jsx-scope": 0,
+        "react/prop-types": 0,
     },
     overrides: [],
 };

@@ -1,11 +1,7 @@
 .hero {
-    display: flex;
-    align-items: center;
-    // justify-content: flex-end;
-    background: #131313;
+    background: url("./assets/bg_hero.jpg");
 
     &Content {
-        width: 50%;
         color: #ffffff;
 
         h2 {
@@ -14,15 +10,10 @@
     }
 }
 
-.section {
-    height: 100vh;
-    padding: 40px 10%;
+.benefits {
+    background: url("./assets/bg_books.png");
+}
 
-    h2 {
-        font-size: 30px;
-    }
-
-    p {
-        font-size: 20px;
-    }
+.features {
+    background: url("./assets/bg_laptop.jpg");
 }
