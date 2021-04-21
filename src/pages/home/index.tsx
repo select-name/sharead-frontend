@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 const HomePage = () => {
     return (
         <div>
-            <Section rootClassName={styles.hero} className={styles.heroContent}>
+            <Section className={styles.hero} innerClassName={styles.heroContent}>
                 <h2>Букшэринг</h2>
                 <p>
                     Наш сервис позволяет людям обмениваться книгами. Владелец книги может отдать её
@@ -14,9 +14,9 @@ const HomePage = () => {
                     или на время. Желающие могут пользоваться книгой выбранный срок и платят за это
                     меньше, чем книга стоит в магазине.
                 </p>
-                <Button>Попробовать</Button>
+                <Button size="large">Попробовать</Button>
             </Section>
-            <Section rootClassName={styles.benefits}>
+            <Section id="benefits" className={styles.benefits}>
                 <h2>Книги - новые активы</h2>
                 <p>
                     Купленные книги, обычно, со временем начинают пылиться на полке. Вместо этого -
@@ -28,7 +28,7 @@ const HomePage = () => {
                     нужные книги, только на нужное вам время и без переплат!
                 </p>
             </Section>
-            <Section rootClassName={styles.features}>
+            <Section id="features" className={styles.features}>
                 <h2>Возможности</h2>
                 <ul>
                     <li>Удобный поиск по базе</li>
@@ -40,7 +40,7 @@ const HomePage = () => {
                     <li>Механизмы для проведения безопасных сделок</li>
                 </ul>
             </Section>
-            <Section>
+            <Section id="social">
                 <h2>Поиск единомышленников</h2>
                 <p>
                     Бумажные книги переосмысляются. Они теперь не столько источник знания, сколько

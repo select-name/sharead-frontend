@@ -35,8 +35,21 @@ function App() {
         <div className={styles.h100}>
             <Layout>
                 <Layout.Header className={cn(styles.header, { [styles.headerSticky]: isSticky })}>
-                    <Logo width={24} />
-                    <h1 className={styles.headerTitle}>sharead</h1>
+                    <div className={styles.logo}>
+                        <Logo width={24} />
+                        <h1 className={styles.logoTitle}>sharead</h1>
+                    </div>
+                    <nav className={styles.nav}>
+                        <a className={styles.navItem} href="#benefits">
+                            Польза
+                        </a>
+                        <a className={styles.navItem} href="#features">
+                            Возможности
+                        </a>
+                        <a className={styles.navItem} href="#social">
+                            Поиск единомышленников
+                        </a>
+                    </nav>
                 </Layout.Header>
                 <Layout.Content className={cn(styles.content)}>
                     <Routing />

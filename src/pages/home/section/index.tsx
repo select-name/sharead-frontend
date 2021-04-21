@@ -3,16 +3,20 @@ import cn from "classnames";
 import styles from "./styles.module.scss";
 
 type Props = PropsWithChildren<{
-    rootClassName?: string;
+    id?: string;
     className?: string;
+    innerClassName?: string;
     theme?: "normal" | "alt";
 }>;
 
 const HomeSection = (props: Props) => {
-    const { children, rootClassName, className, theme = "normal" } = props;
+    const { id, children, className, innerClassName, theme = "normal" } = props;
     return (
-        <section className={cn(styles.root, { [styles.rootAlt]: theme === "alt" }, rootClassName)}>
-            <div className={cn(styles.content, className)}>{children}</div>
+        <section
+            id={id}
+            className={cn(styles.root, { [styles.rootAlt]: theme === "alt" }, className)}
+        >
+            <div className={cn(styles.content, innerClassName)}>{children}</div>
         </section>
     );
 };
