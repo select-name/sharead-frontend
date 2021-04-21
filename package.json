@@ -12,6 +12,7 @@
     "@types/react-dom": "^17.0.3",
     "antd": "^4.15.2",
     "classnames": "^2.3.1",
+    "compose-function": "^3.0.3",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/compose-function": "0.0.30",
     "@types/react-router": "^5.1.13",
     "@types/react-router-dom": "^5.1.7",
     "eslint": "^7.24.0",
