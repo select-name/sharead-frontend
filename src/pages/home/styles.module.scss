@@ -1,0 +1,28 @@
+.hero {
+    display: flex;
+    align-items: center;
+    // justify-content: flex-end;
+    background: #131313;
+
+    &Content {
+        width: 50%;
+        color: #ffffff;
+
+        h2 {
+            color: #ffffff;
+        }
+    }
+}
+
+.section {
+    height: 100vh;
+    padding: 40px 10%;
+
+    h2 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+}

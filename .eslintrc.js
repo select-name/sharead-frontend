@@ -90,6 +90,9 @@ module.exports = {
         "unicorn/prefer-text-content": 2,
         "unicorn/import-index": 2,
         "unicorn/throw-new-error": 2,
+        // plugin: react
+        "react/jsx-uses-react": 0,
+        "react/react-in-jsx-scope": 0,
     },
     overrides: [],
 };

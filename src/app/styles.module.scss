@@ -1,15 +1,40 @@
 @import "shared/styles/mixins.scss";
 
 .header {
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 10% !important;
     color: #242424;
     background: #ffffff !important;
+    transition: top, position, z-index 1s linear;
 
     @include box-shadow-bottom();
+
+    &Title {
+        padding-bottom: 4px;
+        padding-left: 10px;
+    }
+
+    &Sticky {
+        position: relative;
+        background: #131313 !important;
+        box-shadow: none;
+
+        h1 {
+            color: #ffffff;
+        }
+
+        svg {
+            filter: invert(100%);
+        }
+    }
 }
 
 .content {
-    padding: 50px 10%;
+    // padding: 0 10%;
     background: #ffffff;
 }
 
