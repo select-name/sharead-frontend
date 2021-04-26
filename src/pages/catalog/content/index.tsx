@@ -34,11 +34,21 @@ const CatalogContent = () => {
     // FIXME: add later ListView
     return (
         <Layout.Content>
-            <div className={styles.grid}>
+            <section className={styles.sort}>
+                <b className={styles.sortLabel}>Сортировать по:</b>
+
+                <ul className={styles.sortList}>
+                    <li className={styles.sortListItem}>по популярности</li>
+                    <li className={styles.sortListItem}>по цене аренды</li>
+                    <li className={styles.sortListItem}>по сроку аренды</li>
+                    <li className={styles.sortListItem}>по новизне</li>
+                </ul>
+            </section>
+            <section className={styles.grid}>
                 {booksQuery.map((b) => (
                     <BookCard key={b.id} data={b} />
                 ))}
-            </div>
+            </section>
             {booksQuery.length === 0 && (
                 <Empty
                     className={styles.catalogPlaceholder}

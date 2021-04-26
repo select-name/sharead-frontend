@@ -1,3 +1,37 @@
+.sort {
+    display: flex;
+    // !!! FIXME: harcoded!
+    margin-right: 60px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &Label {
+        margin-right: 40px;
+    }
+
+    &List {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        &Item {
+            // margin: 0 10px;
+            transition: 0.25s;
+
+            // &:hover {
+            //     color: var(--color-primary);
+            //     cursor: pointer;
+            // }
+        }
+    }
+}
+
 // FIXME: use grids!!!
 .grid {
     display: flex;
