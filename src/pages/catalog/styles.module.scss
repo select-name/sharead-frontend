@@ -51,4 +51,14 @@
     &Title {
         text-align: center;
     }
+
+    &Section {
+        padding: 10px;
+    }
+
+    // FIXME: temp !!!
+    label {
+        width: 100%;
+        // border: 1px solid red;
+    }
 }

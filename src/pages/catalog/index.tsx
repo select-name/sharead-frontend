@@ -77,7 +77,7 @@ const CatalogPage = () => {
                         <Typography.Title level={4} className={styles.sidebarTitle}>
                             Фильтры
                         </Typography.Title>
-                        <section>
+                        <section className={styles.sidebarSection}>
                             <Divider plain>Автор</Divider>
                             <Checkbox.Group
                                 options={authorsOptions}
@@ -86,7 +86,7 @@ const CatalogPage = () => {
                                 onChange={filters.setAuthors}
                             />
                         </section>
-                        <section>
+                        <section className={styles.sidebarSection}>
                             <Divider plain>Издательство</Divider>
                             <Checkbox.Group
                                 options={publishersOptions}
@@ -95,26 +95,38 @@ const CatalogPage = () => {
                                 onChange={filters.setPublishers}
                             />
                         </section>
-                        <section>
+                        <section className={styles.sidebarSection}>
                             <Divider plain>Цена аренды</Divider>
                             <Slider
                                 range
                                 marks={{ 50: "50 р", 1000: "1000 р" }}
-                                defaultValue={[100, 300]}
+                                defaultValue={[50, 1000]}
                                 step={50}
                                 min={50}
                                 max={1000}
                                 disabled
                             />
                         </section>
-                        <section>
+                        {/* FIXME: replace to datepicker later */}
+                        <section className={styles.sidebarSection}>
                             <Divider plain>Срок аренды</Divider>
                             <Slider
                                 range
                                 marks={{ 1: "1 дн", 60: "60 дн" }}
-                                defaultValue={[7, 14]}
+                                defaultValue={[1, 60]}
                                 min={1}
                                 max={60}
+                                disabled
+                            />
+                        </section>
+                        <section className={styles.sidebarSection}>
+                            <Divider plain>Рейтинг владельца</Divider>
+                            <Slider
+                                range
+                                marks={{ 1: "1", 5: "5" }}
+                                defaultValue={[1, 5]}
+                                min={1}
+                                max={5}
                                 disabled
                             />
                         </section>
