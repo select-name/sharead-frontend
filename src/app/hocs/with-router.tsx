@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Spin } from "antd";
-import { BrowserRouter } from "react-router-dom";
-// import { QueryParamProvider } from "use-query-params";
+import { BrowserRouter, Route } from "react-router-dom";
+import { QueryParamProvider } from "use-query-params";
 
 /**
  * @hoc Инициализация роутера с провайдером для работы с get-параметрами
@@ -13,7 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 const withRouter = (component: () => React.ReactNode) => () => (
     <BrowserRouter>
         <Suspense fallback={<Spin delay={300} className="overlay" size="large" />}>
-            {component()}
+            <QueryParamProvider ReactRouterRoute={Route}>{component()}</QueryParamProvider>
         </Suspense>
     </BrowserRouter>
 );
