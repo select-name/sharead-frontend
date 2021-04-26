@@ -17,7 +17,8 @@ export const headerIgnoreRoutes = ["/debug/no-header"];
 const Routing = () => {
     return (
         <Switch>
-            <Route exact path="/about" component={AboutPage} />
+            {/* FIXME: temp! move to "/about" later */}
+            <Route exact path="/" component={AboutPage} />
             <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/catalog" component={CatalogPage} />
             <Route exact path="/debug/no-header" component={NoHeaderPage} />
