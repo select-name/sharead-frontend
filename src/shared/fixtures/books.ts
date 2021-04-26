@@ -1,3 +1,4 @@
+import type { AbstractBook } from "entities/types";
 import * as authors from "./authors";
 import * as publishers from "./publishers";
 
@@ -246,7 +247,7 @@ export const WITCHER__LAST_WISH_2016: AbstractBook = {
 
 export const GOT__DANCE_OF_DRAGONS_2019: AbstractBook = {
     id: 31,
-    name: "Игра Престолов - Танец с драконами. Грезы и пыль",
+    name: "Игра Престолов: Танец с драконами. Грезы и пыль",
     authors: [authors.GEORGE_MARTIN],
     publicationYear: 2019,
     publishingHouse: publishers.AST,
@@ -254,13 +255,13 @@ export const GOT__DANCE_OF_DRAGONS_2019: AbstractBook = {
 
 export const GOT__STORM_OF_SWORDS_2018: AbstractBook = {
     id: 32,
-    name: "Игра Престолов - Буря мечей",
+    name: "Игра Престолов: Буря мечей",
     authors: [authors.GEORGE_MARTIN],
     publicationYear: 2018,
     publishingHouse: publishers.AST,
 };
 
-export const getList = () => [
+export const getAll = () => [
     FIGHT_CLUB_2014,
     FIGHT_CLUB_2018,
     BLACK_SWAN_2021,
@@ -292,3 +293,24 @@ export const getList = () => [
     GOT__DANCE_OF_DRAGONS_2019,
     GOT__STORM_OF_SWORDS_2018,
 ];
+
+type GetListParams = {
+    search: string;
+};
+
+export const toString = (entity: AbstractBook) => {
+    const author = entity.authors.map(authors.getInitials).join(",");
+    const publisher = publishers.toString(entity.publishingHouse);
+    const book = `${entity.name}, ${entity.publicationYear}`;
+
+    return `${author} — ${book} (${publisher})`;
+};
+
+// FIXME: move to shared/api later
+export const getList = (params: GetListParams) => {
+    const books = getAll();
+    return books.filter((book) => {
+        // FIXME: refine search
+        return toString(book).includes(params.search);
+    });
+};

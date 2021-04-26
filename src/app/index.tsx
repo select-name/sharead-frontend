@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import cn from "classnames";
 
 import Routing from "pages";
-import { Header } from "features/header";
+// import { Header } from "features/header";
 import { withHocs } from "./hocs";
 import styles from "./styles.module.scss";
 import "./index.scss";
@@ -11,7 +11,7 @@ function App() {
     return (
         <div className={styles.h100}>
             <Layout>
-                <Header />
+                {/* <Header /> */}
                 <Layout.Content className={cn(styles.content)}>
                     <Routing />
                 </Layout.Content>

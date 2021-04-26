@@ -1,3 +1,5 @@
+import type { Author } from "entities/types";
+
 export const TOLSTOY: Author = {
     id: 1,
     dateOfBirth: "1828-09-09T00:00:00",
@@ -108,3 +110,19 @@ export const getList = () => [
     SAPKOWSKI,
     GEORGE_MARTIN,
 ];
+
+export const toString = (entity: Author) =>
+    `${entity.firstName} ${entity.middleName} ${entity.lastName}`;
+
+/**
+ * Получить инициалы по имени человека
+ * @return {Фамилия И.О.}
+ */
+export const getInitials = (entity: Author) => {
+    const { firstName, middleName, lastName } = entity;
+
+    const shortFirstName = firstName ? `${firstName.charAt(0)}.` : "";
+    const shortMiddleName = middleName ? `${middleName.charAt(0)}.` : "";
+    const shortLastName = lastName ?? "";
+    return `${shortLastName} ${shortFirstName}${shortMiddleName}`.trim();
+};

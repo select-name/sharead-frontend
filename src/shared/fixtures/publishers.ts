@@ -1,3 +1,5 @@
+import type { Publisher } from "entities/types";
+
 export const AST: Publisher = {
     id: 1,
     name: "АСТ",
@@ -57,6 +59,8 @@ export const SYM_PLUS: Publisher = {
     name: "Символ-Плюс",
     city: "Москва",
 };
+
+export const toString = (entity: Publisher) => entity.name;
 
 export const getList = () => [
     AST,

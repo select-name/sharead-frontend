@@ -1,6 +1,7 @@
 // FIXME: temp, resolve better later
+// FIXME: access from shared/fixtures!!!
 
-declare type Author = {
+export type Author = {
     id: number;
     dateOfBirth?: string;
     firstName: string;
@@ -8,13 +9,13 @@ declare type Author = {
     lastName: string;
 };
 
-declare type Publisher = {
+export type Publisher = {
     id: number;
     name: string;
     city: string;
 };
 
-declare type AbstractBook = {
+export type AbstractBook = {
     id: number;
     name: string;
     authors: Author[];
