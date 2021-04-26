@@ -1,0 +1,44 @@
+.root {
+    // display: inline-flex;
+    // flex-direction: column;
+    // flex-grow: 1;
+    // height: 100%;
+    // FIXME: resolve later
+    min-height: 86vh;
+    padding: 40px 10%;
+}
+
+.title {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.carousel {
+    margin-top: 40px;
+
+    &Item {
+        height: 320px;
+        text-align: center;
+        background: #364d79;
+
+        h3 {
+            line-height: 320px;
+            color: #ffffff;
+        }
+    }
+}
+
+.skeleton {
+    &Zone {
+        display: flex;
+        justify-content: center;
+    }
+
+    &Item {
+        width: 100% !important;
+        // height: 145px !important;
+        height: 292px !important;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+}
