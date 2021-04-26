@@ -7,10 +7,16 @@
         // padding: 10px;
         // FIXME: resolve
         margin: 10px;
+        cursor: default;
 
         &ImgPlaceholder {
             padding: 100px 0;
             font-size: 100px;
+        }
+
+        &Price {
+            display: block;
+            font-size: 20px;
         }
     }
 }
