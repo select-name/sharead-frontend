@@ -1,10 +1,12 @@
-import { Card, Empty, Layout } from "antd";
-import { BookFilled } from "@ant-design/icons";
+import { Card, Empty, Layout, Button } from "antd";
+import { BookFilled, ShoppingCartOutlined, HeartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 import { headerParams } from "features/header";
+// FIXME:
+// eslint-disable-next-line no-restricted-imports
+import alert from "shared/lib/alert";
 import * as fapi from "shared/fixtures";
-// FIXME: resolve better params usage
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
 
@@ -21,6 +23,8 @@ const getRandomPrice = () => {
     return factor * 50;
 };
 
+// FIXME:
+// eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const params = headerParams.useSearchParam();
     const filters = useFilters();
@@ -30,6 +34,7 @@ const CatalogContent = () => {
     return (
         <Layout.Content>
             <div className={styles.grid}>
+                {/* eslint-disable-next-line max-lines-per-function */}
                 {booksQuery.map((b) => {
                     const author = b.authors.map(fapi.authors.getShortname).join(", ");
                     const publisher = `${b.publishingHouse.name}`;
@@ -45,16 +50,41 @@ const CatalogContent = () => {
                             cover={<BookFilled className={styles.gridItemImgPlaceholder} />}
                             className={styles.gridItem}
                         >
+                            {/* FIXME: Поправить разметку */}
                             <Card.Meta
                                 title={
-                                    <>
+                                    <div>
                                         <span className={styles.gridItemPrice}>
                                             от {getRandomPrice()} ₽
                                         </span>
                                         <Link to={`/book/${b.id}`}>{title}</Link>
-                                    </>
+                                    </div>
                                 }
-                                description={description}
+                                description={
+                                    <div className={styles.gridItemDescription}>
+                                        <span>{description}</span>
+                                        <div className={styles.gridItemActions}>
+                                            <Button
+                                                type="default"
+                                                icon={<HeartOutlined />}
+                                                onClick={() =>
+                                                    alert.success("Добавлено в избранное", title)
+                                                }
+                                            >
+                                                В избранное
+                                            </Button>
+                                            <Button
+                                                type="primary"
+                                                icon={<ShoppingCartOutlined />}
+                                                onClick={() =>
+                                                    alert.success("Добавлено к заказу", title)
+                                                }
+                                            >
+                                                В аренду
+                                            </Button>
+                                        </div>
+                                    </div>
+                                }
                             />
                         </Card>
                     );

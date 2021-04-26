@@ -9,6 +9,25 @@
         margin: 10px;
         cursor: default;
 
+        &Description {
+            // position: relative;
+            // display: relative;
+            // flex-direction: column;
+            // flex-grow: 1;
+            // justify-content: space-between;
+            // height: 54px;
+            padding-bottom: 64px;
+        }
+
+        &Actions {
+            position: absolute;
+            bottom: 10px;
+            // !!! FIXME: RESOLVE LATER!
+            left: calc((334px - 254px) / 2);
+            // left: 50%;
+            // transform: translateX(-50%);
+        }
+
         &ImgPlaceholder {
             padding: 100px 0;
             font-size: 100px;
