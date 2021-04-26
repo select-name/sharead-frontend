@@ -45,10 +45,10 @@ const Header = (props: Props) => {
 
     return (
         <Layout.Header className={cn(styles.root, className)}>
-            <div className={styles.logo}>
+            <Link className={styles.logo} to="/">
                 <Logo width={24} />
                 <h1 className={styles.logoTitle}>sharead</h1>
-            </div>
+            </Link>
             <div className={styles.search}>
                 <Search />
             </div>

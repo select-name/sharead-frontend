@@ -15,6 +15,15 @@
 .logo {
     display: flex;
     align-items: center;
+    transition: 0.25s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    &:active {
+        opacity: 0.5;
+    }
 
     &Title {
         padding-bottom: 4px;
