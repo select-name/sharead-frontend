@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { Layout } from "antd";
+import { Layout, Badge } from "antd";
 import {
     HeartOutlined,
     ShoppingCartOutlined,
@@ -7,6 +7,7 @@ import {
     FolderOpenOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+
 import { ReactComponent as Logo } from "./logo.svg";
 import Search from "./search";
 import styles from "./styles.module.scss";
@@ -22,21 +23,25 @@ const actions = [
         label: "Заказы",
         Icon: FolderOpenOutlined,
         url: "#orders",
+        showBadge: false,
     },
     {
         label: "Избранное",
         Icon: HeartOutlined,
         url: "#fav",
+        showBadge: true,
     },
     {
         label: "Корзина",
         Icon: ShoppingCartOutlined,
         url: "#cart",
+        showBadge: false,
     },
     {
         label: "Профиль",
         Icon: UserOutlined,
         url: "#profile",
+        showBadge: false,
     },
 ];
 
@@ -54,9 +59,14 @@ const Header = (props: Props) => {
             </div>
             {/* TODO: add amount-label later */}
             <div className={styles.toolbar}>
-                {actions.map(({ label, Icon, url }) => (
+                {actions.map(({ label, Icon, url, showBadge }) => (
                     <Link key={label} to={url} className={styles.toolbarAction}>
-                        <Icon style={{ fontSize: 24 }} />
+                        {/* Для выравнивания бейджа */}
+                        <span className={styles.toolbarActionIcon}>
+                            <Badge dot={showBadge} style={{ backgroundColor: "#108ee9" }}>
+                                <Icon style={{ fontSize: 24 }} />
+                            </Badge>
+                        </span>
                         <span>{label}</span>
                     </Link>
                 ))}

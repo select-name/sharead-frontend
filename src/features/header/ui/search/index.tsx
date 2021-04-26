@@ -32,11 +32,6 @@ const useSearch = () => {
         params.setSearch(search);
     };
 
-    // useEffect(() => {
-    //     if (!params.search) return;
-    //     handleSearch(params.search);
-    // }, [params.search]);
-
     return {
         query,
         hanldeAutocomplete,

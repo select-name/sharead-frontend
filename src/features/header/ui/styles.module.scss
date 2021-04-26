@@ -46,8 +46,12 @@
         margin: 0 10px;
         line-height: 20px;
 
+        &Icon {
+            text-align: center;
+        }
+
         &:not(:hover) {
-            color: var(--color--dark);
+            color: var(--color-dark);
         }
     }
 }
