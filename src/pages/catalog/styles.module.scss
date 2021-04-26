@@ -20,19 +20,3 @@
         margin: 100px 0;
     }
 }
-// FIXME: use grids!!!
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-
-    &Item {
-        // padding: 10px;
-        // FIXME: resolve
-        margin: 10px;
-
-        &ImgPlaceholder {
-            padding: 100px 0;
-            font-size: 100px;
-        }
-    }
-}

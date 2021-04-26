@@ -4,7 +4,7 @@ import * as fapi from "shared/fixtures";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
 
-const Sidebar = () => {
+const CatalogSidebar = () => {
     return (
         <Layout.Sider className={styles.root} width={400}>
             <Typography.Title level={4} className={styles.title}>
@@ -96,4 +96,4 @@ const OwnerSection = () => (
     </section>
 );
 
-export default Sidebar;
+export default CatalogSidebar;
