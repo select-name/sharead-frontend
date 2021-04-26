@@ -27,7 +27,7 @@ const CatalogPage = () => {
     const params = headerParams.useSearchParam();
     const filters = useFilters();
 
-    const booksQuery = fapi.books.getList({ search: params.search });
+    const booksQuery = fapi.books.getList({ search: params.search, ...filters });
     // Some options could be disabled
     const authorsOptions = fapi.authors.getAll().map((a) => ({
         label: fapi.authors.getShortname(a),

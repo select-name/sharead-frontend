@@ -3,7 +3,7 @@ import * as authors from "./authors";
 import * as publishers from "./publishers";
 
 export const FIGHT_CLUB_2014: AbstractBook = {
-    id: 1,
+    id: 8,
     name: "Бойцовский клуб",
     authors: [authors.PALAHNIUK],
     publicationYear: 2014,
@@ -11,7 +11,7 @@ export const FIGHT_CLUB_2014: AbstractBook = {
 };
 
 export const FIGHT_CLUB_2018: AbstractBook = {
-    id: 2,
+    id: 32,
     name: "Бойцовский клуб",
     authors: [authors.PALAHNIUK],
     publicationYear: 2018,
@@ -27,7 +27,7 @@ export const BLACK_SWAN_2021: AbstractBook = {
 };
 
 export const CHOKE_2006: AbstractBook = {
-    id: 4,
+    id: 24,
     name: "Удушье",
     authors: [authors.PALAHNIUK],
     publicationYear: 2006,
@@ -51,7 +51,7 @@ export const WAR_PIECE_2000: AbstractBook = {
 };
 
 export const WAR_PIECE_1945: AbstractBook = {
-    id: 7,
+    id: 30,
     name: "Война и мир",
     authors: [authors.TOLSTOY],
     publicationYear: 1945,
@@ -59,7 +59,7 @@ export const WAR_PIECE_1945: AbstractBook = {
 };
 
 export const WAR_PIECE_2009: AbstractBook = {
-    id: 8,
+    id: 1,
     name: "Война и мир. Книга 2",
     authors: [authors.TOLSTOY],
     publicationYear: 2009,
@@ -83,7 +83,7 @@ export const ANNA_KARENINA_2013: AbstractBook = {
 };
 
 export const ANNA_KARENINA_2008: AbstractBook = {
-    id: 11,
+    id: 15,
     name: "Анна Каренина",
     authors: [authors.TOLSTOY],
     publicationYear: 2008,
@@ -109,7 +109,7 @@ export const CRIME_PUNISHMENT_2015: AbstractBook = {
 };
 
 export const CRIME_PUNISHMENT_2020: AbstractBook = {
-    id: 14,
+    id: 29,
     name: "Преступление и наказание",
     authors: [authors.DOSTOEVSKY],
     publicationYear: 2020,
@@ -117,7 +117,7 @@ export const CRIME_PUNISHMENT_2020: AbstractBook = {
 };
 
 export const CRIME_PUNISHMENT_2012: AbstractBook = {
-    id: 15,
+    id: 11,
     name: "Преступление и наказание",
     authors: [authors.DOSTOEVSKY],
     publicationYear: 2012,
@@ -157,7 +157,7 @@ export const CLEAN_CODE_2019: AbstractBook = {
 };
 
 export const PERFECT_PROGRAMMER_2021: AbstractBook = {
-    id: 20,
+    id: 28,
     name: "Идеальный программист. Как стать профессионалом разработки ПО",
     authors: [authors.BOB_MARTIN],
     publicationYear: 2021,
@@ -189,7 +189,7 @@ export const RISKING_SKIN_2021: AbstractBook = {
 };
 
 export const REFACTORING_2008: AbstractBook = {
-    id: 24,
+    id: 4,
     name: "Рефакторинг. Улучшение существующего кода",
     authors: [authors.MARTIN_FAULER],
     publicationYear: 2008,
@@ -222,7 +222,7 @@ export const WITCHER_GE_2020: AbstractBook = {
 };
 
 export const WITCHER__SWALLOW_TOWER_2016: AbstractBook = {
-    id: 28,
+    id: 20,
     name: "Ведьмак. Башня ласточки",
     authors: [authors.SAPKOWSKI],
     publicationYear: 2016,
@@ -230,7 +230,7 @@ export const WITCHER__SWALLOW_TOWER_2016: AbstractBook = {
 };
 
 export const WITCHER__THUNDER_SEASON_2016: AbstractBook = {
-    id: 29,
+    id: 14,
     name: "Ведьмак. Сезон гроз",
     authors: [authors.SAPKOWSKI],
     publicationYear: 2016,
@@ -238,7 +238,7 @@ export const WITCHER__THUNDER_SEASON_2016: AbstractBook = {
 };
 
 export const WITCHER__LAST_WISH_2016: AbstractBook = {
-    id: 30,
+    id: 7,
     name: "Ведьмак. Последнее желание",
     authors: [authors.SAPKOWSKI],
     publicationYear: 2016,
@@ -254,48 +254,51 @@ export const GOT__DANCE_OF_DRAGONS_2019: AbstractBook = {
 };
 
 export const GOT__STORM_OF_SWORDS_2018: AbstractBook = {
-    id: 32,
+    id: 2,
     name: "Игра Престолов: Буря мечей",
     authors: [authors.GEORGE_MARTIN],
     publicationYear: 2018,
     publishingHouse: publishers.AST,
 };
 
-export const getAll = () => [
-    FIGHT_CLUB_2014,
-    FIGHT_CLUB_2018,
-    BLACK_SWAN_2021,
-    CHOKE_2006,
-    CHOKE_2015,
-    WAR_PIECE_2000,
-    WAR_PIECE_1945,
-    WAR_PIECE_2009,
-    WAR_PIECE_2021,
-    ANNA_KARENINA_2013,
-    ANNA_KARENINA_2008,
-    ANNA_KARENINA_2014,
-    CRIME_PUNISHMENT_2012,
-    CRIME_PUNISHMENT_2015,
-    CRIME_PUNISHMENT_2020,
-    IDIOT_2015,
-    BESY_2015,
-    KARAMAZOVS_BROTHERS_2015,
-    CLEAN_CODE_2019,
-    PERFECT_PROGRAMMER_2021,
-    BLOOD_PIXELS_2018,
-    WRITE_CUT_2020,
-    RISKING_SKIN_2021,
-    REFACTORING_2008,
-    WITCHER_GE_2020,
-    WITCHER__SWALLOW_TOWER_2016,
-    WITCHER__THUNDER_SEASON_2016,
-    WITCHER__LAST_WISH_2016,
-    GOT__DANCE_OF_DRAGONS_2019,
-    GOT__STORM_OF_SWORDS_2018,
-];
+export const getAll = () =>
+    [
+        FIGHT_CLUB_2014,
+        FIGHT_CLUB_2018,
+        BLACK_SWAN_2021,
+        CHOKE_2006,
+        CHOKE_2015,
+        WAR_PIECE_2000,
+        WAR_PIECE_1945,
+        WAR_PIECE_2009,
+        WAR_PIECE_2021,
+        ANNA_KARENINA_2013,
+        ANNA_KARENINA_2008,
+        ANNA_KARENINA_2014,
+        CRIME_PUNISHMENT_2012,
+        CRIME_PUNISHMENT_2015,
+        CRIME_PUNISHMENT_2020,
+        IDIOT_2015,
+        BESY_2015,
+        KARAMAZOVS_BROTHERS_2015,
+        CLEAN_CODE_2019,
+        PERFECT_PROGRAMMER_2021,
+        BLOOD_PIXELS_2018,
+        WRITE_CUT_2020,
+        RISKING_SKIN_2021,
+        REFACTORING_2008,
+        WITCHER_GE_2020,
+        WITCHER__SWALLOW_TOWER_2016,
+        WITCHER__THUNDER_SEASON_2016,
+        WITCHER__LAST_WISH_2016,
+        GOT__DANCE_OF_DRAGONS_2019,
+        GOT__STORM_OF_SWORDS_2018,
+    ].sort((a, b) => a.id - b.id);
 
 type GetListParams = {
     search: string;
+    authors?: number[];
+    publishers?: number[];
 };
 
 export const toString = (entity: AbstractBook) => {
@@ -309,8 +312,16 @@ export const toString = (entity: AbstractBook) => {
 // FIXME: move to shared/api later
 export const getList = (params: GetListParams) => {
     const books = getAll();
-    return books.filter((book) => {
-        // FIXME: refine search
-        return toString(book).includes(params.search);
-    });
+    // FIXME: refine search
+    // FIXME: simplify format
+    return books
+        .filter((book) => toString(book).includes(params.search))
+        .filter(
+            (book) =>
+                !params.publishers?.length || params.publishers.includes(book.publishingHouse.id),
+        )
+        .filter(
+            (book) =>
+                !params.authors?.length || book.authors.some((a) => params.authors?.includes(a.id)),
+        );
 };
