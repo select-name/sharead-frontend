@@ -1,0 +1,31 @@
+.root {
+    // display: inline-flex;
+    // flex-direction: column;
+    // flex-grow: 1;
+    // height: 100%;
+    // FIXME: resolve later
+    min-height: 86vh;
+    padding: 40px 10%;
+}
+
+.title {
+    text-align: center;
+}
+
+.catalog {
+    margin-top: 60px;
+}
+// FIXME: use grids!!!
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    // align-content: space-around;
+    // align-items: stretch;
+    justify-content: space-around;
+
+    &Item {
+        padding: 10px;
+        // FIXME: resolve
+        margin-bottom: 40px;
+    }
+}
