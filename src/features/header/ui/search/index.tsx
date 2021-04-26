@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AutoComplete, Input } from "antd";
 
 import type { AbstractBook } from "entities/types";

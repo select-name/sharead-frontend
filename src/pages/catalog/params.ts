@@ -1,6 +1,7 @@
 import { DelimitedNumericArrayParam, useQueryParam, withDefault } from "use-query-params";
 
 // FIXME: fix delimiters
+// FIXME: return back null default value?
 
 /** @query Фильтрация: по автору */
 export const useFilterByAuthor = () => {
@@ -11,7 +12,7 @@ export const useFilterByAuthor = () => {
 
     // Реализуем отдельно, т.к. нужно скрывать параметр из URL
     const setAuthors: typeof setParam = (value) => {
-        setParam(value || undefined);
+        setParam(value?.length ? value : undefined);
     };
 
     // FIXME: types
@@ -27,7 +28,7 @@ export const useFilterByPublisher = () => {
 
     // Реализуем отдельно, т.к. нужно скрывать параметр из URL
     const setPublishers: typeof setParam = (value) => {
-        setParam(value || undefined);
+        setParam(value?.length ? value : undefined);
     };
 
     // FIXME: types
