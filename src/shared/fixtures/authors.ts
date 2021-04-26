@@ -126,3 +126,5 @@ export const getInitials = (entity: Author) => {
     const shortLastName = lastName ?? "";
     return `${shortLastName} ${shortFirstName}${shortMiddleName}`.trim();
 };
+
+export const getShortname = (entity: Author) => `${entity.firstName} ${entity.lastName}`;

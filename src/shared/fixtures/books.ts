@@ -299,7 +299,7 @@ type GetListParams = {
 };
 
 export const toString = (entity: AbstractBook) => {
-    const author = entity.authors.map(authors.getInitials).join(",");
+    const author = entity.authors.map(authors.getShortname).join(", ");
     const publisher = publishers.toString(entity.publishingHouse);
     const book = `${entity.name}, ${entity.publicationYear}`;
 
