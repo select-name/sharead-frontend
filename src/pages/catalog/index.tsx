@@ -3,7 +3,8 @@ import { BookFilled } from "@ant-design/icons";
 
 import { Header } from "features/header";
 import * as fapi from "shared/fixtures";
-import ImgPlaceholder from "./book-placeholder.jpg";
+// FIXME: Не умеет обрабатывать jpg!
+// import ImgPlaceholder from "./book-placeholder.jpg";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
