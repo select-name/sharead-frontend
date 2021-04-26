@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AutoComplete } from "antd";
+import { AutoComplete, Input } from "antd";
 
 import type { AbstractBook } from "entities/types";
 // FIXME: resolve
@@ -26,16 +26,18 @@ const HeaderSearch = () => {
         alert.info(option);
     };
 
+    // FIXME: Не показывать сразу все опции?
     return (
         <AutoComplete
             // FIXME: refine later
             options={mapToOptions(query)}
             // FIXME: refine later
-            style={{ width: 600 }}
+            style={{ width: 700 }}
             onSelect={onSelect}
             onSearch={onSearch}
-            placeholder="Поиск книг"
-        />
+        >
+            <Input.Search size="large" placeholder="Поиск книг" enterButton />
+        </AutoComplete>
     );
 };
 

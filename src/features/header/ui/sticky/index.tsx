@@ -31,6 +31,7 @@ type Props = {
     theme?: "normal" | "transparent";
 };
 
+// https://ant.design/components/affix/
 const StickyHeader = (props: Props) => {
     const { stickable = false, theme = "normal", className } = props;
     const { isSticky } = useSticky();

@@ -1,5 +1,12 @@
 import cn from "classnames";
 import { Layout } from "antd";
+import {
+    HeartOutlined,
+    ShoppingCartOutlined,
+    UserOutlined,
+    FolderOpenOutlined,
+} from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "./logo.svg";
 import Search from "./search";
 import styles from "./styles.module.scss";
@@ -7,20 +14,52 @@ import styles from "./styles.module.scss";
 type Props = {
     // stickable?: boolean;
     className?: string;
-    theme?: "normal" | "transparent";
+    // theme?: "normal" | "transparent";
 };
 
+const actions = [
+    {
+        label: "Заказы",
+        Icon: FolderOpenOutlined,
+        url: "#orders",
+    },
+    {
+        label: "Избранное",
+        Icon: HeartOutlined,
+        url: "#fav",
+    },
+    {
+        label: "Корзина",
+        Icon: ShoppingCartOutlined,
+        url: "#cart",
+    },
+    {
+        label: "Профиль",
+        Icon: UserOutlined,
+        url: "#profile",
+    },
+];
+
 const Header = (props: Props) => {
-    const { theme = "normal", className } = props;
+    const { className } = props;
 
     return (
-        <Layout.Header className={cn(styles.root, styles[`root--${theme}`], className)}>
+        <Layout.Header className={cn(styles.root, className)}>
             <div className={styles.logo}>
                 <Logo width={24} />
                 <h1 className={styles.logoTitle}>sharead</h1>
             </div>
-            <div>
+            <div className={styles.search}>
                 <Search />
+            </div>
+            {/* TODO: add amount-label later */}
+            <div className={styles.toolbar}>
+                {actions.map(({ label, Icon, url }) => (
+                    <Link key={label} to={url} className={styles.toolbarAction}>
+                        <Icon style={{ fontSize: 24 }} />
+                        <span>{label}</span>
+                    </Link>
+                ))}
             </div>
         </Layout.Header>
     );
