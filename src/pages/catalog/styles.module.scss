@@ -14,22 +14,24 @@
 
 .catalog {
     margin-top: 60px;
+
+    &Placeholder {
+        margin: 100px 0;
+    }
 }
 // FIXME: use grids!!!
 .grid {
     display: flex;
     flex-wrap: wrap;
-    // align-content: space-around;
-    // align-items: stretch;
-    justify-content: space-around;
 
     &Item {
-        padding: 10px;
+        // padding: 10px;
         // FIXME: resolve
-        margin-bottom: 40px;
-    }
-}
+        margin: 10px;
 
-.placeholder {
-    margin: 100px 0;
+        &ImgPlaceholder {
+            padding: 100px 0;
+            font-size: 100px;
+        }
+    }
 }
