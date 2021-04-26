@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AutoComplete, Input } from "antd";
 
 import type { AbstractBook } from "entities/types";
@@ -6,6 +6,7 @@ import type { AbstractBook } from "entities/types";
 // eslint-disable-next-line no-restricted-imports
 import alert from "shared/lib/alert";
 import * as fapi from "shared/fixtures";
+import { useSearchParam } from "../../params";
 
 const initialQuery = fapi.books.getAll();
 
@@ -14,29 +15,57 @@ const mapToOptions = (books: AbstractBook[]) =>
         value: fapi.books.toString(book),
     }));
 
-// TODO: add query-params
-const HeaderSearch = () => {
+const useSearch = () => {
     const [query, setQuery] = useState<AbstractBook[]>(initialQuery);
+    const params = useSearchParam();
 
-    const onSearch = (search: string) => {
+    const hanldeAutocomplete = (search: string) => {
         const booksQuery = fapi.books.getList({ search });
         setQuery(booksQuery);
     };
-    const onSelect = (option: string) => {
+
+    const handleSelect = (option: string) => {
         alert.info(option);
     };
+
+    const handleSubmit = (search: string) => {
+        params.setSearch(search);
+    };
+
+    // useEffect(() => {
+    //     if (!params.search) return;
+    //     handleSearch(params.search);
+    // }, [params.search]);
+
+    return {
+        query,
+        hanldeAutocomplete,
+        handleSelect,
+        handleSubmit,
+        param: params.search,
+    };
+};
+
+const HeaderSearch = () => {
+    const search = useSearch();
 
     // FIXME: Не показывать сразу все опции?
     return (
         <AutoComplete
             // FIXME: refine later
-            options={mapToOptions(query)}
+            options={mapToOptions(search.query)}
             // FIXME: refine later
             style={{ width: 700 }}
-            onSelect={onSelect}
-            onSearch={onSearch}
+            onSelect={search.handleSelect}
+            onSearch={search.hanldeAutocomplete}
+            defaultValue={search.param}
         >
-            <Input.Search size="large" placeholder="Поиск книг" enterButton />
+            <Input.Search
+                size="large"
+                placeholder="Поиск книг"
+                enterButton
+                onSearch={search.handleSubmit}
+            />
         </AutoComplete>
     );
 };

@@ -1,7 +1,8 @@
-import { Typography, Card } from "antd";
+import { Typography, Card, Empty } from "antd";
 import { BookFilled } from "@ant-design/icons";
 
-import { Header } from "features/header";
+// FIXME: resolve better params usage
+import { Header, headerParams } from "features/header";
 import * as fapi from "shared/fixtures";
 // FIXME: Не умеет обрабатывать jpg!
 // import ImgPlaceholder from "./book-placeholder.jpg";
@@ -13,6 +14,10 @@ import styles from "./styles.module.scss";
  * @page Каталог книг
  */
 const CatalogPage = () => {
+    const params = headerParams.useSearchParam();
+
+    const query = fapi.books.getList({ search: params.search });
+
     return (
         <>
             <Header />
@@ -22,7 +27,7 @@ const CatalogPage = () => {
                 </Typography.Title>
                 <div className={styles.catalog}>
                     <div className={styles.grid}>
-                        {fapi.books.getAll().map((b) => (
+                        {query.map((b) => (
                             <Card
                                 key={b.id}
                                 hoverable
@@ -39,6 +44,12 @@ const CatalogPage = () => {
                             </Card>
                         ))}
                     </div>
+                    {query.length === 0 && (
+                        <Empty
+                            className={styles.placeholder}
+                            description="Не удалось найти книги по вашему запросу"
+                        />
+                    )}
                 </div>
             </div>
         </>
