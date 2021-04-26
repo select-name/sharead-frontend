@@ -18,8 +18,10 @@ const useFilters = () => {
     return { authors, publishers };
 };
 
-const getRandomPrice = () => {
-    const factor = Math.floor(Math.random() * 3) + 2;
+const computePseudoPrice = (book: AbstractBook) => {
+    const fullTitle = fapi.books.toString(book);
+    const pseudoFactor = fullTitle.length % 3;
+    const factor = pseudoFactor + 2;
 
     return factor * 50;
 };
@@ -78,7 +80,7 @@ const BookCard = ({ data: b }: { data: AbstractBook }) => {
             <Card.Meta
                 title={
                     <div className={styles.gridItemTitle}>
-                        <span className={styles.gridItemPrice}>от {getRandomPrice()} ₽</span>
+                        <span className={styles.gridItemPrice}>от {computePseudoPrice(b)} ₽</span>
                         <Link to={`/book/${b.id}`}>{title}</Link>
                     </div>
                 }
