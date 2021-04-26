@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
  */
 
 // FIXME: refine type later
+// FIXME: center loader
 // eslint-disable-next-line react/display-name
 const withRouter = (component: () => React.ReactNode) => () => (
     <BrowserRouter>
