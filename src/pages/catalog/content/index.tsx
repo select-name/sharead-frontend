@@ -3,6 +3,7 @@ import { BookFilled, ShoppingCartOutlined, HeartOutlined } from "@ant-design/ico
 import { Link } from "react-router-dom";
 
 import { headerParams } from "features/header";
+import type { AbstractBook } from "entities/types";
 // FIXME:
 // eslint-disable-next-line no-restricted-imports
 import alert from "shared/lib/alert";
@@ -34,61 +35,9 @@ const CatalogContent = () => {
     return (
         <Layout.Content>
             <div className={styles.grid}>
-                {/* eslint-disable-next-line max-lines-per-function */}
-                {booksQuery.map((b) => {
-                    const author = b.authors.map(fapi.authors.getShortname).join(", ");
-                    const publisher = `${b.publishingHouse.name}`;
-                    const title = `${author} — ${b.name}`;
-                    const description = `${publisher} (${b.publicationYear})`;
-
-                    return (
-                        <Card
-                            key={b.id}
-                            hoverable
-                            style={{ width: "30%" }}
-                            headStyle={{ background: "grey" }}
-                            cover={<BookFilled className={styles.gridItemImgPlaceholder} />}
-                            className={styles.gridItem}
-                        >
-                            {/* FIXME: Поправить разметку */}
-                            <Card.Meta
-                                title={
-                                    <div>
-                                        <span className={styles.gridItemPrice}>
-                                            от {getRandomPrice()} ₽
-                                        </span>
-                                        <Link to={`/book/${b.id}`}>{title}</Link>
-                                    </div>
-                                }
-                                description={
-                                    <div className={styles.gridItemDescription}>
-                                        <span>{description}</span>
-                                        <div className={styles.gridItemActions}>
-                                            <Button
-                                                type="default"
-                                                icon={<HeartOutlined />}
-                                                onClick={() =>
-                                                    alert.success("Добавлено в избранное", title)
-                                                }
-                                            >
-                                                В избранное
-                                            </Button>
-                                            <Button
-                                                type="primary"
-                                                icon={<ShoppingCartOutlined />}
-                                                onClick={() =>
-                                                    alert.success("Добавлено к заказу", title)
-                                                }
-                                            >
-                                                В аренду
-                                            </Button>
-                                        </div>
-                                    </div>
-                                }
-                            />
-                        </Card>
-                    );
-                })}
+                {booksQuery.map((b) => (
+                    <BookCard key={b.id} data={b} />
+                ))}
             </div>
             {booksQuery.length === 0 && (
                 <Empty
@@ -97,6 +46,55 @@ const CatalogContent = () => {
                 />
             )}
         </Layout.Content>
+    );
+};
+
+const BookCard = ({ data: b }: { data: AbstractBook }) => {
+    const author = b.authors.map(fapi.authors.getShortname).join(", ");
+    const publisher = `${b.publishingHouse.name}`;
+    const title = `${author} — ${b.name}`;
+    const description = `${publisher} (${b.publicationYear})`;
+
+    return (
+        <Card
+            key={b.id}
+            hoverable
+            style={{ width: "30%" }}
+            headStyle={{ background: "grey" }}
+            cover={<BookFilled className={styles.gridItemImgPlaceholder} />}
+            className={styles.gridItem}
+        >
+            {/* FIXME: Поправить разметку */}
+            <Card.Meta
+                title={
+                    <div className={styles.gridItemTitle}>
+                        <span className={styles.gridItemPrice}>от {getRandomPrice()} ₽</span>
+                        <Link to={`/book/${b.id}`}>{title}</Link>
+                    </div>
+                }
+                description={
+                    <div className={styles.gridItemDescription}>
+                        <span>{description}</span>
+                        <div className={styles.gridItemActions}>
+                            <Button
+                                type="default"
+                                icon={<HeartOutlined />}
+                                onClick={() => alert.success("Добавлено в избранное", title)}
+                            >
+                                В избранное
+                            </Button>
+                            <Button
+                                type="primary"
+                                icon={<ShoppingCartOutlined />}
+                                onClick={() => alert.success("Добавлено к заказу", title)}
+                            >
+                                В аренду
+                            </Button>
+                        </div>
+                    </div>
+                }
+            />
+        </Card>
     );
 };
 
