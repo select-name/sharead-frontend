@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-const HomePage = lazy(() => import("./home"));
+const AboutPage = lazy(() => import("./about"));
 const ProfilePage = lazy(() => import("./profile"));
 const CatalogPage = lazy(() => import("./catalog"));
 // Страница без хедера
@@ -17,8 +17,7 @@ export const headerIgnoreRoutes = ["/debug/no-header"];
 const Routing = () => {
     return (
         <Switch>
-            {/* FIXME: move to "about" */}
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/about" component={AboutPage} />
             <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/catalog" component={CatalogPage} />
             <Route exact path="/debug/no-header" component={NoHeaderPage} />

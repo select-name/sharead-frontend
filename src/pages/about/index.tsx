@@ -3,7 +3,7 @@ import Section from "./section";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
-const HomePage = () => {
+const AboutPage = () => {
     return (
         <div>
             <Section className={styles.hero} innerClassName={styles.heroContent}>
@@ -56,4 +56,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default AboutPage;
