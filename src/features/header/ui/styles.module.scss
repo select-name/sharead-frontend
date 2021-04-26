@@ -1,0 +1,63 @@
+@import "shared/styles/mixins.scss";
+
+.root {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    width: 100%;
+    padding: 0 10% !important;
+    // FIXME: Поправить анимацию хедера
+    transition: top, position, z-index 1s linear;
+
+    &Sticky {
+        position: fixed;
+        top: 0;
+    }
+
+    // themes
+    &--normal {
+        color: var(--color-dark);
+        background: #ffffff !important;
+
+        @include box-shadow-bottom();
+    }
+
+    &--transparent {
+        background: transparent !important;
+        box-shadow: none;
+
+        h1 {
+            color: #ffffff;
+        }
+
+        svg {
+            filter: invert(100%);
+        }
+
+        a {
+            color: #ffffff;
+        }
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    &Title {
+        padding-bottom: 4px;
+        padding-left: 10px;
+    }
+}
+
+.nav {
+    margin-left: 20px;
+
+    &Item {
+        display: inline-block;
+        min-width: 120px;
+        padding: 0 20px;
+        color: var(--color-dark);
+        text-align: center;
+    }
+}

@@ -1,56 +1,17 @@
-import { useState, useEffect } from "react";
 import { Layout } from "antd";
 import cn from "classnames";
 
 import Routing from "pages";
+import { Header } from "features/header";
 import { withHocs } from "./hocs";
-import { ReactComponent as Logo } from "./logo.svg";
 import styles from "./styles.module.scss";
 import "./index.scss";
 
-// FIXME: Улучшить реализацию
-const STICKY_LIMIT = 1080 - 170; // Screen - Header - Magic Offse ;D
-
-// FIXME: Улучшить реализацию (ref/event?)
-const useSticky = () => {
-    const [isSticky, setSticky] = useState(true);
-    const handleScroll = () => {
-        setSticky(window.scrollY < STICKY_LIMIT);
-    };
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", () => handleScroll);
-        };
-    }, []);
-
-    return { isSticky };
-};
-
 function App() {
-    const { isSticky } = useSticky();
     return (
         <div className={styles.h100}>
             <Layout>
-                <Layout.Header className={cn(styles.header, { [styles.headerSticky]: isSticky })}>
-                    <div className={styles.logo}>
-                        <Logo width={24} />
-                        <h1 className={styles.logoTitle}>sharead</h1>
-                    </div>
-                    <nav className={styles.nav}>
-                        <a className={styles.navItem} href="#benefits">
-                            Польза
-                        </a>
-                        <a className={styles.navItem} href="#features">
-                            Возможности
-                        </a>
-                        <a className={styles.navItem} href="#social">
-                            Поиск единомышленников
-                        </a>
-                    </nav>
-                </Layout.Header>
+                <Header />
                 <Layout.Content className={cn(styles.content)}>
                     <Routing />
                 </Layout.Content>

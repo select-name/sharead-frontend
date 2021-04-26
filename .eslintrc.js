@@ -81,6 +81,7 @@ module.exports = {
         "max-params": [1, 2],
         "max-lines-per-function": [1, 48],
         "arrow-parens": [2, "always"],
+        // "arrow-body-style": [1, "as-needed"],
         // plugin:unicorn
         "unicorn/no-for-loop": 2,
         "unicorn/no-abusive-eslint-disable": 2,
