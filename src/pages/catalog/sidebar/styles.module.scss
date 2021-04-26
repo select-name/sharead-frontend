@@ -1,0 +1,22 @@
+@import "shared/styles/mixins.scss";
+
+.root {
+    padding: 20px;
+    background: transparent;
+    // border: 1px solid var(--color-accent);
+
+    @include box-shadow-bottom();
+}
+
+.title {
+    text-align: center;
+}
+
+.section {
+    padding: 10px;
+    // FIXME: temp !!!
+    label {
+        width: 100%;
+        // border: 1px solid red;
+    }
+}

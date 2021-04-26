@@ -4,6 +4,8 @@ import { BookFilled } from "@ant-design/icons";
 // FIXME: resolve better params usage
 import { Header, headerParams } from "features/header";
 import * as fapi from "shared/fixtures";
+
+import Sidebar from "./sidebar";
 import * as catalogParams from "./params";
 // FIXME: Не умеет обрабатывать jpg!
 // import ImgPlaceholder from "./book-placeholder.jpg";
@@ -13,10 +15,10 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 const useFilters = () => {
-    const { authors, setAuthors } = catalogParams.useFilterByAuthor();
-    const { publishers, setPublishers } = catalogParams.useFilterByPublisher();
+    const { authors } = catalogParams.useFilterByAuthor();
+    const { publishers } = catalogParams.useFilterByPublisher();
 
-    return { authors, setAuthors, publishers, setPublishers };
+    return { authors, publishers };
 };
 
 /**
@@ -28,15 +30,6 @@ const CatalogPage = () => {
     const filters = useFilters();
 
     const booksQuery = fapi.books.getList({ search: params.search, ...filters });
-    // Some options could be disabled
-    const authorsOptions = fapi.authors.getAll().map((a) => ({
-        label: fapi.authors.getShortname(a),
-        value: a.id,
-    }));
-    const publishersOptions = fapi.publishers.getAll().map((a) => ({
-        label: `${a.name} (${a.city})`,
-        value: a.id,
-    }));
 
     return (
         <Layout>
@@ -73,64 +66,7 @@ const CatalogPage = () => {
                             />
                         )}
                     </Layout.Content>
-                    <Layout.Sider className={styles.sidebar} width={400}>
-                        <Typography.Title level={4} className={styles.sidebarTitle}>
-                            Фильтры
-                        </Typography.Title>
-                        <section className={styles.sidebarSection}>
-                            <Divider plain>Автор</Divider>
-                            <Checkbox.Group
-                                options={authorsOptions}
-                                value={filters.authors || []}
-                                // @ts-ignore
-                                onChange={filters.setAuthors}
-                            />
-                        </section>
-                        <section className={styles.sidebarSection}>
-                            <Divider plain>Издательство</Divider>
-                            <Checkbox.Group
-                                options={publishersOptions}
-                                value={filters.publishers || []}
-                                // @ts-ignore
-                                onChange={filters.setPublishers}
-                            />
-                        </section>
-                        <section className={styles.sidebarSection}>
-                            <Divider plain>Цена аренды</Divider>
-                            <Slider
-                                range
-                                marks={{ 50: "50 р", 1000: "1000 р" }}
-                                defaultValue={[50, 1000]}
-                                step={50}
-                                min={50}
-                                max={1000}
-                                disabled
-                            />
-                        </section>
-                        {/* FIXME: replace to datepicker later */}
-                        <section className={styles.sidebarSection}>
-                            <Divider plain>Срок аренды</Divider>
-                            <Slider
-                                range
-                                marks={{ 1: "1 дн", 60: "60 дн" }}
-                                defaultValue={[1, 60]}
-                                min={1}
-                                max={60}
-                                disabled
-                            />
-                        </section>
-                        <section className={styles.sidebarSection}>
-                            <Divider plain>Рейтинг владельца</Divider>
-                            <Slider
-                                range
-                                marks={{ 1: "1", 5: "5" }}
-                                defaultValue={[1, 5]}
-                                min={1}
-                                max={5}
-                                disabled
-                            />
-                        </section>
-                    </Layout.Sider>
+                    <Sidebar />
                 </Layout>
             </div>
         </Layout>
