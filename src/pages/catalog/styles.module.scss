@@ -1,3 +1,5 @@
+@import "shared/styles/mixins.scss";
+
 .root {
     // display: inline-flex;
     // flex-direction: column;
@@ -9,6 +11,7 @@
 }
 
 .title {
+    margin-top: 40px;
     text-align: center;
 }
 
@@ -33,5 +36,19 @@
             padding: 100px 0;
             font-size: 100px;
         }
+    }
+}
+
+// ----------------
+
+.sidebar {
+    padding: 20px;
+    background: transparent;
+    // border: 1px solid var(--color-accent);
+
+    @include box-shadow-bottom();
+
+    &Title {
+        text-align: center;
     }
 }

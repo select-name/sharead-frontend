@@ -95,7 +95,7 @@ export const GEORGE_MARTIN: Author = {
     lastName: "Мартин",
 };
 
-export const getList = () => [
+export const getAll = () => [
     TOLSTOY,
     PALAHNIUK,
     TALEB,

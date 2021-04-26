@@ -62,7 +62,7 @@ export const SYM_PLUS: Publisher = {
 
 export const toString = (entity: Publisher) => entity.name;
 
-export const getList = () => [
+export const getAll = () => [
     AST,
     COLIBRI,
     EKSMO,

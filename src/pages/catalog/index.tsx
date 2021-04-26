@@ -1,9 +1,10 @@
-import { Typography, Card, Empty, Col, Row, Layout } from "antd";
+import { Typography, Card, Empty, Layout, Divider, Checkbox, Slider } from "antd";
 import { BookFilled } from "@ant-design/icons";
 
 // FIXME: resolve better params usage
 import { Header, headerParams } from "features/header";
 import * as fapi from "shared/fixtures";
+import * as catalogParams from "./params";
 // FIXME: Не умеет обрабатывать jpg!
 // import ImgPlaceholder from "./book-placeholder.jpg";
 import styles from "./styles.module.scss";
@@ -11,14 +12,31 @@ import styles from "./styles.module.scss";
 // !!! FIXME: split by features!
 // TODO: Add skeletons loader
 
+const useFilters = () => {
+    const { authors, setAuthors } = catalogParams.useFilterByAuthor();
+    const { publishers, setPublishers } = catalogParams.useFilterByPublisher();
+
+    return { authors, setAuthors, publishers, setPublishers };
+};
+
 /**
  * @page Каталог книг
  */
 // eslint-disable-next-line max-lines-per-function
 const CatalogPage = () => {
     const params = headerParams.useSearchParam();
+    const filters = useFilters();
 
-    const query = fapi.books.getList({ search: params.search });
+    const booksQuery = fapi.books.getList({ search: params.search });
+    // Some options could be disabled
+    const authorsOptions = fapi.authors.getAll().map((a) => ({
+        label: fapi.authors.getShortname(a),
+        value: a.id,
+    }));
+    const publishersOptions = fapi.publishers.getAll().map((a) => ({
+        label: `${a.name} (${a.city})`,
+        value: a.id,
+    }));
 
     return (
         <Layout>
@@ -30,7 +48,7 @@ const CatalogPage = () => {
                 <Layout className={styles.catalog}>
                     <Layout.Content>
                         <div className={styles.grid}>
-                            {query.map((b) => (
+                            {booksQuery.map((b) => (
                                 <Card
                                     key={b.id}
                                     hoverable
@@ -48,14 +66,59 @@ const CatalogPage = () => {
                                 </Card>
                             ))}
                         </div>
-                        {query.length === 0 && (
+                        {booksQuery.length === 0 && (
                             <Empty
                                 className={styles.catalogPlaceholder}
                                 description="Не удалось найти книги по вашему запросу"
                             />
                         )}
                     </Layout.Content>
-                    <Layout.Sider width={400}>Фильтры</Layout.Sider>
+                    <Layout.Sider className={styles.sidebar} width={400}>
+                        <Typography.Title level={4} className={styles.sidebarTitle}>
+                            Фильтры
+                        </Typography.Title>
+                        <section>
+                            <Divider plain>Автор</Divider>
+                            <Checkbox.Group
+                                options={authorsOptions}
+                                value={filters.authors || []}
+                                // @ts-ignore
+                                onChange={filters.setAuthors}
+                            />
+                        </section>
+                        <section>
+                            <Divider plain>Издательство</Divider>
+                            <Checkbox.Group
+                                options={publishersOptions}
+                                value={filters.publishers || []}
+                                // @ts-ignore
+                                onChange={filters.setPublishers}
+                            />
+                        </section>
+                        <section>
+                            <Divider plain>Цена аренды</Divider>
+                            <Slider
+                                range
+                                marks={{ 50: "50 р", 1000: "1000 р" }}
+                                defaultValue={[100, 300]}
+                                step={50}
+                                min={50}
+                                max={1000}
+                                disabled
+                            />
+                        </section>
+                        <section>
+                            <Divider plain>Срок аренды</Divider>
+                            <Slider
+                                range
+                                marks={{ 1: "1 дн", 60: "60 дн" }}
+                                defaultValue={[7, 14]}
+                                min={1}
+                                max={60}
+                                disabled
+                            />
+                        </section>
+                    </Layout.Sider>
                 </Layout>
             </div>
         </Layout>
