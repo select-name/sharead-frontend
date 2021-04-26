@@ -7,15 +7,17 @@ import styles from "./styles.module.scss";
 const CatalogSidebar = () => {
     return (
         <Layout.Sider className={styles.root} width={400}>
-            <Typography.Title level={4} className={styles.title}>
-                Фильтры
-            </Typography.Title>
+            <div className={styles.rootInner}>
+                <Typography.Title level={4} className={styles.title}>
+                    Фильтры
+                </Typography.Title>
 
-            <AuthorSection />
-            <PublisherSection />
-            <PriceSection />
-            <TimeSection />
-            <OwnerSection />
+                <AuthorSection />
+                <PublisherSection />
+                <PriceSection />
+                <TimeSection />
+                <OwnerSection />
+            </div>
         </Layout.Sider>
     );
 };

@@ -1,11 +1,14 @@
 @import "shared/styles/mixins.scss";
 
 .root {
-    padding: 20px;
     background: transparent;
     // border: 1px solid var(--color-accent);
 
-    @include box-shadow-bottom();
+    &Inner {
+        padding: 20px;
+
+        @include box-shadow-bottom();
+    }
 }
 
 .title {
