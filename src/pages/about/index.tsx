@@ -1,9 +1,14 @@
 import { Button } from "antd";
+
+// eslint-disable-next-line no-restricted-imports
+import { useTitle } from "shared/lib/dom";
 import Section from "./section";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
 const AboutPage = () => {
+    useTitle("О нас — Sharead");
+
     return (
         <div>
             <Section className={styles.hero} innerClassName={styles.heroContent}>
