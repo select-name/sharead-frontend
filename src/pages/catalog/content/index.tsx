@@ -18,16 +18,6 @@ const useFilters = () => {
     return { authors, publishers };
 };
 
-const computePseudoPrice = (book: AbstractBook) => {
-    const fullTitle = fapi.books.toString(book);
-    const pseudoFactor = fullTitle.length % 3;
-    const factor = pseudoFactor + 2;
-
-    return factor * 50;
-};
-
-// FIXME:
-// eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const params = headerParams.useSearchParam();
     const filters = useFilters();
@@ -61,6 +51,8 @@ const CatalogContent = () => {
     );
 };
 
+// FIXME:
+// eslint-disable-next-line max-lines-per-function
 const BookCard = ({ data: b }: { data: AbstractBook }) => {
     const author = b.authors.map(fapi.authors.getShortname).join(", ");
     const publisher = `${b.publishingHouse.name}`;
@@ -80,7 +72,9 @@ const BookCard = ({ data: b }: { data: AbstractBook }) => {
             <Card.Meta
                 title={
                     <div className={styles.gridItemTitle}>
-                        <span className={styles.gridItemPrice}>от {computePseudoPrice(b)} ₽</span>
+                        <span className={styles.gridItemPrice}>
+                            от {fapi.books.getPseudoPrice(b)} ₽
+                        </span>
                         <Link to={`/book/${b.id}`}>{title}</Link>
                     </div>
                 }

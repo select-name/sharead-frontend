@@ -1,0 +1,98 @@
+@import "shared/styles/mixins.scss";
+
+.root {
+    // display: inline-flex;
+    // flex-direction: column;
+    // flex-grow: 1;
+    // height: 100%;
+    // FIXME: resolve later
+    min-height: calc(100vh - 64px - 70px);
+    padding: 40px 10%;
+}
+
+.errorRoot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    margin-top: 60px;
+    // text-align: center;
+}
+
+.content {
+    margin-top: 30px;
+}
+
+.card {
+    &Main {
+        display: flex;
+    }
+
+    &Gallery {
+        width: 450px;
+
+        &Item {
+            text-align: center;
+            user-select: none;
+            // background: #364d79;
+            background: var(--color-accent);
+
+            h3 {
+                line-height: 640px;
+                color: #000000;
+            }
+        }
+
+        li > * {
+            // FIXME: temp!
+            // height: 12px !important;
+            filter: invert(100%) opacity(50%);
+        }
+    }
+
+    &Info {
+        margin-top: 40px;
+        margin-left: 40px;
+
+        &Props {
+            // display: flex;
+            // flex-direction: column;
+
+            &Title {
+                font-size: 20px;
+            }
+        }
+
+        &Description {
+            margin-top: 20px;
+        }
+    }
+}
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+    padding: 30px;
+
+    @include box-shadow-bottom();
+
+    &Price {
+        font-size: 24px;
+    }
+
+    &Details {
+        color: grey;
+
+        &Item {
+            margin: 8px 0;
+        }
+    }
+
+    &Actions {
+        margin-top: 20px;
+    }
+}

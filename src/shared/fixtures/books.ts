@@ -325,3 +325,15 @@ export const getList = (params: GetListParams) => {
                 !params.authors?.length || book.authors.some((a) => params.authors?.includes(a.id)),
         );
 };
+
+export const getBookById = (bookId: number) => {
+    return getAll().find((it) => it.id === bookId);
+};
+
+export const getPseudoPrice = (book: AbstractBook) => {
+    const fullTitle = toString(book);
+    const pseudoFactor = fullTitle.length % 3;
+    const factor = pseudoFactor + 2;
+
+    return factor * 50;
+};
