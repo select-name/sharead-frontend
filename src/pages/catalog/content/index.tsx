@@ -1,12 +1,7 @@
-import { Card, Empty, Layout, Button } from "antd";
-import { BookFilled, ShoppingCartOutlined, HeartOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Empty, Layout } from "antd";
 
 import { headerParams } from "features/header";
-import type { AbstractBook } from "entities/types";
-// FIXME:
-// eslint-disable-next-line no-restricted-imports
-import alert from "shared/lib/alert";
+import { BookCard } from "entities/book";
 import * as fapi from "shared/fixtures";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
@@ -38,7 +33,7 @@ const CatalogContent = () => {
             </section>
             <section className={styles.grid}>
                 {booksQuery.map((b) => (
-                    <BookCard key={b.id} data={b} />
+                    <BookCard key={b.id} data={b} className={styles.gridItem} />
                 ))}
             </section>
             {booksQuery.length === 0 && (
@@ -48,59 +43,6 @@ const CatalogContent = () => {
                 />
             )}
         </Layout.Content>
-    );
-};
-
-// FIXME:
-// eslint-disable-next-line max-lines-per-function
-const BookCard = ({ data: b }: { data: AbstractBook }) => {
-    const author = b.authors.map(fapi.authors.getShortname).join(", ");
-    const publisher = `${b.publishingHouse.name}`;
-    const title = `${author} — ${b.name}`;
-    const description = `${publisher} (${b.publicationYear})`;
-
-    return (
-        <Card
-            key={b.id}
-            hoverable
-            style={{ width: "30%" }}
-            headStyle={{ background: "grey" }}
-            cover={<BookFilled className={styles.gridItemImgPlaceholder} />}
-            className={styles.gridItem}
-        >
-            {/* FIXME: Поправить разметку */}
-            <Card.Meta
-                title={
-                    <div className={styles.gridItemTitle}>
-                        <span className={styles.gridItemPrice}>
-                            от {fapi.books.getPseudoPrice(b)} ₽
-                        </span>
-                        <Link to={`/book/${b.id}`}>{title}</Link>
-                    </div>
-                }
-                description={
-                    <div className={styles.gridItemDescription}>
-                        <span>{description}</span>
-                        <div className={styles.gridItemActions}>
-                            <Button
-                                type="default"
-                                icon={<HeartOutlined />}
-                                onClick={() => alert.success("Добавлено в избранное", title)}
-                            >
-                                В избранное
-                            </Button>
-                            <Button
-                                type="primary"
-                                icon={<ShoppingCartOutlined />}
-                                onClick={() => alert.success("Добавлено к заказу", title)}
-                            >
-                                В аренду
-                            </Button>
-                        </div>
-                    </div>
-                }
-            />
-        </Card>
     );
 };
 
