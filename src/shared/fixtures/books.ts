@@ -295,12 +295,6 @@ export const getAll = () =>
         GOT__STORM_OF_SWORDS_2018,
     ].sort((a, b) => a.id - b.id);
 
-type GetListParams = {
-    search: string;
-    authors?: number[];
-    publishers?: number[];
-};
-
 export const toString = (entity: AbstractBook) => {
     const author = entity.authors.map(authors.getShortname).join(", ");
     const publisher = publishers.toString(entity.publishingHouse);
@@ -309,13 +303,19 @@ export const toString = (entity: AbstractBook) => {
     return `${author} — ${book} (${publisher})`;
 };
 
+type GetListParams = {
+    search?: string;
+    authors?: number[];
+    publishers?: number[];
+};
+
 // FIXME: move to shared/api later
 export const getList = (params: GetListParams) => {
     const books = getAll();
     // FIXME: refine search
     // FIXME: simplify format
     return books
-        .filter((book) => toString(book).includes(params.search))
+        .filter((book) => !params.search || toString(book).includes(params.search))
         .filter(
             (book) =>
                 !params.publishers?.length || params.publishers.includes(book.publishingHouse.id),

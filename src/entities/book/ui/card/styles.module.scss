@@ -4,6 +4,12 @@
     margin: 10px;
     cursor: default;
 
+    &Small .bookCard {
+        &ImgPlaceholder {
+            padding: 80px 0;
+        }
+    }
+
     &Description {
         // position: relative;
         // display: relative;

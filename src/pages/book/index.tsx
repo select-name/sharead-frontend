@@ -10,6 +10,7 @@ import cn from "classnames";
 
 import { Header } from "features/header";
 import type { AbstractBook } from "entities/types";
+import { BookCard } from "entities/book";
 import * as fapi from "shared/fixtures";
 // eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
@@ -62,6 +63,9 @@ const BookPage = (props: Props) => {
                 <Row className={styles.content}>
                     <Card book={book} />
                     <Checkout book={book} />
+                </Row>
+                <Row>
+                    <Recommendations book={book} />
                 </Row>
             </main>
         </Layout>
@@ -149,6 +153,24 @@ const Checkout = ({ book }: BookProps) => {
                     </Button>
                 </div>
             </article>
+        </Col>
+    );
+};
+
+// !!! FIXME: Скроллить наверх при переходе к книге
+const Recommendations = ({ book }: BookProps) => {
+    const booksQuery = fapi.books.getList({ authors: book.authors.map((a) => a.id) });
+
+    if (!booksQuery) return null;
+
+    return (
+        <Col span={16} className={styles.recommendations}>
+            <h2>От того же автора</h2>
+            <div className={styles.recommendationsFeed}>
+                {booksQuery.map((b) => (
+                    <BookCard key={b.id} data={b} size="small" />
+                ))}
+            </div>
         </Col>
     );
 };

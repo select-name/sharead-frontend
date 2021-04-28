@@ -96,3 +96,11 @@
         margin-top: 20px;
     }
 }
+
+.recommendations {
+    margin: 80px 0;
+
+    &Feed {
+        display: flex;
+    }
+}
