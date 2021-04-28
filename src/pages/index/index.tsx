@@ -1,6 +1,8 @@
 import { Carousel, Typography, Layout, Skeleton, Row, Col } from "antd";
 
 import { Header } from "features/header";
+// eslint-disable-next-line no-restricted-imports
+import { useTitle } from "shared/lib/dom";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -11,6 +13,7 @@ import styles from "./styles.module.scss";
  */
 // eslint-disable-next-line max-lines-per-function
 const IndexPage = () => {
+    useTitle("Sharead - Букшеринг сервис");
     return (
         <Layout>
             <Header />
