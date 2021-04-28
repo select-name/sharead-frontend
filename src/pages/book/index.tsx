@@ -41,7 +41,7 @@ const BookPage = (props: Props) => {
         return (
             <Layout>
                 <Header />
-                <main className={cn(styles.root, styles.errorRoot)}>
+                <main className={cn(styles.rootMain, styles.errorRoot)}>
                     <Result
                         status="404"
                         title="404"
