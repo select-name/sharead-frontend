@@ -5,7 +5,7 @@ import {
     HistoryOutlined,
     InboxOutlined,
 } from "@ant-design/icons";
-import { RouteChildrenProps } from "react-router-dom";
+import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
 import { Header } from "features/header";
@@ -54,9 +54,10 @@ const BookPage = (props: Props) => {
     }
 
     return (
-        <Layout>
+        <Layout className={styles.root}>
             <Header />
-            <main className={styles.root}>
+            <main className={styles.rootMain}>
+                <Link to="/catalog">Каталог</Link>
                 <Typography.Title className={styles.title} level={2}>
                     {fapi.books.toString(book)}
                 </Typography.Title>
@@ -133,10 +134,10 @@ const Checkout = ({ book }: BookProps) => {
                     {/* FIXME: Добавить динамику */}
                     <ul className={styles.checkoutDetails}>
                         <li className={styles.checkoutDetailsItem}>
-                            <HistoryOutlined /> В аренду от 2 дней
+                            <InboxOutlined /> Доставка курьерской службой до 2 дней
                         </li>
                         <li className={styles.checkoutDetailsItem}>
-                            <InboxOutlined /> Доставка курьерской службой до 2 дней
+                            <HistoryOutlined /> В аренду от 2 дней
                         </li>
                     </ul>
                     <p>

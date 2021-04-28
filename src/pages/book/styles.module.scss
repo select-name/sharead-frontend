@@ -6,8 +6,12 @@
     // flex-grow: 1;
     // height: 100%;
     // FIXME: resolve later
-    min-height: calc(100vh - 64px - 70px);
-    padding: 40px 10%;
+
+    &Main {
+        min-height: calc(100vh - 64px - 70px);
+        padding: 40px 10%;
+        margin-top: 60px;
+    }
 }
 
 .errorRoot {
@@ -17,7 +21,6 @@
 }
 
 .title {
-    margin-top: 60px;
     // text-align: center;
 }
 
