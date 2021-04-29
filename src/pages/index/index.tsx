@@ -18,50 +18,52 @@ const IndexPage = () => {
         <Layout>
             <Header />
             <main className={styles.root}>
-                <Typography.Title className={styles.title} level={2}>
-                    Букшеринг
-                </Typography.Title>
-                <section className={styles.carousel}>
-                    <Carousel autoplay>
-                        <div className={styles.carouselItem}>
-                            <Typography.Title level={3}>BANNER-1</Typography.Title>
-                        </div>
-                        <div className={styles.carouselItem}>
-                            <Typography.Title level={3}>BANNER-2</Typography.Title>
-                        </div>
-                        <div className={styles.carouselItem}>
-                            <Typography.Title level={3}>BANNER-3</Typography.Title>
-                        </div>
-                        <div className={styles.carouselItem}>
-                            <Typography.Title level={3}>BANNER-4</Typography.Title>
-                        </div>
-                    </Carousel>
+                <section className={styles.banner}>
+                    <Banner />
                 </section>
                 <section>
                     <Typography.Title className={styles.title} level={2}>
                         Категории книг
                     </Typography.Title>
-                    <Row className={styles.skeletonZone}>
-                        <Col span={6} offset={1}>
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                        </Col>
-                        <Col span={6} offset={1}>
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                        </Col>
-                        <Col span={6} offset={1}>
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-                        </Col>
-                    </Row>
+                    <Categories />
                 </section>
             </main>
         </Layout>
     );
 };
+
+const Banner = () => (
+    <Carousel autoplay>
+        <div className={styles.bannerItem}>
+            <Typography.Title level={3}>BANNER-1</Typography.Title>
+        </div>
+        <div className={styles.bannerItem}>
+            <Typography.Title level={3}>BANNER-2</Typography.Title>
+        </div>
+        <div className={styles.bannerItem}>
+            <Typography.Title level={3}>BANNER-3</Typography.Title>
+        </div>
+        <div className={styles.bannerItem}>
+            <Typography.Title level={3}>BANNER-4</Typography.Title>
+        </div>
+    </Carousel>
+);
+
+const Categories = () => (
+    <Row className={styles.skeletonZone}>
+        <Col span={6} offset={1}>
+            <Skeleton.Input className={styles.skeletonItem} size="large" active />
+            <Skeleton.Input className={styles.skeletonItem} size="large" active />
+        </Col>
+        <Col span={6} offset={1}>
+            <Skeleton.Input className={styles.skeletonItem} size="large" active />
+            <Skeleton.Input className={styles.skeletonItem} size="large" active />
+        </Col>
+        <Col span={6} offset={1}>
+            <Skeleton.Input className={styles.skeletonItem} size="large" active />
+            <Skeleton.Input className={styles.skeletonItem} size="large" active />
+        </Col>
+    </Row>
+);
 
 export default IndexPage;
