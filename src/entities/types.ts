@@ -22,3 +22,11 @@ export type AbstractBook = {
     publicationYear: number;
     publishingHouse: Publisher;
 };
+
+export type Category = {
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+    cover: import("react").ReactNode;
+};
