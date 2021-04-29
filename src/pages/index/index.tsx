@@ -1,6 +1,7 @@
-import { Carousel, Typography, Layout, Skeleton, Row, Col } from "antd";
+import { Carousel, Typography, Layout, Skeleton, Card, Row, Col } from "antd";
 
 import { Header } from "features/header";
+import * as fapi from "shared/fixtures";
 // eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
 import styles from "./styles.module.scss";
@@ -18,10 +19,10 @@ const IndexPage = () => {
         <Layout>
             <Header />
             <main className={styles.root}>
-                <section className={styles.banner}>
+                <section className={styles.rootBanner}>
                     <Banner />
                 </section>
-                <section>
+                <section className={styles.rootCategories}>
                     <Typography.Title className={styles.title} level={2}>
                         Категории книг
                     </Typography.Title>
@@ -49,21 +50,21 @@ const Banner = () => (
     </Carousel>
 );
 
-const Categories = () => (
-    <Row className={styles.skeletonZone}>
-        <Col span={6} offset={1}>
-            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-        </Col>
-        <Col span={6} offset={1}>
-            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-        </Col>
-        <Col span={6} offset={1}>
-            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-            <Skeleton.Input className={styles.skeletonItem} size="large" active />
-        </Col>
-    </Row>
-);
+const Categories = () => {
+    const categoriesQuery = fapi.categories.getAll();
+
+    return (
+        <Row className={styles.categories}>
+            {categoriesQuery.map((cat) => (
+                <article key={cat.id} className={styles.categoriesItem}>
+                    {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
+                    <Typography.Title level={3}>{cat.name}</Typography.Title>
+                    <Typography.Text>{cat.description}</Typography.Text>
+                    <div className={styles.categoriesItemCover}>{cat.cover}</div>
+                </article>
+            ))}
+        </Row>
+    );
+};
 
 export default IndexPage;

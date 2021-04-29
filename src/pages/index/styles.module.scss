@@ -1,3 +1,5 @@
+@import "shared/styles/mixins.scss";
+
 .root {
     // display: inline-flex;
     // flex-direction: column;
@@ -6,6 +8,13 @@
     // FIXME: resolve later
     min-height: 86vh;
     padding: 40px 10%;
+
+    &Banner {
+    }
+
+    &Categories {
+        margin-top: 40px;
+    }
 }
 
 .title {
@@ -14,8 +23,6 @@
 }
 
 .banner {
-    // margin-top: 40px;
-
     &Item {
         height: 320px;
         text-align: center;
@@ -28,17 +35,33 @@
     }
 }
 
-.skeleton {
-    &Zone {
-        display: flex;
-        justify-content: center;
-    }
+.categories {
+    display: flex;
+    justify-content: space-between;
 
     &Item {
-        width: 100% !important;
+        position: relative;
+        width: 30% !important;
         // height: 145px !important;
         height: 292px !important;
+        padding: 40px;
         margin-bottom: 20px;
+        overflow: hidden;
+        text-align: center;
+        background: var(--color-accent);
         border-radius: 10px;
+        transition: 0.25s;
+
+        &:hover {
+            @include box-shadow-bottom();
+        }
+
+        &Cover {
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            font-size: 200px;
+            transform: translateX(-50%);
+        }
     }
 }
