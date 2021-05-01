@@ -1,4 +1,4 @@
-import { Carousel, Typography, Layout, Row } from "antd";
+import { Carousel, Typography, Layout, Row, Col } from "antd";
 
 import { Header, Footer } from "features";
 import * as fapi from "shared/fixtures";
@@ -55,14 +55,14 @@ const Categories = () => {
     const categoriesQuery = fapi.categories.getAll();
 
     return (
-        <Row className={styles.categories}>
+        <Row className={styles.categories} justify="space-between">
             {categoriesQuery.map((cat) => (
-                <article key={cat.id} className={styles.categoriesItem}>
+                <Col key={cat.id} className={styles.categoriesItem} span={7}>
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
                     <Typography.Title level={3}>{cat.name}</Typography.Title>
                     <Typography.Text>{cat.description}</Typography.Text>
                     <div className={styles.categoriesItemCover}>{cat.cover}</div>
-                </article>
+                </Col>
             ))}
         </Row>
     );

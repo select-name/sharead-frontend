@@ -28,8 +28,7 @@
 }
 
 .categories {
-    display: flex;
-    justify-content: space-between;
+    margin-bottom: 20px;
 
     &Item {
         position: relative;
@@ -37,7 +36,6 @@
         // height: 145px !important;
         height: 292px !important;
         padding: 40px;
-        margin-bottom: 20px;
         overflow: hidden;
         text-align: center;
         background: var(--color-accent);
