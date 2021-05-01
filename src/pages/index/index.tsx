@@ -2,6 +2,7 @@ import { Carousel, Typography, Layout, Row, Col } from "antd";
 import { BookFilled, UserOutlined } from "@ant-design/icons";
 
 import { Header, Footer } from "features";
+import { BookCard } from "entities/book";
 import * as fapi from "shared/fixtures";
 // eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
@@ -24,16 +25,22 @@ const IndexPage = () => {
                     <Banner />
                 </section>
                 <section className={styles.rootSection}>
-                    <Typography.Title className={styles.title} level={2}>
+                    <Typography.Title className={styles.rootSectionTitle} level={2}>
                         Категории книг
                     </Typography.Title>
                     <Categories />
                 </section>
                 <section className={styles.rootSection}>
-                    <Typography.Title className={styles.title} level={2}>
+                    <Typography.Title className={styles.rootSectionTitle} level={2}>
                         Популярные авторы
                     </Typography.Title>
                     <Authors />
+                </section>
+                <section className={styles.rootSection}>
+                    <Typography.Title className={styles.rootSectionTitle} level={2}>
+                        Популярные книги
+                    </Typography.Title>
+                    <Books />
                 </section>
             </Layout.Content>
             <Footer />
@@ -86,10 +93,23 @@ const Authors = () => {
                 <Col key={au.id} className={styles.authorsItem} span={3}>
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
                     <Typography.Title level={4}>{fapi.authors.getShortname(au)}</Typography.Title>
-                    {/* <Typography.Text>{cat.description}</Typography.Text> */}
                     <div className={styles.authorsItemCover}>
                         <UserOutlined {...au.avatar} />
                     </div>
+                </Col>
+            ))}
+        </Row>
+    );
+};
+
+const Books = () => {
+    const booksQuery = fapi.books.getPopular();
+
+    return (
+        <Row className={styles.books} justify="space-between">
+            {booksQuery.map((book) => (
+                <Col key={book.id} className={styles.booksItem} span={6}>
+                    <BookCard data={book} size="small" className={styles.booksItemCard} />
                 </Col>
             ))}
         </Row>
