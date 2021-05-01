@@ -77,6 +77,7 @@ const Categories = () => {
                     key={cat.id}
                     className={styles.categoriesItem}
                     span={7}
+                    // FIXME: hardcoded param!
                     onClick={() => history.push(`/catalog?cat=${cat.id}`)}
                     title="Переход к книгам по категории"
                 >
@@ -103,6 +104,7 @@ const Authors = () => {
                     key={au.id}
                     className={styles.authorsItem}
                     span={3}
+                    // FIXME: hardcoded param!
                     onClick={() => history.push(`/catalog?authors=${au.id}`)}
                     title="Перейти к книгам автора"
                 >

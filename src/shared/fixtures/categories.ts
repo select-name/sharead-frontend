@@ -14,7 +14,7 @@ export const IMAGINATIVE: Category = {
     id: 1,
     name: "Художественная литература",
     slug: "hudozhestvennaya-literatura",
-    description: "Классика, фэнтези, детективы, экранизированные",
+    description: "Классика, фэнтези, детективы, экранизированное",
     cover: { style: { color: "#b0a894" } },
 };
 
