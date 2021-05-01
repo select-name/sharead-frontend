@@ -12,6 +12,10 @@
     @include box-shadow-bottom();
 }
 
+.locationAlert {
+    text-align: center;
+}
+
 .logo {
     display: flex;
     align-items: center;
