@@ -5,6 +5,7 @@ import {
     ShoppingCartOutlined,
     UserOutlined,
     FolderOpenOutlined,
+    MenuOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -20,30 +21,43 @@ type Props = {
 
 const actions = [
     {
+        label: "Каталог",
+        Icon: MenuOutlined,
+        url: "/catalog",
+        showBadge: false,
+        disabled: false,
+    },
+    {
         label: "Заказы",
         Icon: FolderOpenOutlined,
         url: "#orders",
         showBadge: false,
+        disabled: true,
     },
     {
         label: "Избранное",
         Icon: HeartOutlined,
         url: "#fav",
         showBadge: true,
+        disabled: true,
     },
     {
         label: "Корзина",
         Icon: ShoppingCartOutlined,
         url: "#cart",
         showBadge: false,
+        disabled: true,
     },
     {
         label: "Профиль",
         Icon: UserOutlined,
         url: "#profile",
         showBadge: true,
+        disabled: true,
     },
 ];
+
+// const NOT_AVAILABLE = "Пока что данный функционал не доступен";
 
 const Header = (props: Props) => {
     const { className } = props;
@@ -59,8 +73,15 @@ const Header = (props: Props) => {
             </div>
             {/* TODO: add amount-label later */}
             <div className={styles.toolbar}>
-                {actions.map(({ label, Icon, url, showBadge }) => (
-                    <Link key={label} to={url} className={styles.toolbarAction}>
+                {actions.map(({ label, Icon, url, showBadge, disabled }) => (
+                    <Link
+                        key={label}
+                        to={url}
+                        className={cn(styles.toolbarAction, {
+                            [styles.toolbarActionDisabled]: disabled,
+                        })}
+                        // title={disabled ? NOT_AVAILABLE : ""}
+                    >
                         {/* Для выравнивания бейджа */}
                         <span className={styles.toolbarActionIcon}>
                             <Badge dot={showBadge} style={{ backgroundColor: "#108ee9" }}>

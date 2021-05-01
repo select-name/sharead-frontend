@@ -48,6 +48,11 @@
         margin: 0 10px;
         line-height: 20px;
 
+        &Disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
         &Icon {
             text-align: center;
         }
