@@ -1,6 +1,8 @@
 import { lazy } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
+import { useResetScrollAtEveryPage } from "./hooks";
+
 const IndexPage = lazy(() => import("./index/index"));
 const AboutPage = lazy(() => import("./about"));
 const ProfilePage = lazy(() => import("./profile"));
@@ -18,6 +20,8 @@ export const headerIgnoreRoutes = ["/debug/no-header"];
 // TODO: decompose into app/hocs? (withRouter)
 
 const Routing = () => {
+    useResetScrollAtEveryPage();
+
     return (
         <Switch>
             <Route exact path="/" component={IndexPage} />
