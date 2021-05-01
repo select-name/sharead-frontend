@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AutoComplete, Input, Col, Row } from "antd";
 import { BookFilled } from "@ant-design/icons";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import type { AbstractBook } from "entities/types";
 import * as fapi from "shared/fixtures";
@@ -9,6 +9,9 @@ import { useSearchParam } from "../../params";
 import styles from "./styles.module.scss";
 
 const initialQuery = fapi.books.getAll();
+
+// !!! FIXME
+const CATALOG_ROUTE = "/catalog";
 
 const mapToOptions = (books: AbstractBook[]) =>
     books.map((book) => ({
@@ -34,6 +37,10 @@ const useSearch = () => {
     const [indexReset, updateReset] = useState(0);
     const params = useSearchParam();
     const history = useHistory();
+    const location = useLocation();
+
+    // FIXME: Сбрасывать инпут, если не страница каталога
+    const isCatalogPage = location.pathname === CATALOG_ROUTE;
 
     const hanldeAutocomplete = (search: string) => {
         const booksQuery = fapi.books.getList({ search });
@@ -47,7 +54,11 @@ const useSearch = () => {
     };
 
     const handleSubmit = (search: string) => {
-        params.setSearch(search);
+        if (isCatalogPage) {
+            return params.setSearch(search);
+        }
+        // FIXME: hardcoded
+        history.push(`${CATALOG_ROUTE}?q=${search}`);
     };
 
     return {
