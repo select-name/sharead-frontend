@@ -68,11 +68,18 @@ const Banner = () => (
 
 const Categories = () => {
     const categoriesQuery = fapi.categories.getAll();
+    const history = useHistory();
 
     return (
         <Row className={styles.categories} justify="space-between">
             {categoriesQuery.map((cat) => (
-                <Col key={cat.id} className={styles.categoriesItem} span={7}>
+                <Col
+                    key={cat.id}
+                    className={styles.categoriesItem}
+                    span={7}
+                    onClick={() => history.push(`/catalog?cat=${cat.id}`)}
+                    title="Переход к книгам по категории"
+                >
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
                     <Typography.Title level={3}>{cat.name}</Typography.Title>
                     <Typography.Text>{cat.description}</Typography.Text>
