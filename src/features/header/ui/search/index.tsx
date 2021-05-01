@@ -60,6 +60,7 @@ const HeaderSearch = () => {
             style={{ width: 700 }}
             onSelect={search.handleSelect}
             onSearch={search.hanldeAutocomplete}
+            notFoundContent="Ничего не найдено - попробуйте расширенный поиск"
         >
             <Input.Search
                 size="large"
