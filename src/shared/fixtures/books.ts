@@ -351,7 +351,7 @@ export const getList = (params: GetListParams) => {
     // FIXME: refine search
     // FIXME: simplify format
     return books
-        .filter((book) => !params.search || toString(book).includes(params.search))
+        .filter((book) => !params.search || new RegExp(params.search, "i").test(toString(book)))
         .filter(
             // prettier-ignore
             (book) => !params.publishers?.length || params.publishers.includes(book.publishingHouse.id),
