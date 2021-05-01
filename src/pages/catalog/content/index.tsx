@@ -40,7 +40,7 @@ const CatalogContent = () => {
             </section>
             {booksQuery.length === 0 && (
                 <Empty
-                    className={styles.catalogPlaceholder}
+                    className={styles.placeholder}
                     description="Не удалось найти книги по вашему запросу"
                 />
             )}

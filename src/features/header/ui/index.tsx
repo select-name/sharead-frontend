@@ -60,7 +60,7 @@ const actions = [
 const LocationAlert = () => (
     <Alert
         className={styles.locationAlert}
-        message="На данный момент, сервис доступен только для Казани"
+        message="На данный момент, сервис доступен только в Казани"
         type="info"
         closeText="Закрыть"
     />
