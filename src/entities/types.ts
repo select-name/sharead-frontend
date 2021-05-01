@@ -22,6 +22,7 @@ export type AbstractBook = {
     authors: Author[];
     publicationYear: number;
     publishingHouse: Publisher;
+    category: Category;
 };
 
 export type Category = {
