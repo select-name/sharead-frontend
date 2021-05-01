@@ -1,4 +1,5 @@
 import { Carousel, Typography, Layout, Row, Col } from "antd";
+import { BookFilled } from "@ant-design/icons";
 
 import { Header, Footer } from "features";
 import * as fapi from "shared/fixtures";
@@ -61,7 +62,9 @@ const Categories = () => {
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
                     <Typography.Title level={3}>{cat.name}</Typography.Title>
                     <Typography.Text>{cat.description}</Typography.Text>
-                    <div className={styles.categoriesItemCover}>{cat.cover}</div>
+                    <div className={styles.categoriesItemCover}>
+                        <BookFilled {...cat.cover} />
+                    </div>
                 </Col>
             ))}
         </Row>

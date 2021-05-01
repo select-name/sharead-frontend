@@ -28,5 +28,5 @@ export type Category = {
     name: string;
     slug: string;
     description: string;
-    cover: import("react").ReactNode;
+    cover: any;
 };

@@ -1,4 +1,3 @@
-import { BookFilled } from "@ant-design/icons";
 import type { Category } from "entities/types";
 
 // Художественные
@@ -16,7 +15,7 @@ export const IMAGINATIVE: Category = {
     name: "Художественная литература",
     slug: "hudozhestvennaya-literatura",
     description: "Классика, фэнтези, детективы, экранизированные",
-    cover: <BookFilled style={{ color: "#b0a894" }} />,
+    cover: { style: { color: "#b0a894" } },
 };
 
 export const NOT_IMAGINATIVE: Category = {
@@ -24,7 +23,7 @@ export const NOT_IMAGINATIVE: Category = {
     name: "Нехудожественная литература",
     slug: "nehudozhestvennaya-literatura",
     description: "Искусство, саморазвитие, о здоровье",
-    cover: <BookFilled style={{ color: "#94b0a3" }} />,
+    cover: { style: { color: "#94b0a3" } },
 };
 
 export const BUSINESS: Category = {
@@ -32,7 +31,7 @@ export const BUSINESS: Category = {
     name: "Бизнес литература",
     slug: "biznes-literatura",
     description: "Биографии, управление, инвестиции, маркетинг",
-    cover: <BookFilled style={{ color: "#94a7b0" }} />,
+    cover: { style: { color: "#94a7b0" } },
 };
 
 export const getAll = () => [IMAGINATIVE, NOT_IMAGINATIVE, BUSINESS];
