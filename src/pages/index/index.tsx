@@ -2,6 +2,7 @@ import { Carousel, Typography, Layout, Row, Col } from "antd";
 import { BookFilled, UserOutlined } from "@ant-design/icons";
 
 import { Header, Footer } from "features";
+import { useHistory } from "react-router-dom";
 import { BookCard } from "entities/book";
 import * as fapi from "shared/fixtures";
 // eslint-disable-next-line no-restricted-imports
@@ -86,11 +87,18 @@ const Categories = () => {
 
 const Authors = () => {
     const authorsQuery = fapi.authors.getPopular();
+    const history = useHistory();
 
     return (
         <Row className={styles.authors} justify="space-around">
             {authorsQuery.map((au) => (
-                <Col key={au.id} className={styles.authorsItem} span={3}>
+                <Col
+                    key={au.id}
+                    className={styles.authorsItem}
+                    span={3}
+                    onClick={() => history.push(`/catalog?authors=${au.id}`)}
+                    title="Перейти к книгам автора"
+                >
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
                     <Typography.Title level={4}>{fapi.authors.getShortname(au)}</Typography.Title>
                     <div className={styles.authorsItemCover}>

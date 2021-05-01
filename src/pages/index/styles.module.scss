@@ -1,9 +1,6 @@
 @import "shared/styles/mixins.scss";
 
 .root {
-    &Banner {
-    }
-
     &Section {
         margin-bottom: 80px;
 
@@ -63,6 +60,7 @@
         padding: 30px 40px;
         overflow: hidden;
         text-align: center;
+        cursor: pointer;
         background: var(--color-accent);
         border-radius: 50%;
         transition: 0.25s;
