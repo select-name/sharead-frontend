@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { AutoComplete, Input } from "antd";
+import { useHistory } from "react-router-dom";
 
 import type { AbstractBook } from "entities/types";
-// FIXME: resolve
-// eslint-disable-next-line no-restricted-imports
-import alert from "shared/lib/alert";
 import * as fapi from "shared/fixtures";
 import { useSearchParam } from "../../params";
 
@@ -12,20 +10,26 @@ const initialQuery = fapi.books.getAll();
 
 const mapToOptions = (books: AbstractBook[]) =>
     books.map((book) => ({
-        value: fapi.books.toString(book),
+        label: fapi.books.toString(book),
+        value: String(book.id),
     }));
 
 const useSearch = () => {
     const [query, setQuery] = useState<AbstractBook[]>(initialQuery);
+    // !!! FIXME
+    const [indexReset, updateReset] = useState(0);
     const params = useSearchParam();
+    const history = useHistory();
 
     const hanldeAutocomplete = (search: string) => {
         const booksQuery = fapi.books.getList({ search });
         setQuery(booksQuery);
     };
 
-    const handleSelect = (option: string) => {
-        alert.info(option);
+    const handleSelect = (value: string) => {
+        // FIXME: hardcoded
+        history.push(`/book/${value}`);
+        updateReset((indexReset + 1) % 10);
     };
 
     const handleSubmit = (search: string) => {
@@ -37,6 +41,7 @@ const useSearch = () => {
         hanldeAutocomplete,
         handleSelect,
         handleSubmit,
+        indexReset,
         param: params.search,
     };
 };
@@ -47,13 +52,16 @@ const HeaderSearch = () => {
     // FIXME: Не показывать сразу все опции?
     return (
         <AutoComplete
+            // Для очищения инпута
+            key={search.indexReset}
+            defaultValue={search.param}
+            // allowClear
             // FIXME: refine later
             options={mapToOptions(search.query)}
             // FIXME: refine later
             style={{ width: 700 }}
             onSelect={search.handleSelect}
             onSearch={search.hanldeAutocomplete}
-            defaultValue={search.param}
         >
             <Input.Search
                 size="large"
