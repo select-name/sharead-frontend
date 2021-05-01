@@ -338,6 +338,13 @@ export const toString = (entity: AbstractBook) => {
     return `${author} — ${book} (${publisher})`;
 };
 
+export const getShortname = (entity: AbstractBook) => {
+    const author = entity.authors.map(authors.getShortname).join(", ");
+    const book = `${entity.name}`;
+
+    return `${author} — ${book}`;
+};
+
 type GetListParams = {
     search?: string;
     authors?: number[];

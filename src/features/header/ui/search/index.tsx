@@ -1,17 +1,31 @@
 import { useState } from "react";
-import { AutoComplete, Input } from "antd";
+import { AutoComplete, Input, Col, Row } from "antd";
+import { BookFilled } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 
 import type { AbstractBook } from "entities/types";
 import * as fapi from "shared/fixtures";
 import { useSearchParam } from "../../params";
+import styles from "./styles.module.scss";
 
 const initialQuery = fapi.books.getAll();
 
 const mapToOptions = (books: AbstractBook[]) =>
     books.map((book) => ({
-        label: fapi.books.toString(book),
         value: String(book.id),
+        label: (
+            <Row align="middle">
+                <Col span={2}>
+                    <BookFilled className={styles.labelIcon} />
+                </Col>
+                <Col className={styles.labelDetails}>
+                    <span>{fapi.books.getShortname(book)}</span>
+                    <span className={styles.labelDetailsDescription}>
+                        {book.publicationYear}, {book.publishingHouse.name}
+                    </span>
+                </Col>
+            </Row>
+        ),
     }));
 
 const useSearch = () => {

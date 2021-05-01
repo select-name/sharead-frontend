@@ -1,0 +1,17 @@
+.label {
+    &Icon {
+        padding: 10px;
+        font-size: 20px;
+        background-color: var(--color-accent);
+    }
+
+    &Details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &Description {
+            color: gray;
+        }
+    }
+}
