@@ -342,6 +342,7 @@ type GetListParams = {
     search?: string;
     authors?: number[];
     publishers?: number[];
+    categories?: number[];
 };
 
 // FIXME: move to shared/api later
@@ -352,12 +353,15 @@ export const getList = (params: GetListParams) => {
     return books
         .filter((book) => !params.search || toString(book).includes(params.search))
         .filter(
-            (book) =>
-                !params.publishers?.length || params.publishers.includes(book.publishingHouse.id),
+            // prettier-ignore
+            (book) => !params.publishers?.length || params.publishers.includes(book.publishingHouse.id),
         )
         .filter(
-            (book) =>
-                !params.authors?.length || book.authors.some((a) => params.authors?.includes(a.id)),
+            // prettier-ignore
+            (book) => !params.authors?.length || book.authors.some((a) => params.authors?.includes(a.id)),
+        )
+        .filter(
+            (book) => !params.categories?.length || params.categories?.includes(book.category.id),
         );
 };
 

@@ -34,3 +34,19 @@ export const useFilterByPublisher = () => {
     // FIXME: types
     return { publishers: publishers as number[], setPublishers };
 };
+
+/** @query Фильтрация: по категории */
+export const useFilterByCategory = () => {
+    const [categories, setParam] = useQueryParam(
+        "cat",
+        withDefault(DelimitedNumericArrayParam, []),
+    );
+
+    // Реализуем отдельно, т.к. нужно скрывать параметр из URL
+    const setCategories: typeof setParam = (value) => {
+        setParam(value?.length ? value : undefined);
+    };
+
+    // FIXME: types
+    return { categories: categories as number[], setCategories };
+};

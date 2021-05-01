@@ -9,8 +9,9 @@ import styles from "./styles.module.scss";
 const useFilters = () => {
     const { authors } = catalogParams.useFilterByAuthor();
     const { publishers } = catalogParams.useFilterByPublisher();
+    const { categories } = catalogParams.useFilterByCategory();
 
-    return { authors, publishers };
+    return { authors, publishers, categories };
 };
 
 const CatalogContent = () => {

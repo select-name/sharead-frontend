@@ -14,6 +14,7 @@ const CatalogSidebar = () => {
 
                 <AuthorSection />
                 <PublisherSection />
+                <CategorySection />
                 <PriceSection />
                 <TimeSection />
                 <OwnerSection />
@@ -63,6 +64,28 @@ const PublisherSection = () => {
         </section>
     );
 };
+
+const CategorySection = () => {
+    const params = catalogParams.useFilterByCategory();
+    // Some options could be disabled
+    const options = fapi.categories.getAll().map((a) => ({
+        label: a.name,
+        value: a.id,
+    }));
+
+    return (
+        <section className={styles.section}>
+            <Divider plain>Категория</Divider>
+            <Checkbox.Group
+                options={options}
+                value={params.categories || []}
+                // @ts-ignore
+                onChange={params.setCategories}
+            />
+        </section>
+    );
+};
+
 const PriceSection = () => (
     <section className={styles.section}>
         <Divider plain>Цена аренды</Divider>
