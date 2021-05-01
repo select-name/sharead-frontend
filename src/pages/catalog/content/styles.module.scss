@@ -29,15 +29,15 @@
     }
 }
 
-// FIXME: use grids!!!
 .grid {
-    display: flex;
-    flex-wrap: wrap;
+    margin-right: 40px;
 
     &Item {
-        // padding: 10px;
-        // FIXME: resolve
-        margin: 10px;
+        width: unset !important;
+
+        &Ribbon {
+            margin-right: 10px;
+        }
     }
 }
 

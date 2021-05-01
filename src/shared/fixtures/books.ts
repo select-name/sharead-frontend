@@ -385,3 +385,8 @@ export const getPseudoPrice = (book: AbstractBook) => {
 };
 
 export const getPopular = () => [BLACK_SWAN_2021, N1984_2013, RISKING_SKIN_2021, WRITE_CUT_2020];
+
+export const isPopular = (book: AbstractBook) =>
+    getPopular()
+        .map((it) => it.id)
+        .includes(book.id);

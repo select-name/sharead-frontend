@@ -12,12 +12,12 @@ const CatalogSidebar = () => {
                     Фильтры
                 </Typography.Title>
 
-                <AuthorSection />
-                <PublisherSection />
-                <CategorySection />
                 <PriceSection />
                 <TimeSection />
                 <OwnerSection />
+                <CategorySection />
+                <AuthorSection />
+                <PublisherSection />
             </div>
         </Layout.Sider>
     );

@@ -34,6 +34,7 @@ const BookCard = (props: Props) => {
             hoverable
             style={{ width, minWidth: width }}
             headStyle={{ background: "grey" }}
+            bodyStyle={{ height: 216 }}
             cover={<BookFilled className={styles.bookCardImgPlaceholder} />}
             className={cn(styles.bookCard, { [styles.bookCardSmall]: isSmall }, className)}
         >

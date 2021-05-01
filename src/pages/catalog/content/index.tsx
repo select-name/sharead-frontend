@@ -1,4 +1,4 @@
-import { Empty, Layout } from "antd";
+import { Badge, Empty, Layout, Row, Col } from "antd";
 
 import { headerParams } from "features/header";
 import { BookCard } from "entities/book";
@@ -34,9 +34,25 @@ const CatalogContent = () => {
                 </ul>
             </section>
             <section className={styles.grid}>
-                {booksQuery.map((b) => (
-                    <BookCard key={b.id} data={b} className={styles.gridItem} />
-                ))}
+                <Row justify="start" gutter={[0, 10]}>
+                    {booksQuery.map((b) => {
+                        const popular = fapi.books.isPopular(b);
+                        const style = { display: popular ? "block" : "none" };
+
+                        return (
+                            <Col span={8} key={b.id}>
+                                <Badge.Ribbon
+                                    text="Популярное"
+                                    className={styles.gridItemRibbon}
+                                    style={style}
+                                    color="magenta"
+                                >
+                                    <BookCard data={b} className={styles.gridItem} />
+                                </Badge.Ribbon>
+                            </Col>
+                        );
+                    })}
+                </Row>
             </section>
             {booksQuery.length === 0 && (
                 <Empty
