@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 import { dom } from "shared/lib";
@@ -9,10 +9,17 @@ import { dom } from "shared/lib";
  */
 export const useResetScrollAtEveryPage = () => {
     const history = useHistory();
+    const prev = useRef<string>();
 
     useEffect(() => {
-        const unlisten = history.listen(() => {
-            dom.scrollToTop();
+        // Скроллим наверх, только если поменялась страница, НО не параметры
+        // Чтобы не сбивало с толку при постановке фильтров
+        const unlisten = history.listen((location) => {
+            if (prev.current !== location.pathname) {
+                dom.scrollToTop();
+            }
+
+            prev.current = location.pathname;
         });
         return () => {
             unlisten();
