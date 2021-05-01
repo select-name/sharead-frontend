@@ -7,6 +7,7 @@ export type Author = {
     firstName: string;
     middleName?: string;
     lastName: string;
+    avatar?: any;
 };
 
 export type Publisher = {

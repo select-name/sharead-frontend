@@ -4,8 +4,8 @@
     &Banner {
     }
 
-    &Categories {
-        margin-top: 40px;
+    &Section {
+        margin: 80px 0;
     }
 }
 
@@ -28,11 +28,10 @@
 }
 
 .categories {
-    margin-bottom: 20px;
+    margin-top: 40px;
 
     &Item {
         position: relative;
-        width: 30% !important;
         // height: 145px !important;
         height: 292px !important;
         padding: 40px;
@@ -51,6 +50,35 @@
             bottom: -100px;
             left: 50%;
             font-size: 200px;
+            transform: translateX(-50%);
+        }
+    }
+}
+
+// FIXME: DRY!
+.authors {
+    margin-top: 40px;
+
+    &Item {
+        position: relative;
+        // height: 145px !important;
+        height: 180px !important;
+        padding: 30px 40px;
+        overflow: hidden;
+        text-align: center;
+        background: var(--color-accent);
+        border-radius: 50%;
+        transition: 0.25s;
+
+        &:hover {
+            @include box-shadow-bottom();
+        }
+
+        &Cover {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            font-size: 100px;
             transform: translateX(-50%);
         }
     }

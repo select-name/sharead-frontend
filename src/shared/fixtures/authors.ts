@@ -6,6 +6,7 @@ export const TOLSTOY: Author = {
     firstName: "Лев",
     middleName: "Николаевич",
     lastName: "Толстой",
+    avatar: { style: { color: "#b0a894" } },
 };
 
 export const PALAHNIUK: Author = {
@@ -13,6 +14,7 @@ export const PALAHNIUK: Author = {
     dateOfBirth: "1962-02-21T00:00:00",
     firstName: "Чак",
     lastName: "Паланик",
+    avatar: { style: { color: "#94b0a3" } },
 };
 
 export const TALEB: Author = {
@@ -21,6 +23,7 @@ export const TALEB: Author = {
     firstName: "Нассим",
     middleName: "Николас",
     lastName: "Талеб",
+    avatar: { style: { color: "#b0949c" } },
 };
 
 export const DOSTOEVSKY: Author = {
@@ -52,6 +55,7 @@ export const MAX_ILYAHOV: Author = {
     id: 7,
     firstName: "Максим",
     lastName: "Ильяхов",
+    avatar: { style: { color: "#a994b0" } },
 };
 
 export const LUDMILA_SARYCHEVA: Author = {
@@ -71,6 +75,7 @@ export const ORWELL: Author = {
     dateOfBirth: "1903-06-25T00:00:00",
     firstName: "Джордж",
     lastName: "Оруэлл",
+    avatar: { style: { color: "#94a7b0" } },
 };
 
 export const HUXLEY: Author = {
@@ -128,3 +133,5 @@ export const getInitials = (entity: Author) => {
 };
 
 export const getShortname = (entity: Author) => `${entity.firstName} ${entity.lastName}`;
+
+export const getPopular = () => [MAX_ILYAHOV, PALAHNIUK, TALEB, ORWELL, TOLSTOY];
