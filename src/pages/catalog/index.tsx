@@ -1,6 +1,6 @@
 import { Typography, Layout } from "antd";
 
-import { Header } from "features/header";
+import { Header, Footer } from "features";
 // eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
 import Content from "./content";
@@ -22,7 +22,7 @@ const CatalogPage = () => {
     return (
         <Layout>
             <Header />
-            <div className={styles.root}>
+            <Layout.Content className={styles.root}>
                 <Typography.Title className={styles.title} level={2}>
                     Каталог книг
                 </Typography.Title>
@@ -30,7 +30,8 @@ const CatalogPage = () => {
                     <Content />
                     <Sidebar />
                 </Layout>
-            </div>
+            </Layout.Content>
+            <Footer />
         </Layout>
     );
 };

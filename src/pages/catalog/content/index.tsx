@@ -19,8 +19,9 @@ const CatalogContent = () => {
     const booksQuery = fapi.books.getList({ search: params.search, ...filters });
 
     // FIXME: add later ListView
+    // FIXME: Layout.Content?
     return (
-        <Layout.Content>
+        <Layout>
             <section className={styles.sort}>
                 <b className={styles.sortLabel}>Сортировать по:</b>
 
@@ -42,7 +43,7 @@ const CatalogContent = () => {
                     description="Не удалось найти книги по вашему запросу"
                 />
             )}
-        </Layout.Content>
+        </Layout>
     );
 };
 

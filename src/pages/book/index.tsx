@@ -8,7 +8,7 @@ import {
 import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
-import { Header } from "features/header";
+import { Header, Footer } from "features";
 import type { AbstractBook } from "entities/types";
 import { BookCard } from "entities/book";
 import * as fapi from "shared/fixtures";
@@ -41,14 +41,15 @@ const BookPage = (props: Props) => {
         return (
             <Layout>
                 <Header />
-                <main className={cn(styles.rootMain, styles.errorRoot)}>
+                <Layout.Content className={cn(styles.errorRoot)}>
                     <Result
                         status="404"
                         title="404"
                         subTitle="Книга не найдена"
                         extra={<Button href="/catalog">К каталогу</Button>}
                     />
-                </main>
+                </Layout.Content>
+                <Footer />
             </Layout>
         );
     }
@@ -56,7 +57,7 @@ const BookPage = (props: Props) => {
     return (
         <Layout className={styles.root}>
             <Header />
-            <main className={styles.rootMain}>
+            <Layout.Content>
                 <Link to="/catalog">Каталог</Link>
                 <Typography.Title className={styles.title} level={2}>
                     {fapi.books.toString(book)}
@@ -68,7 +69,8 @@ const BookPage = (props: Props) => {
                 <Row>
                     <Recommendations book={book} />
                 </Row>
-            </main>
+            </Layout.Content>
+            <Footer />
         </Layout>
     );
 };

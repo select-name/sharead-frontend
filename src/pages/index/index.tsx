@@ -1,6 +1,6 @@
-import { Carousel, Typography, Layout, Skeleton, Card, Row, Col } from "antd";
+import { Carousel, Typography, Layout, Row } from "antd";
 
-import { Header } from "features/header";
+import { Header, Footer } from "features";
 import * as fapi from "shared/fixtures";
 // eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
@@ -18,7 +18,7 @@ const IndexPage = () => {
     return (
         <Layout>
             <Header />
-            <main className={styles.root}>
+            <Layout.Content>
                 <section className={styles.rootBanner}>
                     <Banner />
                 </section>
@@ -28,7 +28,8 @@ const IndexPage = () => {
                     </Typography.Title>
                     <Categories />
                 </section>
-            </main>
+            </Layout.Content>
+            <Footer />
         </Layout>
     );
 };
