@@ -41,7 +41,7 @@ const CatalogContent = () => {
             {booksQuery.length === 0 && (
                 <Empty
                     className={styles.placeholder}
-                    description="Не удалось найти книги по вашему запросу"
+                    description="Не удалось ничего найти по вашему запросу"
                 />
             )}
         </Layout>
