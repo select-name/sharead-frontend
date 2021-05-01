@@ -7,17 +7,17 @@ import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
 
 const useFilters = () => {
+    const params = headerParams.useSearchParam();
     const { authors } = catalogParams.useFilterByAuthor();
     const { publishers } = catalogParams.useFilterByPublisher();
     const { categories } = catalogParams.useFilterByCategory();
 
-    return { authors, publishers, categories };
+    return { authors, publishers, categories, search: params.search };
 };
 
 const CatalogContent = () => {
-    const params = headerParams.useSearchParam();
     const filters = useFilters();
-    const booksQuery = fapi.books.getList({ search: params.search, ...filters });
+    const booksQuery = fapi.books.getList(filters);
 
     // FIXME: add later ListView
     // FIXME: Layout.Content?

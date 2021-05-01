@@ -49,13 +49,11 @@ const useSearch = () => {
 const HeaderSearch = () => {
     const search = useSearch();
 
-    // FIXME: Не показывать сразу все опции?
     return (
         <AutoComplete
             // Для очищения инпута
             key={search.indexReset}
             defaultValue={search.param}
-            // allowClear
             // FIXME: refine later
             options={mapToOptions(search.query)}
             // FIXME: refine later
@@ -68,6 +66,7 @@ const HeaderSearch = () => {
                 placeholder="Поиск книг"
                 enterButton
                 onSearch={search.handleSubmit}
+                allowClear
             />
         </AutoComplete>
     );
