@@ -287,6 +287,8 @@ export const getAll = () =>
         WRITE_CUT_2020,
         RISKING_SKIN_2021,
         REFACTORING_2008,
+        N1984_2013,
+        BRAVE_NEW_WORLD_2017,
         WITCHER_GE_2020,
         WITCHER__SWALLOW_TOWER_2016,
         WITCHER__THUNDER_SEASON_2016,
