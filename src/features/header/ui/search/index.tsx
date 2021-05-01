@@ -8,7 +8,8 @@ import * as fapi from "shared/fixtures";
 import { useSearchParam } from "../../params";
 import styles from "./styles.module.scss";
 
-const initialQuery = fapi.books.getAll();
+// const initialQuery = fapi.books.getAll();
+const initialQuery: AbstractBook[] = [];
 
 // !!! FIXME
 const CATALOG_ROUTE = "/catalog";
@@ -31,10 +32,16 @@ const mapToOptions = (books: AbstractBook[]) =>
         ),
     }));
 
+const TOOLTIP = {
+    MIN_LENGTH: "Уточните запрос (минимум 3 символа)",
+    NOT_FOUND: "Ничего не найдено - попробуйте расширенный поиск",
+};
+
 const useSearch = () => {
     const [query, setQuery] = useState<AbstractBook[]>(initialQuery);
     // !!! FIXME
     const [indexReset, updateReset] = useState(0);
+    const [tooltip, setTooltip] = useState(TOOLTIP.MIN_LENGTH);
     const params = useSearchParam();
     const history = useHistory();
     const location = useLocation();
@@ -43,6 +50,11 @@ const useSearch = () => {
     const isCatalogPage = location.pathname === CATALOG_ROUTE;
 
     const hanldeAutocomplete = (search: string) => {
+        const isNotEnoughLength = search.length < 3;
+        setTooltip(isNotEnoughLength ? TOOLTIP.MIN_LENGTH : TOOLTIP.NOT_FOUND);
+        // FIXME: hardcoded
+        if (isNotEnoughLength) return setQuery(initialQuery);
+
         const booksQuery = fapi.books.getList({ search });
         setQuery(booksQuery);
     };
@@ -63,6 +75,7 @@ const useSearch = () => {
 
     return {
         query,
+        tooltip,
         hanldeAutocomplete,
         handleSelect,
         handleSubmit,
@@ -85,7 +98,7 @@ const HeaderSearch = () => {
             style={{ width: 700 }}
             onSelect={search.handleSelect}
             onSearch={search.hanldeAutocomplete}
-            notFoundContent="Ничего не найдено - попробуйте расширенный поиск"
+            notFoundContent={search.tooltip}
         >
             <Input.Search
                 size="large"
