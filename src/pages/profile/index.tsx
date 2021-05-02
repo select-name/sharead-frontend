@@ -1,4 +1,4 @@
-import { Typography, Layout, Avatar, Skeleton, Button, Row, Col } from "antd";
+import { Typography, Layout, Avatar, Row, Col, Divider } from "antd";
 import { UserOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 import { Header, Footer } from "features";
@@ -13,7 +13,6 @@ import styles from "./styles.module.scss";
 /**
  * @page Страница книги
  */
-// eslint-disable-next-line max-lines-per-function
 const ProfilePage = () => {
     // FIXME: Сделать позже через промиз
     dom.useTitle("Личный кабинет | Sharead");
@@ -32,6 +31,7 @@ const ProfilePage = () => {
     );
 };
 
+// eslint-disable-next-line max-lines-per-function
 const Aside = () => {
     const viewer = useViewer();
 
@@ -60,6 +60,24 @@ const Aside = () => {
                     </Typography.Text>
                     <Typography.Text>{/* FIXME */}В сервисе с 2 мая 2021</Typography.Text>
                     <Typography.Text>10 закрытых сделок</Typography.Text>
+                </section>
+                <Divider />
+                <section>
+                    <Typography.Title level={4}>С нашим сервисом</Typography.Title>
+                    <Row justify="space-between" gutter={[0, 20]}>
+                        <Col span={11}>
+                            <SkeletonСard />
+                        </Col>
+                        <Col span={11}>
+                            <SkeletonСard />
+                        </Col>
+                        <Col span={11}>
+                            <SkeletonСard />
+                        </Col>
+                        <Col span={11}>
+                            <SkeletonСard />
+                        </Col>
+                    </Row>
                 </section>
             </div>
         </Layout.Sider>
