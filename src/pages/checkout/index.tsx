@@ -10,17 +10,18 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 /**
- * @page Страница текущей корзины заказа
+ * @page Страница оформления заказа
  */
-const CardPage = () => {
+const CheckoutPage = () => {
     // FIXME: Сделать позже через промиз
-    dom.useTitle("Аренда книг | Sharead");
+    dom.useTitle("Оформление аренды | Sharead");
 
     return (
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                <Steps current={0} className={styles.rootSteps}>
+                {/* FIXME: DRY */}
+                <Steps current={1} className={styles.rootSteps}>
                     <Steps.Step title="Корзина" description="Проверьте свой выбор" />
                     <Steps.Step title="Оформление" description="Выбор оплаты, доставки" />
                     <Steps.Step title="Доставка" description="Получение заказа" />
@@ -106,4 +107,4 @@ const Sidebar = () => {
     );
 };
 
-export default CardPage;
+export default CheckoutPage;
