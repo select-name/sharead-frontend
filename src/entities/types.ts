@@ -1,6 +1,51 @@
 // FIXME: temp, resolve better later
 // FIXME: access from shared/fixtures!!!
 
+export type User = {
+    id: number;
+    books: AbstractBook[];
+    // chats: Chat[]
+    // closedOrders: Order[];
+    // openedOrders: Order[];
+    // reservations: Reservation[];
+    email: string;
+    emailVerified: boolean;
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+    roles: Role[];
+    statusBan: boolean;
+    // wallet: Wallet;
+};
+
+export type Order = {
+    id: number;
+};
+
+export type Reservation = {
+    id: number;
+};
+
+export type Wallet = {
+    id: number;
+    moneyCount: number;
+    transactions: Transaction[];
+    // userId: number;
+};
+
+export type Transaction = {
+    id: number;
+    dateTime: string;
+    moneyCount: number;
+    status: string;
+    // walletId: number;
+};
+
+export type Role = {
+    id: number;
+    name: string;
+};
+
 export type Author = {
     id: number;
     dateOfBirth?: string;
