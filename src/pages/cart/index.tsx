@@ -1,5 +1,6 @@
 import { Steps, Typography, Layout, Row, Col, Divider, Button } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 import { Header, Footer } from "features";
 import { dom } from "shared/lib";
@@ -20,6 +21,7 @@ const CardPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
+                {/* FIXME: DRY */}
                 <Steps current={0} className={styles.rootSteps}>
                     <Steps.Step title="Корзина" description="Проверьте свой выбор" />
                     <Steps.Step title="Оформление" description="Выбор оплаты, доставки" />
@@ -38,8 +40,11 @@ const CardPage = () => {
 const Content = () => {
     return (
         <Layout className={styles.content}>
+            <Typography.Title level={2}>Корзина</Typography.Title>
             <section className={styles.contentSection}>
-                <Typography.Title level={3}>Заказ</Typography.Title>
+                <Typography.Title level={3} type="secondary">
+                    Содержимое заказа
+                </Typography.Title>
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Проверьте выбранные книги перед оформлением
                 </Typography.Text>
@@ -54,7 +59,9 @@ const Content = () => {
                 </Row>
             </section>
             <section className={styles.contentSection}>
-                <Typography.Title level={3}>Присмотритесь также</Typography.Title>
+                <Typography.Title level={3} type="secondary">
+                    Присмотритесь также
+                </Typography.Title>
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Подборка рекомендованых книг, на основе вашего заказа
                 </Typography.Text>
@@ -97,9 +104,11 @@ const Sidebar = () => {
                 </section>
                 <Divider style={{ margin: 0 }} />
                 <section className={styles.sidebarSection}>
-                    <Button block type="primary" style={{ height: 50 }}>
-                        Перейти к оформлению
-                    </Button>
+                    <Link to="/checkout">
+                        <Button block type="primary" style={{ height: 50 }}>
+                            Перейти к оформлению
+                        </Button>
+                    </Link>
                 </section>
             </div>
         </Layout.Sider>

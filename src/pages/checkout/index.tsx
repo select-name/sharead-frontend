@@ -1,5 +1,6 @@
 import { Steps, Typography, Layout, Row, Col, Divider, Button } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 import { Header, Footer } from "features";
 import { dom } from "shared/lib";
@@ -20,9 +21,11 @@ const CheckoutPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                {/* FIXME: DRY */}
                 <Steps current={1} className={styles.rootSteps}>
-                    <Steps.Step title="Корзина" description="Проверьте свой выбор" />
+                    <Steps.Step
+                        title={<Link to="/cart">Корзина</Link>}
+                        description="Проверьте свой выбор"
+                    />
                     <Steps.Step title="Оформление" description="Выбор оплаты, доставки" />
                     <Steps.Step title="Доставка" description="Получение заказа" />
                 </Steps>
@@ -39,34 +42,27 @@ const CheckoutPage = () => {
 const Content = () => {
     return (
         <Layout className={styles.content}>
+            <Typography.Title level={2}>Оформление заказа</Typography.Title>
             <section className={styles.contentSection}>
-                <Typography.Title level={3}>Заказ</Typography.Title>
+                <Typography.Title level={3} type="secondary">
+                    Способ оплаты
+                </Typography.Title>
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                    Проверьте выбранные книги перед оформлением
+                    Укажите и проверьте платежные данные перед оплатой
                 </Typography.Text>
                 <Row gutter={[0, 20]}>
-                    {Array(3)
-                        .fill(null)
-                        .map((_, index) => (
-                            <Col key={index} span={24}>
-                                <SkeletonСard height={200} />
-                            </Col>
-                        ))}
+                    <SkeletonСard height={300} />
                 </Row>
             </section>
             <section className={styles.contentSection}>
-                <Typography.Title level={3}>Присмотритесь также</Typography.Title>
+                <Typography.Title level={3} type="secondary">
+                    Способ доставки
+                </Typography.Title>
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                    Подборка рекомендованых книг, на основе вашего заказа
+                    Укажите и проверьте способ и адрес доставки
                 </Typography.Text>
                 <Row justify="space-between">
-                    {Array(4)
-                        .fill(null)
-                        .map((_, index) => (
-                            <Col key={index} span={5}>
-                                <SkeletonСard height={300} />
-                            </Col>
-                        ))}
+                    <SkeletonСard height={600} />
                 </Row>
             </section>
         </Layout>
@@ -99,7 +95,7 @@ const Sidebar = () => {
                 <Divider style={{ margin: 0 }} />
                 <section className={styles.sidebarSection}>
                     <Button block type="primary" style={{ height: 50 }}>
-                        Перейти к оформлению
+                        Оплатить заказ
                     </Button>
                 </section>
             </div>
