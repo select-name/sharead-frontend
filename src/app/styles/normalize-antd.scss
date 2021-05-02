@@ -26,7 +26,8 @@
         // flex-grow: 1;
         // height: 100%;
         // FIXME: resolve later
-        min-height: calc(100vh - 64px - 70px);
+        // 100vh - Header - Alert - Footer
+        min-height: calc(100vh - 64px - 70px - 40px);
         // min-height: 86vh;
         padding: 40px 10%;
     }
