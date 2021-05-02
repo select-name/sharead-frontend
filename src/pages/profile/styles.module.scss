@@ -1,0 +1,28 @@
+@import "shared/styles/mixins.scss";
+
+.aside {
+    padding: 40px;
+    text-align: center;
+
+    @include box-shadow-bottom();
+
+    &Main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.content {
+    margin-left: 40px;
+
+    &Section {
+        margin-bottom: 40px;
+
+        &Description {
+            display: block;
+            margin-bottom: 20px;
+            color: gray;
+        }
+    }
+}

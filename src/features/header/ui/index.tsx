@@ -51,9 +51,9 @@ const actions = [
     {
         label: "Профиль",
         Icon: UserOutlined,
-        url: "#profile",
+        url: "/profile",
         showBadge: true,
-        disabled: true,
+        disabled: false,
     },
 ];
 

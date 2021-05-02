@@ -41,7 +41,6 @@ export const JANE_DOE: User = {
         books.FIGHT_CLUB_2014,
         books.GOT__DANCE_OF_DRAGONS_2019,
         books.GOT__STORM_OF_SWORDS_2018,
-        books.N1984_2013,
     ],
     roles: [roles.USER],
     statusBan: false,
@@ -54,6 +53,7 @@ export const BRAD_DOE: User = {
     firstName: "Brad",
     lastName: "Doe",
     books: [
+        books.N1984_2013,
         books.IDIOT_2015,
         books.REFACTORING_2008,
         books.WRITE_CUT_2020,
@@ -64,5 +64,7 @@ export const BRAD_DOE: User = {
     roles: [roles.USER],
     statusBan: false,
 };
+
+export const __VIEWER = BRAD_DOE;
 
 export const getAll = () => [JOHN_DOE, JULY_DOE, JANE_DOE, BRAD_DOE];
