@@ -11,7 +11,7 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 /**
- * @page Страница книги
+ * @page Страница профиля
  */
 const ProfilePage = () => {
     // FIXME: Сделать позже через промиз
@@ -88,28 +88,28 @@ const Content = () => {
         <Layout className={styles.content}>
             <section className={styles.contentSection}>
                 <Typography.Title level={3}>Мои книги</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription}>
+                <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Добавленные мною в сервис
                 </Typography.Text>
                 <SkeletonСard height={200} />
             </section>
             <section className={styles.contentSection}>
                 <Typography.Title level={3}>Арендованные книги</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription}>
+                <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Книги на руках
                 </Typography.Text>
                 <SkeletonСard height={200} />
             </section>
             <section className={styles.contentSection}>
                 <Typography.Title level={3}>Забронированные книги</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription}>
+                <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Добавленные в очередь на аренду
                 </Typography.Text>
                 <SkeletonСard height={200} />
             </section>
             <section className={styles.contentSection}>
                 <Typography.Title level={3}>Закрытые заказы</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription}>
+                <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Книги с прошлых заказов
                 </Typography.Text>
                 <SkeletonСard height={200} />

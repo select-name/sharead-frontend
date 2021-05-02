@@ -32,6 +32,10 @@
     }
 }
 
+.ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item-description {
+    max-width: 250px;
+}
+
 .ant-card-cover {
     background-color: var(--color-accent);
 }
@@ -56,3 +60,7 @@
 .ant-layout-sider {
     background: transparent;
 }
+
+// .ant-typography + .ant-typography {
+//     margin: 0;
+// }

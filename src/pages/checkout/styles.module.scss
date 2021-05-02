@@ -1,0 +1,43 @@
+@import "shared/styles/mixins.scss";
+
+.root {
+    &Steps {
+        margin-bottom: 40px;
+    }
+}
+
+.content {
+    &Section {
+        margin-bottom: 40px;
+
+        &Description {
+            display: block;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.sidebar {
+    margin-left: 40px;
+    text-align: center;
+
+    h4 {
+        margin: 0;
+    }
+
+    @include box-shadow-bottom();
+
+    &Section {
+        padding: 40px;
+
+        &Detail {
+            padding-top: 4px;
+        }
+    }
+
+    &Main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
