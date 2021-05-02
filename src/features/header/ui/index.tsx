@@ -44,7 +44,7 @@ const actions = [
     {
         label: "Корзина",
         Icon: ShoppingCartOutlined,
-        url: "/cart",
+        url: "/order",
         showBadge: true,
         disabled: false,
     },

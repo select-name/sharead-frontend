@@ -39,7 +39,7 @@ const CheckoutPage = () => {
 const Content = () => {
     return (
         <Layout className={styles.content}>
-            <Link to="/cart">Вернуться к корзине</Link>
+            <Link to="/order">Вернуться к корзине</Link>
             <Typography.Title level={2}>Оформление заказа</Typography.Title>
             <section className={styles.contentSection}>
                 <Typography.Title level={3} type="secondary">
@@ -92,7 +92,7 @@ const Sidebar = () => {
                 </section>
                 <Divider style={{ margin: 0 }} />
                 <section className={styles.sidebarSection}>
-                    <Link to="/success">
+                    <Link to="/order/success">
                         <Button block type="primary" style={{ height: 50 }}>
                             Оплатить заказ
                         </Button>

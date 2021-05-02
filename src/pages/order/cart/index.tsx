@@ -104,7 +104,7 @@ const Sidebar = () => {
                 </section>
                 <Divider style={{ margin: 0 }} />
                 <section className={styles.sidebarSection}>
-                    <Link to="/checkout">
+                    <Link to="/order/checkout">
                         <Button block type="primary" style={{ height: 50 }}>
                             Перейти к оформлению
                         </Button>
