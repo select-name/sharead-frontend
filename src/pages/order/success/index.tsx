@@ -9,11 +9,11 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 /**
- * @page Страница оформления заказа
+ * @page Страница успешного оформления заказа
  */
-const CheckoutPage = () => {
+const SuccessPage = () => {
     // FIXME: Сделать позже через промиз
-    dom.useTitle("Оформление аренды | Sharead");
+    dom.useTitle("Аренда успешно оформлена! | Sharead");
 
     return (
         <Layout className={styles.root}>
@@ -45,4 +45,4 @@ const CheckoutPage = () => {
     );
 };
 
-export default CheckoutPage;
+export default SuccessPage;
