@@ -1,4 +1,4 @@
-import { Steps, Typography, Layout, Row, Col, Divider, Button } from "antd";
+import { Steps, Typography, Layout, Row, Divider, Button } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -22,10 +22,7 @@ const CheckoutPage = () => {
             <Header />
             <Layout.Content>
                 <Steps current={1} className={styles.rootSteps}>
-                    <Steps.Step
-                        title={<Link to="/cart">Корзина</Link>}
-                        description="Проверьте свой выбор"
-                    />
+                    <Steps.Step title="Корзина" description="Проверьте свой выбор" />
                     <Steps.Step title="Оформление" description="Выбор оплаты, доставки" />
                     <Steps.Step title="Доставка" description="Получение заказа" />
                 </Steps>
@@ -42,6 +39,7 @@ const CheckoutPage = () => {
 const Content = () => {
     return (
         <Layout className={styles.content}>
+            <Link to="/cart">Вернуться к корзине</Link>
             <Typography.Title level={2}>Оформление заказа</Typography.Title>
             <section className={styles.contentSection}>
                 <Typography.Title level={3} type="secondary">
@@ -94,9 +92,11 @@ const Sidebar = () => {
                 </section>
                 <Divider style={{ margin: 0 }} />
                 <section className={styles.sidebarSection}>
-                    <Button block type="primary" style={{ height: 50 }}>
-                        Оплатить заказ
-                    </Button>
+                    <Link to="/success">
+                        <Button block type="primary" style={{ height: 50 }}>
+                            Оплатить заказ
+                        </Button>
+                    </Link>
                 </section>
             </div>
         </Layout.Sider>
