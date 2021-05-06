@@ -47,3 +47,20 @@
     background: var(--color-accent);
     border-radius: 25px;
 }
+
+.delivery {
+    min-height: 500px;
+    overflow: hidden;
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: 25px;
+
+    &Form {
+        padding: 40px;
+        // background: white;
+    }
+
+    &Map {
+        background: white;
+    }
+}

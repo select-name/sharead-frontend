@@ -1,11 +1,10 @@
-import { Steps, Typography, Layout, Row, Divider, Button, Result } from "antd";
+import { Steps, Typography, Layout, Row, Divider, Button, Result, Input, Col } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
 
 import { Header, Footer, Wallet } from "features";
 import { useViewerWallet } from "entities/viewer";
 import { dom } from "shared/lib";
-import { SkeletonСard } from "shared/ui";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -77,8 +76,12 @@ const Content = () => {
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Укажите и проверьте способ и адрес доставки
                 </Typography.Text>
-                <Row justify="space-between">
-                    <SkeletonСard height={600} />
+                <Row className={styles.delivery} justify="space-between">
+                    <Col span={10} className={styles.deliveryForm}>
+                        <Typography.Title level={4}>Выберите адрес доставки</Typography.Title>
+                        <Input placeholder="Введите адрес доставки ..." />
+                    </Col>
+                    <Col span={12} className={styles.deliveryMap}></Col>
                 </Row>
             </section>
         </Layout>

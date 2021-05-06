@@ -4,7 +4,7 @@ import {
     HeartOutlined,
     ShoppingCartOutlined,
     UserOutlined,
-    FolderOpenOutlined,
+    // FolderOpenOutlined,
     MenuOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
