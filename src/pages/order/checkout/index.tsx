@@ -1,6 +1,7 @@
 import { Steps, Typography, Layout, Row, Divider, Button, Result, Input, Col } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
+import { YMaps, Map } from "react-yandex-maps";
 
 import { Header, Footer, Wallet } from "features";
 import { useViewerWallet } from "entities/viewer";
@@ -44,8 +45,6 @@ const CheckoutPage = () => {
 };
 
 const Content = () => {
-    const order = useOrder();
-
     return (
         <Layout className={styles.content}>
             <Link to="/order">Вернуться к корзине</Link>
@@ -57,17 +56,7 @@ const Content = () => {
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Средства спишутся с вашего внутреннего кошелька
                 </Typography.Text>
-                <Row gutter={[0, 20]} className={styles.wallet} justify="center">
-                    {order.isEnoughMoney ? (
-                        <Result status="success" title="На счете достаточно средств" />
-                    ) : (
-                        <Result
-                            status="warning"
-                            title="На счете недостаточно средств"
-                            extra={<Wallet.AddFunds.Form />}
-                        />
-                    )}
-                </Row>
+                <WalletForm />
             </section>
             <section className={styles.contentSection}>
                 <Typography.Title level={3} type="secondary">
@@ -76,17 +65,46 @@ const Content = () => {
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Укажите и проверьте способ и адрес доставки
                 </Typography.Text>
-                <Row className={styles.delivery} justify="space-between">
-                    <Col span={10} className={styles.deliveryForm}>
-                        <Typography.Title level={4}>Выберите адрес доставки</Typography.Title>
-                        <Input placeholder="Введите адрес доставки ..." />
-                    </Col>
-                    <Col span={12} className={styles.deliveryMap}></Col>
-                </Row>
+                <DeliveryForm />
             </section>
         </Layout>
     );
 };
+
+const WalletForm = () => {
+    const order = useOrder();
+    return (
+        <Row gutter={[0, 20]} className={styles.wallet} justify="center">
+            {order.isEnoughMoney ? (
+                <Result status="success" title="На счете достаточно средств" />
+            ) : (
+                <Result
+                    status="warning"
+                    title="На счете недостаточно средств"
+                    extra={<Wallet.AddFunds.Form />}
+                />
+            )}
+        </Row>
+    );
+};
+const DeliveryForm = () => (
+    <Row className={styles.delivery} justify="space-between">
+        <Col span={10} className={styles.deliveryForm}>
+            <Typography.Title level={4}>Выберите адрес доставки</Typography.Title>
+            <Input placeholder="Искать на карте..." />
+        </Col>
+        <Col span={12} className={styles.deliveryMap}>
+            <YMaps>
+                <Map
+                    defaultState={{ center: [55.79, 49.12], zoom: 14 }}
+                    width="100%"
+                    height="100%"
+                    options={{ autoFitToViewport: "always" }}
+                />
+            </YMaps>
+        </Col>
+    </Row>
+);
 
 // eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
