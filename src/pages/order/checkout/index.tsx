@@ -116,7 +116,7 @@ const CartMini = () => {
         <Row justify="space-between" gutter={[0, 30]} className={styles.cart}>
             {order.books.map((book) => (
                 <Col key={book.id} span={11}>
-                    <Link to={`/book/${book.id}`}>
+                    <Link to={`/book/${book.id}`} title={book.name}>
                         <BookCard data={book} size="mini" className={styles.cartItem} />
                     </Link>
                 </Col>

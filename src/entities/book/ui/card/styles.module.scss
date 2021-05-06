@@ -43,9 +43,11 @@
     &Mini {
         margin: 0;
 
-        .bookCardImgPlaceholder {
-            padding: 40px 0;
-            font-size: 70px;
+        .bookCard {
+            &ImgPlaceholder {
+                padding: 40px 0;
+                font-size: 70px;
+            }
         }
     }
 }
