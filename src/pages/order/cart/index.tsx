@@ -3,6 +3,7 @@ import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 import { Header, Footer } from "features";
+import { BookCard } from "entities/book";
 import { dom } from "shared/lib";
 import { SkeletonСard } from "shared/ui";
 import { useOrder } from "../hooks";
@@ -60,23 +61,30 @@ const Content = () => {
                 </Row>
             </section>
             <section className={styles.contentSection}>
-                <Typography.Title level={3} type="secondary">
-                    Присмотритесь также
-                </Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                    Подборка рекомендованых книг, на основе вашего заказа
-                </Typography.Text>
-                <Row justify="space-between">
-                    {Array(4)
-                        .fill(null)
-                        .map((_, index) => (
-                            <Col key={index} span={5}>
-                                <SkeletonСard height={300} />
-                            </Col>
-                        ))}
-                </Row>
+                <RecommendationsSection />
             </section>
         </Layout>
+    );
+};
+
+const RecommendationsSection = () => {
+    const order = useOrder();
+    return (
+        <>
+            <Typography.Title level={3} type="secondary">
+                Присмотритесь также
+            </Typography.Title>
+            <Typography.Text className={styles.contentSectionDescription} type="secondary">
+                Подборка рекомендованых книг, на основе вашего заказа
+            </Typography.Text>
+            <Row className={styles.recommendsFeed} wrap={false} gutter={[20, 0]}>
+                {order.recommended.map((b) => (
+                    <Col key={b.id} span={6}>
+                        <BookCard data={b} size="small" className={styles.recommendsFeedItem} />
+                    </Col>
+                ))}
+            </Row>
+        </>
     );
 };
 

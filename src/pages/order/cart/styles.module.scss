@@ -42,3 +42,14 @@
         align-items: center;
     }
 }
+
+.recommends {
+    &Feed {
+        padding-bottom: 20px;
+        overflow: auto;
+
+        &Item {
+            margin: 0;
+        }
+    }
+}
