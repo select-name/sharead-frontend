@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Header, Footer } from "features";
 import { dom } from "shared/lib";
 import { SkeletonСard } from "shared/ui";
+import { useOrder } from "../hooks";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!

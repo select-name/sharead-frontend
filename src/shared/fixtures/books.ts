@@ -390,10 +390,3 @@ export const isPopular = (book: AbstractBook) =>
     getPopular()
         .map((it) => it.id)
         .includes(book.id);
-
-export const getOrderBooks = () => [
-    N1984_2013,
-    BRAVE_NEW_WORLD_2017,
-    CLEAN_CODE_2019,
-    BLACK_SWAN_2021,
-];

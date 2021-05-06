@@ -3,24 +3,16 @@ import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import cn from "classnames";
 import { Link, useHistory } from "react-router-dom";
 import { YMaps, Map } from "react-yandex-maps";
+import pluralize from "plural-ru";
 
 import { Header, Footer, Wallet } from "features";
-import { useViewerWallet } from "entities/viewer";
 import { BookCard } from "entities/book";
-import * as fapi from "shared/fixtures";
 import { dom } from "shared/lib";
+import { useOrder } from "../hooks";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
 // TODO: Add skeletons loader
-
-const useOrder = () => {
-    const { wallet, payment } = useViewerWallet();
-    const price = 500;
-    const isEnoughMoney = wallet >= price;
-    const books = fapi.books.getOrderBooks();
-    return { wallet, price, isEnoughMoney, payment, books };
-};
 
 /**
  * @page Страница оформления заказа
@@ -143,7 +135,9 @@ const Sidebar = () => {
                     <Row align="middle" className={styles.sidebarSectionDetail}>
                         <BookOutlined />
                         &nbsp;
-                        <Typography.Text type="secondary">4 книги</Typography.Text>
+                        <Typography.Text type="secondary">
+                            {pluralize(order.books.length, "%d книга", "%d книги", "%d книг")}
+                        </Typography.Text>
                     </Row>
                     <Row align="middle" className={styles.sidebarSectionDetail}>
                         <ClockCircleOutlined />
