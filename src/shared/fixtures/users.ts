@@ -63,6 +63,9 @@ export const BRAD_DOE: User = {
     ],
     roles: [roles.USER],
     statusBan: false,
+    wallet: {
+        moneyCount: 300,
+    },
 };
 
 export const __VIEWER = BRAD_DOE;

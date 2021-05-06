@@ -84,9 +84,9 @@ const Header = (props: Props) => {
                 <div className={styles.search}>
                     <Search />
                 </div>
-                {/* TODO: add amount-label later */}
                 <div className={styles.toolbar}>
                     <AddFundsWalletPopover />
+                    {/* TODO: add amount-label later */}
                     {actions.map(({ label, Icon, url, showBadge, disabled }) => (
                         <Link
                             key={label}

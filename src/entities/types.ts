@@ -15,7 +15,7 @@ export type User = {
     lastName: string;
     roles: Role[];
     statusBan: boolean;
-    // wallet: Wallet;
+    wallet?: Wallet;
 };
 
 export type Order = {
@@ -27,9 +27,9 @@ export type Reservation = {
 };
 
 export type Wallet = {
-    id: number;
+    // id: number;
     moneyCount: number;
-    transactions: Transaction[];
+    // transactions: Transaction[];
     // userId: number;
 };
 
