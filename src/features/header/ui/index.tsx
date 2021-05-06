@@ -8,6 +8,8 @@ import {
     MenuOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+// !!! FIXME:
+import { AddFundsWalletPopover } from "features/wallet";
 
 import { ReactComponent as Logo } from "./logo.svg";
 import Search from "./search";
@@ -84,6 +86,7 @@ const Header = (props: Props) => {
                 </div>
                 {/* TODO: add amount-label later */}
                 <div className={styles.toolbar}>
+                    <AddFundsWalletPopover />
                     {actions.map(({ label, Icon, url, showBadge, disabled }) => (
                         <Link
                             key={label}
