@@ -95,7 +95,7 @@ const HeaderSearch = () => {
             // FIXME: refine later
             options={mapToOptions(search.query)}
             // FIXME: refine later
-            style={{ width: 700 }}
+            style={{ width: "100%" }}
             onSelect={search.handleSelect}
             onSearch={search.hanldeAutocomplete}
             notFoundContent={search.tooltip}

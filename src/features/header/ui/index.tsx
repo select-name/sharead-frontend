@@ -29,13 +29,13 @@ const actions = [
         showBadge: false,
         disabled: false,
     },
-    {
-        label: "Заказы",
-        Icon: FolderOpenOutlined,
-        url: "#orders",
-        showBadge: false,
-        disabled: true,
-    },
+    // {
+    //     label: "Заказы",
+    //     Icon: FolderOpenOutlined,
+    //     url: "#orders",
+    //     showBadge: false,
+    //     disabled: true,
+    // },
     {
         label: "Избранное",
         Icon: HeartOutlined,
@@ -85,7 +85,7 @@ const Header = (props: Props) => {
                     <Search />
                 </div>
                 <div className={styles.toolbar}>
-                    <Wallet.AddFunds.Popover />
+                    <Wallet.AddFunds.Popover className={styles.toolbarWallet} />
                     {/* TODO: add amount-label later */}
                     {actions.map(({ label, Icon, url, showBadge, disabled }) => (
                         <Link

@@ -18,7 +18,7 @@
 
 .logo {
     display: flex;
-    flex-grow: 2;
+    flex-grow: 1;
     align-items: center;
     transition: 0.25s;
 
@@ -41,13 +41,18 @@
 .search {
     display: flex;
     // flex: 1 0 100%;
-    flex-grow: 1;
+    flex-grow: 2;
     align-items: center;
+    margin-right: 2%;
 }
 
 .toolbar {
     display: flex;
     align-items: center;
+
+    &Wallet {
+        margin-right: 10px;
+    }
 
     &Action {
         display: flex;
