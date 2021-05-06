@@ -1,6 +1,6 @@
 import { Steps, Typography, Layout, Row, Divider, Button, Result } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { Header, Footer, Wallet } from "features";
 import { useViewerWallet } from "entities/viewer";
@@ -12,10 +12,10 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 const useOrder = () => {
-    const wallet = useViewerWallet();
+    const { wallet, payment } = useViewerWallet();
     const price = 500;
-    const isEnoughMoney = wallet && wallet.moneyCount >= price;
-    return { wallet, price, isEnoughMoney };
+    const isEnoughMoney = wallet >= price;
+    return { wallet, price, isEnoughMoney, payment };
 };
 
 /**
@@ -88,6 +88,7 @@ const Content = () => {
 // eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
     const order = useOrder();
+    const history = useHistory();
 
     return (
         <Layout.Sider className={styles.sidebarContainer} width={400}>
@@ -112,16 +113,21 @@ const Sidebar = () => {
                 </section>
                 <Divider style={{ margin: 0 }} />
                 <section className={styles.sidebarSection}>
-                    <Link to="/order/success">
-                        <Button
-                            block
-                            type="primary"
-                            style={{ height: 50 }}
-                            disabled={!order.isEnoughMoney}
-                        >
-                            Оплатить заказ
-                        </Button>
-                    </Link>
+                    <Button
+                        block
+                        type="primary"
+                        style={{ height: 50 }}
+                        disabled={!order.isEnoughMoney}
+                        title={order.isEnoughMoney ? "" : "Недостаточно средств для оплаты"}
+                        onClick={() =>
+                            order.payment
+                                .applyTransaction(-order.price)
+                                .then(() => history.push("/order/success"))
+                        }
+                        loading={order.payment.isPending}
+                    >
+                        Оплатить заказ
+                    </Button>
                 </section>
             </div>
         </Layout.Sider>
