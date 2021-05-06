@@ -53,3 +53,11 @@
         }
     }
 }
+
+.cart {
+    &Item {
+        &Card {
+            cursor: default;
+        }
+    }
+}

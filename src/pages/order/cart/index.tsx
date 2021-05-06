@@ -1,11 +1,11 @@
-import { Steps, Typography, Layout, Row, Col, Divider, Button } from "antd";
+import { Steps, Typography, Layout, Row, Col, Divider, Button, Card } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import pluralize from "plural-ru";
 
 import { Header, Footer } from "features";
-import { BookCard } from "entities/book";
+import { BookCard, BookRow } from "entities/book";
 import { dom } from "shared/lib";
-import { SkeletonСard } from "shared/ui";
 import { useOrder } from "../hooks";
 import styles from "./styles.module.scss";
 
@@ -40,6 +40,8 @@ const CardPage = () => {
 };
 
 const Content = () => {
+    const order = useOrder();
+
     return (
         <Layout className={styles.content}>
             <Typography.Title level={2}>Корзина</Typography.Title>
@@ -51,13 +53,13 @@ const Content = () => {
                     Проверьте выбранные книги перед оформлением
                 </Typography.Text>
                 <Row gutter={[0, 20]}>
-                    {Array(3)
-                        .fill(null)
-                        .map((_, index) => (
-                            <Col key={index} span={24}>
-                                <SkeletonСard height={200} />
-                            </Col>
-                        ))}
+                    {order.books.map((book) => (
+                        <Col key={book.id} span={24}>
+                            <Card hoverable className={styles.cartItemCard}>
+                                <BookRow data={book} size="large" />
+                            </Card>
+                        </Col>
+                    ))}
                 </Row>
             </section>
             <section className={styles.contentSection}>
@@ -69,6 +71,7 @@ const Content = () => {
 
 const RecommendationsSection = () => {
     const order = useOrder();
+
     return (
         <>
             <Typography.Title level={3} type="secondary">
@@ -79,7 +82,7 @@ const RecommendationsSection = () => {
             </Typography.Text>
             <Row className={styles.recommendsFeed} wrap={false} gutter={[20, 0]}>
                 {order.recommended.map((b) => (
-                    <Col key={b.id} span={6}>
+                    <Col key={b.id} span={8}>
                         <BookCard data={b} size="small" className={styles.recommendsFeedItem} />
                     </Col>
                 ))}
@@ -88,8 +91,11 @@ const RecommendationsSection = () => {
     );
 };
 
+// FIXME: DRY with order/checkout
 // eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
+    const order = useOrder();
+
     return (
         <Layout.Sider className={styles.sidebarContainer} width={400}>
             <div className={styles.sidebar}>
@@ -97,13 +103,15 @@ const Sidebar = () => {
                     <Row justify="space-between" align="middle">
                         <Typography.Title level={4}>Итого</Typography.Title>
                         <Typography.Title level={4} style={{ margin: 0 }}>
-                            500 ₽
+                            {order.price} ₽
                         </Typography.Title>
                     </Row>
                     <Row align="middle" className={styles.sidebarSectionDetail}>
                         <BookOutlined />
                         &nbsp;
-                        <Typography.Text type="secondary">4 книги</Typography.Text>
+                        <Typography.Text type="secondary">
+                            {pluralize(order.books.length, "%d книга", "%d книги", "%d книг")}
+                        </Typography.Text>
                     </Row>
                     <Row align="middle" className={styles.sidebarSectionDetail}>
                         <ClockCircleOutlined />

@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { AutoComplete, Input, Col, Row } from "antd";
-import { BookFilled } from "@ant-design/icons";
+import { AutoComplete, Input } from "antd";
 import { useHistory, useLocation } from "react-router-dom";
 
 import type { AbstractBook } from "entities/types";
+import { BookRow } from "entities/book";
 import * as fapi from "shared/fixtures";
 import { useSearchParam } from "../../params";
-import styles from "./styles.module.scss";
 
 // const initialQuery = fapi.books.getAll();
 const initialQuery: AbstractBook[] = [];
@@ -17,19 +16,7 @@ const CATALOG_ROUTE = "/catalog";
 const mapToOptions = (books: AbstractBook[]) =>
     books.map((book) => ({
         value: String(book.id),
-        label: (
-            <Row align="middle">
-                <Col span={2}>
-                    <BookFilled className={styles.labelIcon} />
-                </Col>
-                <Col className={styles.labelDetails}>
-                    <span>{fapi.books.getShortname(book)}</span>
-                    <span className={styles.labelDetailsDescription}>
-                        {book.publicationYear}, {book.publishingHouse.name}
-                    </span>
-                </Col>
-            </Row>
-        ),
+        label: <BookRow data={book} size="small" titleAsLink={false} />,
     }));
 
 const TOOLTIP = {
