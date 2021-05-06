@@ -1,2 +1,2 @@
-export { default as AddFundsWalletForm } from "./form";
-export { default as AddFundsWalletPopover } from "./popover";
+export { default as Form } from "./form";
+export { default as Popover } from "./popover";

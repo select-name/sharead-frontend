@@ -1,1 +1,1 @@
-export * from "./ui";
+export * as AddFunds from "./ui";
