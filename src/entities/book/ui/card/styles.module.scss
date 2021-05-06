@@ -1,14 +1,9 @@
 .bookCard {
+    position: relative;
     // padding: 10px;
     // FIXME: resolve
     margin: 10px;
     cursor: default;
-
-    &Small .bookCard {
-        &ImgPlaceholder {
-            padding: 80px 0;
-        }
-    }
 
     &Description {
         // position: relative;
@@ -37,5 +32,20 @@
     &Price {
         display: block;
         font-size: 20px;
+    }
+
+    &Small .bookCard {
+        &ImgPlaceholder {
+            padding: 80px 0;
+        }
+    }
+
+    &Mini {
+        margin: 0;
+
+        .bookCardImgPlaceholder {
+            padding: 40px 0;
+            font-size: 70px;
+        }
     }
 }

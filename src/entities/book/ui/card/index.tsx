@@ -5,15 +5,13 @@ import cn from "classnames";
 
 import type { AbstractBook } from "entities/types";
 import * as fapi from "shared/fixtures";
-// FIXME:
-// eslint-disable-next-line no-restricted-imports
-import alert from "shared/lib/alert";
+import { alert, string } from "shared/lib";
 import styles from "./styles.module.scss";
 
 type Props = {
     data: AbstractBook;
     className?: string;
-    size?: "default" | "small";
+    size?: "default" | "small" | "mini";
 };
 
 // FIXME:
@@ -25,21 +23,26 @@ const BookCard = (props: Props) => {
     const title = `${author} — ${b.name}`;
     const description = `${publisher} (${b.publicationYear})`;
 
-    const isSmall = size === "small";
-    const width = isSmall ? "26%" : "30%";
+    const isSmall = size === "small" || size === "mini";
+    const isMini = size === "mini";
+    // const width = isSmall ? "26%" : "30%";
+
+    const bodyStyle = isMini ? { display: "none" } : { height: 216 };
 
     return (
         <Card
             key={b.id}
             hoverable
-            style={{ width, minWidth: width }}
+            // style={{ width, minWidth: width }}
+            style={{ width: "100%" }}
             headStyle={{ background: "grey" }}
-            bodyStyle={{ height: 216 }}
+            bodyStyle={bodyStyle}
             cover={<BookFilled className={styles.bookCardImgPlaceholder} />}
-            className={cn(styles.bookCard, { [styles.bookCardSmall]: isSmall }, className)}
+            className={cn(styles.bookCard, styles[`bookCard${string.capitalize(size)}`], className)}
         >
             {/* FIXME: Поправить разметку */}
             <Card.Meta
+                className={styles.bookCardMeta}
                 title={
                     <div className={styles.bookCardTitle}>
                         <span className={styles.bookCardPrice}>

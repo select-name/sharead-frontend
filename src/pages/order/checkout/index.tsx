@@ -1,10 +1,13 @@
 import { Steps, Typography, Layout, Row, Divider, Button, Result, Input, Col } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import cn from "classnames";
 import { Link, useHistory } from "react-router-dom";
 import { YMaps, Map } from "react-yandex-maps";
 
 import { Header, Footer, Wallet } from "features";
 import { useViewerWallet } from "entities/viewer";
+import { BookCard } from "entities/book";
+import * as fapi from "shared/fixtures";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -15,7 +18,8 @@ const useOrder = () => {
     const { wallet, payment } = useViewerWallet();
     const price = 500;
     const isEnoughMoney = wallet >= price;
-    return { wallet, price, isEnoughMoney, payment };
+    const books = fapi.books.getOrderBooks();
+    return { wallet, price, isEnoughMoney, payment, books };
 };
 
 /**
@@ -106,14 +110,29 @@ const DeliveryForm = () => (
     </Row>
 );
 
+const CartMini = () => {
+    const order = useOrder();
+    return (
+        <Row justify="space-between" gutter={[0, 30]} className={styles.cart}>
+            {order.books.map((book) => (
+                <Col key={book.id} span={11}>
+                    <Link to={`/book/${book.id}`}>
+                        <BookCard data={book} size="mini" className={styles.cartItem} />
+                    </Link>
+                </Col>
+            ))}
+        </Row>
+    );
+};
+
 // eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
     const order = useOrder();
     const history = useHistory();
 
     return (
-        <Layout.Sider className={styles.sidebarContainer} width={400}>
-            <div className={styles.sidebar}>
+        <Layout.Sider className={styles.sidebar} width={400}>
+            <div className={styles.sidebarCard}>
                 <section className={styles.sidebarSection}>
                     <Row justify="space-between" align="middle">
                         <Typography.Title level={4}>Итого</Typography.Title>
@@ -150,6 +169,12 @@ const Sidebar = () => {
                         Оплатить заказ
                     </Button>
                 </section>
+            </div>
+            <div className={cn(styles.sidebarCard, styles.cartContainer)}>
+                <Typography.Title level={4} type="secondary">
+                    Ваш заказ
+                </Typography.Title>
+                <CartMini />
             </div>
         </Layout.Sider>
     );
