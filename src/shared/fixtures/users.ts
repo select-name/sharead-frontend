@@ -1,6 +1,7 @@
 import type { User } from "entities/types";
 import * as roles from "./roles";
 import * as books from "./books";
+import * as orders from "./orders";
 
 export const JOHN_DOE: User = {
     id: 1,
@@ -9,6 +10,9 @@ export const JOHN_DOE: User = {
     firstName: "John",
     lastName: "Doe",
     books: [books.ANNA_KARENINA_2008, books.WAR_PIECE_2009, books.BESY_2015],
+    closedOrders: [],
+    openedOrders: [],
+    reservations: [],
     roles: [roles.USER],
     statusBan: false,
 };
@@ -26,6 +30,9 @@ export const JULY_DOE: User = {
         books.CRIME_PUNISHMENT_2012,
         books.KARAMAZOVS_BROTHERS_2015,
     ],
+    closedOrders: [],
+    openedOrders: [],
+    reservations: [],
     roles: [roles.USER],
     statusBan: false,
 };
@@ -42,6 +49,9 @@ export const JANE_DOE: User = {
         books.GOT__DANCE_OF_DRAGONS_2019,
         books.GOT__STORM_OF_SWORDS_2018,
     ],
+    closedOrders: [],
+    openedOrders: [],
+    reservations: [],
     roles: [roles.USER],
     statusBan: false,
 };
@@ -61,6 +71,9 @@ export const BRAD_DOE: User = {
         books.CHOKE_2006,
         books.FIGHT_CLUB_2018,
     ],
+    closedOrders: [books.GOT__DANCE_OF_DRAGONS_2019],
+    openedOrders: [...orders.getOrderBooks(), ...orders.getOrderBooks()],
+    reservations: [books.BRAVE_NEW_WORLD_2017],
     roles: [roles.USER],
     statusBan: false,
     wallet: {

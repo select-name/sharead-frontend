@@ -3,6 +3,7 @@ import { UserOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-des
 
 import { Header, Footer, Wallet } from "features";
 import { useViewer } from "entities/viewer";
+import { BookCard } from "entities/book";
 import { dom } from "shared/lib";
 import { SkeletonСard } from "shared/ui";
 import styles from "./styles.module.scss";
@@ -53,17 +54,7 @@ const Aside = () => {
                     </Typography.Title>
                     <Typography.Text>
                         {viewer.email}&nbsp;
-                        {viewer.emailVerified ? (
-                            <CheckCircleOutlined
-                                title="Почта подтверждена"
-                                style={{ color: "green" }}
-                            />
-                        ) : (
-                            <ClockCircleOutlined
-                                title="Ожидает подтверждения"
-                                style={{ color: "red" }}
-                            />
-                        )}
+                        <EmailVerified emailVerified={viewer.emailVerified} />
                     </Typography.Text>
                     {/* <Typography.Text>FIXME: В сервисе с 2 мая 2021</Typography.Text> */}
                     {/* <Typography.Text>10 закрытых сделок</Typography.Text> */}
@@ -94,7 +85,18 @@ const Aside = () => {
         </Layout.Sider>
     );
 };
+
+const EmailVerified = ({ emailVerified }: { emailVerified: boolean }) => {
+    if (emailVerified) {
+        return <CheckCircleOutlined title="Почта подтверждена" style={{ color: "green" }} />;
+    }
+
+    return <ClockCircleOutlined title="Ожидает подтверждения" style={{ color: "red" }} />;
+};
+
 const Content = () => {
+    const viewer = useViewer();
+
     return (
         <Layout className={styles.content}>
             <section className={styles.contentSection}>
@@ -109,7 +111,14 @@ const Content = () => {
                 <Typography.Text className={styles.contentSectionDescription} type="secondary">
                     Книги на руках
                 </Typography.Text>
-                <SkeletonСard height={200} />
+                <Row gutter={[10, 10]} wrap={false} className={styles.contentSectionList}>
+                    {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
+                    {viewer.openedOrders.map((book) => (
+                        <Col key={book.id} span={7}>
+                            <BookCard data={book} size="small" />
+                        </Col>
+                    ))}
+                </Row>
             </section>
             <section className={styles.contentSection}>
                 <Typography.Title level={3}>Забронированные книги</Typography.Title>

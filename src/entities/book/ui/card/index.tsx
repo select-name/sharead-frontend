@@ -3,15 +3,24 @@ import { BookFilled, ShoppingCartOutlined, HeartOutlined } from "@ant-design/ico
 import { Link } from "react-router-dom";
 import cn from "classnames";
 
+import type { CSSProperties } from "react";
 import type { AbstractBook } from "entities/types";
 import * as fapi from "shared/fixtures";
 import { alert, string } from "shared/lib";
 import styles from "./styles.module.scss";
 
+type Size = "default" | "small" | "mini";
+
 type Props = {
     data: AbstractBook;
     className?: string;
-    size?: "default" | "small" | "mini";
+    size?: Size;
+};
+
+const bodyStyle: Record<Size, CSSProperties> = {
+    default: { height: 216 },
+    small: { height: 160 },
+    mini: { display: "none" },
 };
 
 // FIXME:
@@ -24,19 +33,13 @@ const BookCard = (props: Props) => {
     const description = `${publisher} (${b.publicationYear})`;
 
     const isSmall = size === "small" || size === "mini";
-    const isMini = size === "mini";
-    // const width = isSmall ? "26%" : "30%";
-
-    const bodyStyle = isMini ? { display: "none" } : { height: 216 };
 
     return (
         <Card
             key={b.id}
             hoverable
-            // style={{ width, minWidth: width }}
-            // style={{ width: "100%" }}
             // headStyle={{ background: "grey" }}
-            bodyStyle={bodyStyle}
+            bodyStyle={bodyStyle[size]}
             cover={<BookFilled className={styles.bookCardImgPlaceholder} />}
             className={cn(styles.bookCard, styles[`bookCard${string.capitalize(size)}`], className)}
         >
