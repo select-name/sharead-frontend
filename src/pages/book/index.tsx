@@ -169,11 +169,13 @@ const Recommendations = ({ book }: BookProps) => {
     return (
         <Col span={16} className={styles.recommendations}>
             <h2>От того же автора</h2>
-            <div className={styles.recommendationsFeed}>
+            <Row className={styles.recommendationsFeed} wrap={false} gutter={[20, 0]}>
                 {booksQuery.map((b) => (
-                    <BookCard key={b.id} data={b} size="small" />
+                    <Col key={b.id} span={8}>
+                        <BookCard data={b} size="small" />
+                    </Col>
                 ))}
-            </div>
+            </Row>
         </Col>
     );
 };
