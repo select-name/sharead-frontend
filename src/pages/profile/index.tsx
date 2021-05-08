@@ -1,7 +1,7 @@
 import { Typography, Layout, Avatar, Row, Col, Divider } from "antd";
 import { UserOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
-import { Header, Footer } from "features";
+import { Header, Footer, Wallet } from "features";
 import { useViewer } from "entities/viewer";
 import { dom } from "shared/lib";
 import { SkeletonСard } from "shared/ui";
@@ -82,6 +82,13 @@ const Aside = () => {
                             </Col>
                         ))}
                     </Row>
+                </section>
+                <Divider />
+                <section>
+                    <Wallet.AddFunds.Popover
+                        placement="right"
+                        buttonStyle={{ fontSize: 30, height: 60, width: "100%" }}
+                    />
                 </section>
             </div>
         </Layout.Sider>

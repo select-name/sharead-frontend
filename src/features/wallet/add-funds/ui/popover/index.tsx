@@ -1,4 +1,5 @@
 import { Popover, Button } from "antd";
+import type { PopoverProps } from "antd";
 
 import { useViewerWallet } from "entities/viewer";
 import AddFundsForm from "../form";
@@ -6,9 +7,11 @@ import styles from "./styles.module.scss";
 
 type Props = {
     className?: string;
+    placement?: PopoverProps["placement"];
+    buttonStyle?: import("react").CSSProperties;
 };
 
-const AddFundsPopover = ({ className }: Props) => {
+const AddFundsPopover = ({ className, placement = "bottom", buttonStyle }: Props) => {
     const viewer = useViewerWallet();
 
     return (
@@ -16,8 +19,9 @@ const AddFundsPopover = ({ className }: Props) => {
             trigger="click"
             className={className}
             content={<AddFundsForm className={styles.form} />}
+            placement={placement}
         >
-            <Button shape="round" type="dashed">
+            <Button shape="round" type="dashed" style={buttonStyle}>
                 {viewer.wallet} ₽
             </Button>
         </Popover>
