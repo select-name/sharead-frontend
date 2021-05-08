@@ -103,14 +103,6 @@ const Actions = ({ title }: { title: string }) => (
         >
             В избранное
         </Button>
-        <Button
-            type="primary"
-            icon={<ShoppingCartOutlined />}
-            onClick={() => alert.success("Добавлено к заказу", title)}
-            block
-        >
-            В аренду
-        </Button>
     </>
 );
 
