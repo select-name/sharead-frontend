@@ -1,6 +1,6 @@
 import { Row, Col, Button, Card } from "antd";
 import { BookFilled, ShoppingCartOutlined, HeartOutlined } from "@ant-design/icons";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
 
@@ -15,6 +15,7 @@ type Props = {
     className?: string;
     titleAsLink?: boolean;
     size?: Size;
+    extra?: ReactNode;
     withActions?: boolean;
 };
 
@@ -49,14 +50,21 @@ const styleDetails: Record<Size, CSSProperties> = {
     },
 };
 
-const spanActions = 4;
+const spanActions = 5;
 
 const MAX_SPAN = 24;
 
 // FIXME:
 // eslint-disable-next-line max-lines-per-function
 const BookRow = (props: Props) => {
-    const { data, className, size = "default", titleAsLink = true, withActions = true } = props;
+    const {
+        data,
+        className,
+        size = "default",
+        titleAsLink = true,
+        withActions = true,
+        extra,
+    } = props;
 
     const title = fapi.books.getShortname(data);
     const price = fapi.books.getPseudoPrice(data);
@@ -77,29 +85,34 @@ const BookRow = (props: Props) => {
 
                 {!isSmall && <span className={styles.detailsPrice}>{price} ₽</span>}
             </Col>
-            {withActions && (
-                <Col span={4}>
-                    <Button
-                        type="default"
-                        icon={<HeartOutlined />}
-                        onClick={() => alert.success("Добавлено в избранное", title)}
-                        block
-                    >
-                        В избранное
-                    </Button>
-                    <Button
-                        type="primary"
-                        icon={<ShoppingCartOutlined />}
-                        onClick={() => alert.success("Добавлено к заказу", title)}
-                        block
-                    >
-                        В аренду
-                    </Button>
-                </Col>
-            )}
+            <Col span={spanActions}>
+                {withActions && <Actions title={title} />}
+                {extra}
+            </Col>
         </Row>
     );
 };
+
+const Actions = ({ title }: { title: string }) => (
+    <>
+        <Button
+            type="default"
+            icon={<HeartOutlined />}
+            onClick={() => alert.success("Добавлено в избранное", title)}
+            block
+        >
+            В избранное
+        </Button>
+        <Button
+            type="primary"
+            icon={<ShoppingCartOutlined />}
+            onClick={() => alert.success("Добавлено к заказу", title)}
+            block
+        >
+            В аренду
+        </Button>
+    </>
+);
 
 export const BookRowCard = (props: Props) => (
     <Card hoverable className={styles.rootCard}>

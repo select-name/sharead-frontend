@@ -6,7 +6,7 @@ import { notification } from "antd";
  * - для стандартизации единого placement для всех алертов
  */
 const generateOpener = (type: import("antd/lib/notification").IconType) => (
-    message: string,
+    message: any,
     description?: string,
 ) => {
     notification.open({ type, message, description, placement: "bottomRight" });
