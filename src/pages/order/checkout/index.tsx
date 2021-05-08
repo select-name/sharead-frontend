@@ -1,10 +1,26 @@
-import { Typography, Layout, Row, Button, Result, Input, Col } from "antd";
+import {
+    Typography,
+    Layout,
+    Row,
+    Button,
+    Result,
+    Input,
+    Col,
+    DatePicker,
+    Select,
+    Checkbox,
+} from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { YMaps, Map } from "react-yandex-maps";
+import { useState } from "react";
+import dayjs from "dayjs";
+// !!! FIXME: temp!;
+import moment from "moment";
 
 import { Header, Footer, Wallet, Order } from "features";
 import { orderModel } from "entities/order";
 import * as viewerModel from "entities/viewer";
+import { fakeApi } from "shared/api";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -84,24 +100,87 @@ const WalletForm = () => {
         </Row>
     );
 };
-const DeliveryForm = () => (
-    <Row className={styles.delivery} justify="space-between">
-        <Col span={10} className={styles.deliveryForm}>
-            <Typography.Title level={4}>Выберите адрес доставки</Typography.Title>
-            <Input placeholder="Искать на карте..." />
-        </Col>
-        <Col span={12} className={styles.deliveryMap}>
-            <YMaps>
-                <Map
-                    defaultState={{ center: [55.79, 49.12], zoom: 14 }}
-                    width="100%"
-                    height="100%"
-                    options={{ autoFitToViewport: "always" }}
-                />
-            </YMaps>
-        </Col>
-    </Row>
-);
+
+// eslint-disable-next-line max-lines-per-function
+const DeliveryForm = () => {
+    const [mode, setMode] = useState<"MANUAL" | "COFFESHOP">("MANUAL");
+    const [address, setAddress] = useState<string | undefined>();
+    const [date, setDate] = useState<string | undefined>();
+
+    const shopsQuery = fakeApi.coffeeshops.getAll();
+    const shopsOptions = shopsQuery.map((cs) => ({
+        value: String(cs.id),
+        label: (
+            <article>
+                <b>{cs.name}</b>
+                <ul>
+                    <li>{cs.address}</li>
+                    <li>{dayjs(cs.deliveryAt).format("DD/MM/YYYY")}</li>
+                </ul>
+            </article>
+        ),
+    }));
+
+    return (
+        <Row className={styles.delivery} justify="space-between">
+            <Col span={10} className={styles.deliveryForm}>
+                <Typography.Title level={4}>Выберите способ доставки</Typography.Title>
+                <Checkbox
+                    onChange={(e) => {
+                        setAddress(undefined);
+                        setDate(undefined);
+                        setMode(e.target.checked ? "COFFESHOP" : "MANUAL");
+                    }}
+                    checked={mode === "COFFESHOP"}
+                    style={{ marginBottom: 20 }}
+                >
+                    Получить на ближайшем митапе в кофейне
+                </Checkbox>
+                {mode === "MANUAL" && (
+                    <>
+                        <Input
+                            key={mode}
+                            placeholder="Выбрать адрес доставки..."
+                            defaultValue={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                        />
+                        <DatePicker
+                            placeholder="Выбрать время доставки..."
+                            style={{ width: "100%", marginTop: 20 }}
+                            value={date ? moment(date) : undefined}
+                            onChange={(value) => setDate(value?.toISOString())}
+                        />
+                    </>
+                )}
+                {mode === "COFFESHOP" && (
+                    <>
+                        <Select
+                            options={shopsOptions}
+                            style={{ width: "100%" }}
+                            placeholder="Выберите кофейню..."
+                            onSelect={(value) => {
+                                const shop = shopsQuery.find((cs) => String(cs.id) === value);
+                                if (!shop) return;
+                                setAddress(shop.address);
+                                setDate(shop.deliveryAt);
+                            }}
+                        />
+                    </>
+                )}
+            </Col>
+            <Col span={12} className={styles.deliveryMap}>
+                <YMaps>
+                    <Map
+                        defaultState={{ center: [55.79, 49.12], zoom: 14 }}
+                        width="100%"
+                        height="100%"
+                        options={{ autoFitToViewport: "always" }}
+                    />
+                </YMaps>
+            </Col>
+        </Row>
+    );
+};
 
 const Sidebar = () => {
     const viewer = viewerModel.useViewerWallet();
