@@ -12,7 +12,7 @@ import { Header, Footer } from "features";
 import type { AbstractBook } from "entities/types";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import { dom, alert } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -31,7 +31,7 @@ type Props = RouterProps;
 // eslint-disable-next-line max-lines-per-function
 const BookPage = (props: Props) => {
     const bookId = Number(props.match?.params.bookId);
-    const book = fapi.books.getBookById(bookId);
+    const book = fakeApi.books.getBookById(bookId);
 
     // FIXME: Сделать позже через промиз
     dom.useTitle(`${book ? book.name : "Книга не найдена"} | Sharead`);
@@ -60,7 +60,7 @@ const BookPage = (props: Props) => {
             <Layout.Content>
                 <Link to="/catalog">Каталог</Link>
                 <Typography.Title className={styles.title} level={2}>
-                    {fapi.books.toString(book)}
+                    {fakeApi.books.toString(book)}
                 </Typography.Title>
                 <Row className={styles.content}>
                     <Card book={book} />
@@ -85,7 +85,7 @@ const MOCK_DESCRIPTION = "Lorem ipsum dolor sit amet consectetur, adipisicing el
 
 const Card = ({ book }: BookProps) => {
     const { authors, publicationYear, publishingHouse } = book;
-    const author = authors.map(fapi.authors.getShortname).join(", ");
+    const author = authors.map(fakeApi.authors.getShortname).join(", ");
 
     return (
         <Col className={styles.card} span={16}>
@@ -132,7 +132,7 @@ const Checkout = ({ book }: BookProps) => {
         <Col span={7} offset={1} className={styles.checkoutContainer}>
             <article className={styles.checkout}>
                 <div>
-                    <h3 className={styles.checkoutPrice}>{fapi.books.getPseudoPrice(book)} р</h3>
+                    <h3 className={styles.checkoutPrice}>{fakeApi.books.getPseudoPrice(book)} р</h3>
                     {/* FIXME: Добавить динамику */}
                     <ul className={styles.checkoutDetails}>
                         <li className={styles.checkoutDetailsItem}>
@@ -163,7 +163,7 @@ const Checkout = ({ book }: BookProps) => {
 
 // !!! FIXME: Скроллить наверх при переходе к книге
 const Recommendations = ({ book }: BookProps) => {
-    const booksQuery = fapi.books.getList({ authors: book.authors.map((a) => a.id) });
+    const booksQuery = fakeApi.books.getList({ authors: book.authors.map((a) => a.id) });
 
     if (!booksQuery) return null;
 

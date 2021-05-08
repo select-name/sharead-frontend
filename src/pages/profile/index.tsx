@@ -15,7 +15,7 @@ import type { AbstractBook, User } from "entities/types";
 import { useViewer } from "entities/viewer";
 import { BookCard } from "entities/book";
 import { Tile } from "shared/ui";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -149,7 +149,7 @@ const Content = () => {
                                     <Typography.Text disabled>
                                         <i>
                                             Получите обратно на счет за возврат{" "}
-                                            <b>{fapi.books.getPseudoPrice(b) * 0.2} ₽</b>
+                                            <b>{fakeApi.books.getPseudoPrice(b) * 0.2} ₽</b>
                                         </i>
                                     </Typography.Text>
                                 </sup>
@@ -202,7 +202,7 @@ const rentedStatuses: Record<number, ReactNode> = {
 
 // FIXME: temp!
 const getOwnBookPseudoStat = (book: AbstractBook) => ({
-    earned: fapi.books.getPseudoPrice(book) * (book.name.length % 4),
+    earned: fakeApi.books.getPseudoPrice(book) * (book.name.length % 4),
     status: ownStatuses[book.name.length % 2],
 });
 

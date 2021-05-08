@@ -1,9 +1,9 @@
 import { createStore } from "effector";
 import { useStore, useStoreMap } from "effector-react";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 
 // FIXME: Фетчить позднее через эффект
-export const initialState = fapi.books.getAll();
+export const initialState = fakeApi.books.getAll();
 
 export const $store = createStore<typeof initialState>(initialState);
 

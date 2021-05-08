@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import { browser } from "shared/lib";
 
 export const useViewer = () => {
-    return fapi.users.__VIEWER;
+    return fakeApi.users.__VIEWER;
 };
 
 const WALLET_MONEY = 300;

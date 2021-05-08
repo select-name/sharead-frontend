@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import cn from "classnames";
 
 import type { AbstractBook } from "entities/types";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import styles from "./styles.module.scss";
 
 type Size = "large" | "default" | "small";
@@ -57,8 +57,8 @@ const MAX_SPAN = 24;
 const BookRow = (props: Props) => {
     const { data, className, size = "default", titleAsLink = true, actions } = props;
 
-    const title = fapi.books.getShortname(data);
-    const price = fapi.books.getPseudoPrice(data);
+    const title = fakeApi.books.getShortname(data);
+    const price = fakeApi.books.getPseudoPrice(data);
     const isSmall = size === "small";
     const spanDetails = MAX_SPAN - spanIcon[size] - spanActions - 1;
 

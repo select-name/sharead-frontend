@@ -1,6 +1,6 @@
 import { Typography, Layout, Divider, Checkbox, Slider } from "antd";
 
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
 
@@ -26,8 +26,8 @@ const CatalogSidebar = () => {
 const AuthorSection = () => {
     const params = catalogParams.useFilterByAuthor();
     // Some options could be disabled
-    const options = fapi.authors.getAll().map((a) => ({
-        label: fapi.authors.getShortname(a),
+    const options = fakeApi.authors.getAll().map((a) => ({
+        label: fakeApi.authors.getShortname(a),
         value: a.id,
     }));
 
@@ -47,7 +47,7 @@ const AuthorSection = () => {
 const PublisherSection = () => {
     const params = catalogParams.useFilterByPublisher();
     // Some options could be disabled
-    const options = fapi.publishers.getAll().map((a) => ({
+    const options = fakeApi.publishers.getAll().map((a) => ({
         label: `${a.name} (${a.city})`,
         value: a.id,
     }));
@@ -68,7 +68,7 @@ const PublisherSection = () => {
 const CategorySection = () => {
     const params = catalogParams.useFilterByCategory();
     // Some options could be disabled
-    const options = fapi.categories.getAll().map((a) => ({
+    const options = fakeApi.categories.getAll().map((a) => ({
         label: a.name,
         value: a.id,
     }));

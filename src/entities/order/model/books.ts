@@ -1,12 +1,12 @@
 import { useStore, useStoreMap } from "effector-react";
 
 import { bookModel } from "entities/book";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import { browser } from "shared/lib";
 import * as events from "./events";
 
 // FIXME: fetch later by API
-// export const initialState = fapi.orders.getOrderBooks().map((it) => it.id);
+// export const initialState = fakeApi.orders.getOrderBooks().map((it) => it.id);
 export const initialState: number[] = [];
 
 export const $store = browser
@@ -28,7 +28,7 @@ export const useOrderBooks = () => {
 // FIXME: useStoreMap instea
 export const useOrder = () => {
     const books = useOrderBooks();
-    const price = books.map(fapi.books.getPseudoPrice).reduce((a, b) => a + b, 0);
+    const price = books.map(fakeApi.books.getPseudoPrice).reduce((a, b) => a + b, 0);
 
     return { books, price };
 };
@@ -54,7 +54,7 @@ export const useRecommended = () => {
     const booksByAuthorLimited = booksByAuthor.filter((b) => Math.random() < RECOMMEND_MAX / lenA);
     const booksByAuthorLimitedIds = booksByAuthorLimited.map((b) => b.id);
     const booksPopular = otherBooks
-        .filter(fapi.books.isPopular)
+        .filter(fakeApi.books.isPopular)
         .filter((b) => !booksByAuthorLimitedIds.includes(b.id));
     const books = [...booksByAuthorLimited, ...booksPopular];
 

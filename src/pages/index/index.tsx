@@ -4,7 +4,7 @@ import { BookFilled, UserOutlined } from "@ant-design/icons";
 import { Header, Footer } from "features";
 import { useHistory } from "react-router-dom";
 import { BookCard } from "entities/book";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 // eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
 import styles from "./styles.module.scss";
@@ -67,7 +67,7 @@ const Banner = () => (
 );
 
 const Categories = () => {
-    const categoriesQuery = fapi.categories.getAll();
+    const categoriesQuery = fakeApi.categories.getAll();
     const history = useHistory();
 
     return (
@@ -94,7 +94,7 @@ const Categories = () => {
 };
 
 const Authors = () => {
-    const authorsQuery = fapi.authors.getPopular();
+    const authorsQuery = fakeApi.authors.getPopular();
     const history = useHistory();
 
     return (
@@ -109,7 +109,9 @@ const Authors = () => {
                     title="Перейти к книгам автора"
                 >
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
-                    <Typography.Title level={4}>{fapi.authors.getShortname(au)}</Typography.Title>
+                    <Typography.Title level={4}>
+                        {fakeApi.authors.getShortname(au)}
+                    </Typography.Title>
                     <div className={styles.authorsItemCover}>
                         <UserOutlined {...au.avatar} />
                     </div>
@@ -120,7 +122,7 @@ const Authors = () => {
 };
 
 const Books = () => {
-    const booksQuery = fapi.books.getPopular();
+    const booksQuery = fakeApi.books.getPopular();
 
     return (
         <Row className={styles.books} justify="space-between">

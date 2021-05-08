@@ -4,10 +4,10 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import type { AbstractBook } from "entities/types";
 import { BookRow } from "entities/book";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import { useSearchParam } from "../../params";
 
-// const initialQuery = fapi.books.getAll();
+// const initialQuery = fakeApi.books.getAll();
 const initialQuery: AbstractBook[] = [];
 
 // !!! FIXME
@@ -42,7 +42,7 @@ const useSearch = () => {
         // FIXME: hardcoded
         if (isNotEnoughLength) return setQuery(initialQuery);
 
-        const booksQuery = fapi.books.getList({ search });
+        const booksQuery = fakeApi.books.getList({ search });
         setQuery(booksQuery);
     };
 

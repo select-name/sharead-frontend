@@ -3,7 +3,7 @@ import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
 import { headerParams, Order } from "features";
 import { BookCard, BookRowCard } from "entities/book";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
 
@@ -24,7 +24,7 @@ const viewTypes = [
 // eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const filters = useFilters();
-    const booksQuery = fapi.books.getList(filters);
+    const booksQuery = fakeApi.books.getList(filters);
     const vtParam = catalogParams.useViewType();
 
     // FIXME: add later ListView
@@ -61,7 +61,7 @@ const CatalogContent = () => {
             <section className={styles.catalog}>
                 <Row justify="start" gutter={[20, 20]}>
                     {booksQuery.map((b) => {
-                        const popular = fapi.books.isPopular(b);
+                        const popular = fakeApi.books.isPopular(b);
                         const style = { display: popular ? "block" : "none" };
                         const span = vtParam.isGrid ? 8 : 24;
 

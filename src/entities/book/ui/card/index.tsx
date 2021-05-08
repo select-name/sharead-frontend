@@ -5,7 +5,7 @@ import type { CSSProperties, ReactNode } from "react";
 import cn from "classnames";
 
 import type { AbstractBook } from "entities/types";
-import * as fapi from "shared/fixtures";
+import { fakeApi } from "shared/api";
 import { string } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -45,7 +45,7 @@ const imgStyle: Record<Size, CSSProperties> = {
 // eslint-disable-next-line max-lines-per-function
 const BookCard = (props: Props) => {
     const { data: b, className, size = "default", children, actions } = props;
-    const author = b.authors.map(fapi.authors.getShortname).join(", ");
+    const author = b.authors.map(fakeApi.authors.getShortname).join(", ");
     const publisher = `${b.publishingHouse.name}`;
     const title = `${author} — ${b.name}`;
     const description = `${publisher} (${b.publicationYear})`;
@@ -71,7 +71,7 @@ const BookCard = (props: Props) => {
                 className={styles.meta}
                 title={
                     <div className={styles.header}>
-                        <span className={styles.price}>от {fapi.books.getPseudoPrice(b)} ₽</span>
+                        <span className={styles.price}>от {fakeApi.books.getPseudoPrice(b)} ₽</span>
                         <Link to={`/book/${b.id}`} title={title} className={styles.title}>
                             {string.textOverflow(title, 50)}
                         </Link>
