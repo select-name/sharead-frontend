@@ -1,5 +1,6 @@
-import { createStore } from "effector";
 import { useStore } from "effector-react";
+
+import { browser } from "shared/lib";
 import * as books from "./books";
 import * as events from "./events";
 
@@ -9,7 +10,8 @@ export const initialState = books.initialState.reduce((acc: Record<number, numbe
     acc[it] = DEFAULT_DURATION;
     return acc;
 }, {});
-export const $store = createStore<typeof initialState>(initialState)
+export const $store = browser
+    .createPersistStore(initialState, { name: "entities/order/duration" })
     .on(events.setBookDuration, (state, { bookId, duration }) => {
         if (duration === undefined) {
             delete state[bookId];

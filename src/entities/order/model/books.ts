@@ -1,15 +1,16 @@
-import { createStore } from "effector";
 import { useStore, useStoreMap } from "effector-react";
 
 import { bookModel } from "entities/book";
 import * as fapi from "shared/fixtures";
+import { browser } from "shared/lib";
 import * as events from "./events";
 
 // FIXME: fetch later by API
 // export const initialState = fapi.orders.getOrderBooks().map((it) => it.id);
 export const initialState: number[] = [];
 
-export const $store = createStore<typeof initialState>(initialState)
+export const $store = browser
+    .createPersistStore(initialState, { name: "entities/order/books" })
     .on(events.toggleBook, (state, payload) => {
         if (state.includes(payload)) {
             return state.filter((it) => it !== payload);

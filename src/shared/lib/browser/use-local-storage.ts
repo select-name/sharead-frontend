@@ -33,3 +33,13 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
     };
     return [storedValue, setValue] as const;
 }
+
+export function initLSItem<T>(key: string, initialValue: T) {
+    const item = window.localStorage.getItem(key);
+    const value: T = item ? JSON.parse(item) : initialValue;
+    const setValue = (nextValue: T) => {
+        window.localStorage.setItem(key, JSON.stringify(nextValue));
+    };
+
+    return { value, setValue };
+}
