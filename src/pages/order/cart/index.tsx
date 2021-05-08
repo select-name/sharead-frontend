@@ -1,4 +1,4 @@
-import { Steps, Typography, Layout, Row, Col, Divider, Button, Card } from "antd";
+import { Steps, Typography, Layout, Row, Col, Divider, Button } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import pluralize from "plural-ru";

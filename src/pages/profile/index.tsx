@@ -31,6 +31,13 @@ const ProfilePage = () => {
     );
 };
 
+const stats = [
+    { key: "registered", label: "В сервисе с", value: "2 мая 2021" },
+    { key: "closed", label: "Закрыто", value: "10 сделок" },
+    { key: "saved", label: "Сэкономлено", value: "400 ₽" },
+    { key: "earned", label: "Заработано", value: "0 ₽" },
+];
+
 // eslint-disable-next-line max-lines-per-function
 const Aside = () => {
     const viewer = useViewer();
@@ -58,25 +65,22 @@ const Aside = () => {
                             />
                         )}
                     </Typography.Text>
-                    <Typography.Text>{/* FIXME */}В сервисе с 2 мая 2021</Typography.Text>
-                    <Typography.Text>10 закрытых сделок</Typography.Text>
+                    {/* <Typography.Text>FIXME: В сервисе с 2 мая 2021</Typography.Text> */}
+                    {/* <Typography.Text>10 закрытых сделок</Typography.Text> */}
                 </section>
                 <Divider />
                 <section>
-                    <Typography.Title level={4}>С нашим сервисом</Typography.Title>
-                    <Row justify="space-between" gutter={[0, 20]}>
-                        <Col span={11}>
-                            <SkeletonСard />
-                        </Col>
-                        <Col span={11}>
-                            <SkeletonСard />
-                        </Col>
-                        <Col span={11}>
-                            <SkeletonСard />
-                        </Col>
-                        <Col span={11}>
-                            <SkeletonСard />
-                        </Col>
+                    {/* <Typography.Title level={4}>С нашим сервисом</Typography.Title> */}
+                    <Row justify="space-between" gutter={[0, 20]} className={styles.stats}>
+                        {stats.map((stat) => (
+                            <Col key={stat.key} span={11} className={styles.statsItem}>
+                                <span>
+                                    {stat.label}
+                                    <br />
+                                    <b>{stat.value}</b>
+                                </span>
+                            </Col>
+                        ))}
                     </Row>
                 </section>
             </div>

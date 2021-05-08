@@ -1,4 +1,4 @@
-import { Badge, Empty, Layout, Row, Col, Card, Radio } from "antd";
+import { Badge, Empty, Layout, Row, Col, Radio } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
 import { headerParams } from "features/header";
