@@ -1,7 +1,7 @@
-import { AddBook, AddBookMini, DeleteBook } from "./add-book";
+import { Actions } from "./actions";
+import { TotalInfo } from "./total-info";
 
 export const Order = {
-    AddBook,
-    AddBookMini,
-    DeleteBook,
+    Actions,
+    TotalInfo,
 };

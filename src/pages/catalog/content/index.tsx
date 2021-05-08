@@ -71,14 +71,14 @@ const CatalogContent = () => {
                                     {vtParam.isGrid && (
                                         <BookCard
                                             data={b}
-                                            actions={<Order.AddBookMini bookId={b.id} />}
+                                            actions={<Order.Actions.AddBookMini bookId={b.id} />}
                                         />
                                     )}
                                     {vtParam.isList && (
                                         <BookRowCard
                                             data={b}
                                             size="large"
-                                            actions={<Order.AddBook bookId={b.id} />}
+                                            actions={<Order.Actions.AddBook bookId={b.id} />}
                                         />
                                     )}
                                 </Badge.Ribbon>

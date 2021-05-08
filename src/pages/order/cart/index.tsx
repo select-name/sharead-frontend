@@ -17,7 +17,7 @@ import styles from "./styles.module.scss";
 /**
  * @page Страница текущей корзины заказа
  */
-const CardPage = () => {
+const CartPage = () => {
     // FIXME: Сделать позже через промиз
     dom.useTitle("Аренда книг | Sharead");
 
@@ -62,7 +62,7 @@ const Content = () => {
                                 size="large"
                                 actions={
                                     <>
-                                        <Order.DeleteBook bookId={book.id} />
+                                        <Order.Actions.DeleteBook bookId={book.id} />
                                         <TariffRadio onChange={alert.success} />
                                     </>
                                 }
@@ -96,7 +96,7 @@ const RecommendationsSection = () => {
                             data={b}
                             size="small"
                             className={styles.recommendsFeedItem}
-                            actions={<Order.AddBookMini bookId={b.id} />}
+                            actions={<Order.Actions.AddBookMini bookId={b.id} />}
                         />
                     </Col>
                 ))}
@@ -146,4 +146,4 @@ const Sidebar = () => {
     );
 };
 
-export default CardPage;
+export default CartPage;
