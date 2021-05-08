@@ -70,6 +70,13 @@ const Aside = () => {
                 </section>
                 <Divider />
                 <section>
+                    <Wallet.AddFunds.Popover
+                        placement="right"
+                        buttonStyle={{ fontSize: 30, height: 60, width: "100%" }}
+                    />
+                </section>
+                <Divider />
+                <section>
                     {/* <Typography.Title level={4}>С нашим сервисом</Typography.Title> */}
                     <Row justify="space-between" gutter={[0, 20]} className={styles.stats}>
                         {stats.map((stat) => (
@@ -82,13 +89,6 @@ const Aside = () => {
                             </Col>
                         ))}
                     </Row>
-                </section>
-                <Divider />
-                <section>
-                    <Wallet.AddFunds.Popover
-                        placement="right"
-                        buttonStyle={{ fontSize: 30, height: 60, width: "100%" }}
-                    />
                 </section>
             </div>
         </Layout.Sider>
