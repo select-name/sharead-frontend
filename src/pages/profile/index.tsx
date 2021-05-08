@@ -145,14 +145,22 @@ const Content = () => {
                 Icon={ShoppingOutlined}
                 renderBookDetails={(b) => {
                     const { status, statusId } = getRentedBookStat(b);
-                    const label =
-                        statusId === 0 ? "Будет доставлена через 3 дня" : "Осталось: 4 дня";
 
                     return (
                         <span>
                             {status}
                             <br />
-                            {label}
+                            {statusId === 0 && "Будет доставлена через 3 дня"}
+                            {statusId === 1 && "Осталось: 4 дня"}
+                            <br />
+                            <sup>
+                                <Typography.Text disabled>
+                                    <i>
+                                        Получите обратно на счет за возврат{" "}
+                                        <b>{fapi.books.getPseudoPrice(b) * 0.2} ₽</b>
+                                    </i>
+                                </Typography.Text>
+                            </sup>
                         </span>
                     );
                 }}
