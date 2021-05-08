@@ -2,10 +2,10 @@ import { Typography, Layout, Avatar, Row, Col, Divider } from "antd";
 import { UserOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 import { Header, Footer, Wallet } from "features";
+import type { AbstractBook } from "entities/types";
 import { useViewer } from "entities/viewer";
 import { BookCard } from "entities/book";
 import { dom } from "shared/lib";
-import { SkeletonСard } from "shared/ui";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -95,67 +95,56 @@ const EmailVerified = ({ emailVerified }: { emailVerified: boolean }) => {
 };
 
 const Content = () => {
+    const viewer = useViewer();
     return (
         <Layout className={styles.content}>
-            <OwnSection />
-            <OpenedSection />
-            <ReservationsSection />
-            <ClosedSection />
+            <Section
+                title="Мои книги"
+                description="Добавленные мною в сервис"
+                books={viewer.books}
+            />
+            <Section
+                title="Арендованные книги"
+                description="Книги на руках"
+                books={viewer.openedOrders}
+            />
+            <Section
+                title="Забронированные книги"
+                description="Добавленные в очередь на аренду"
+                books={viewer.reservations}
+            />
+            <Section
+                title="Закрытые заказы"
+                description="Книги с прошлых заказов"
+                books={viewer.closedOrders}
+            />
         </Layout>
     );
 };
 
-const OwnSection = () => {
-    return (
-        <section className={styles.contentSection}>
-            <Typography.Title level={3}>Мои книги</Typography.Title>
-            <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                Добавленные мною в сервис
-            </Typography.Text>
-            <SkeletonСard height={200} />
-        </section>
-    );
+type SectionProps = {
+    title: import("react").ReactNode;
+    description: import("react").ReactNode;
+    books: AbstractBook[];
 };
 
-const OpenedSection = () => {
-    const viewer = useViewer();
+const Section = (props: SectionProps) => {
+    const { title, description, books } = props;
+
     return (
         <section className={styles.contentSection}>
-            <Typography.Title level={3}>Арендованные книги</Typography.Title>
+            <Typography.Title level={3}>{title}</Typography.Title>
             <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                Книги на руках
+                {description}
             </Typography.Text>
             <Row gutter={[10, 10]} wrap={false} className={styles.contentSectionList}>
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
-                {viewer.openedOrders.map((book) => (
+                {books.map((book) => (
                     <Col key={book.id} span={7}>
                         <BookCard data={book} size="small" />
                     </Col>
                 ))}
             </Row>
-        </section>
-    );
-};
-const ReservationsSection = () => {
-    return (
-        <section className={styles.contentSection}>
-            <Typography.Title level={3}>Забронированные книги</Typography.Title>
-            <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                Добавленные в очередь на аренду
-            </Typography.Text>
-            <SkeletonСard height={200} />
-        </section>
-    );
-};
-
-const ClosedSection = () => {
-    return (
-        <section className={styles.contentSection}>
-            <Typography.Title level={3}>Закрытые заказы</Typography.Title>
-            <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                Книги с прошлых заказов
-            </Typography.Text>
-            <SkeletonСard height={200} />
         </section>
     );
 };
