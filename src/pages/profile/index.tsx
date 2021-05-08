@@ -87,7 +87,7 @@ const Aside = () => {
                 <Divider />
                 <section>
                     {/* <Typography.Title level={4}>С нашим сервисом</Typography.Title> */}
-                    <Tile.Group data={getStats(viewer)} />
+                    <Tile.Group data={getStats(viewer)} itemSpan={11} />
                 </section>
             </div>
         </Layout.Sider>

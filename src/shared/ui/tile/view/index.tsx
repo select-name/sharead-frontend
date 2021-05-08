@@ -10,13 +10,14 @@ export type TileItem = {
 };
 export type TileProps = TileItem & {
     className?: string;
+    span?: number;
 };
 
 const TileView = (props: TileProps) => {
-    const { label, value, className } = props;
+    const { label, value, className, span } = props;
 
     return (
-        <Col span={11} className={cn(styles.root, className)}>
+        <Col span={span} className={cn(styles.root, className)}>
             <span>
                 {label}
                 <br />

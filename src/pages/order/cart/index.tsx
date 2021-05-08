@@ -5,6 +5,7 @@ import pluralize from "plural-ru";
 
 import { Header, Footer } from "features";
 import { BookCard, BookRowCard } from "entities/book";
+import { TariffTile } from "entities/tariff";
 import { dom } from "shared/lib";
 import { useOrder } from "../hooks";
 import styles from "./styles.module.scss";
@@ -56,6 +57,11 @@ const Content = () => {
                     {order.books.map((book) => (
                         <Col key={book.id} span={24}>
                             <BookRowCard data={book} size="large" withActions={false} />
+                            <Row justify="space-between">
+                                <TariffTile span={7} days={7} price={100} />
+                                <TariffTile span={7} days={14} price={150} overprice={200} />
+                                <TariffTile span={7} days={30} price={250} overprice={300} />
+                            </Row>
                         </Col>
                     ))}
                 </Row>
