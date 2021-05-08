@@ -1,8 +1,7 @@
 import { Typography, Layout } from "antd";
 
 import { Header, Footer } from "features";
-// eslint-disable-next-line no-restricted-imports
-import { useTitle } from "shared/lib/dom";
+import { dom } from "shared/lib";
 import Content from "./content";
 import Sidebar from "./sidebar";
 // FIXME: Не умеет обрабатывать jpg!
@@ -17,7 +16,7 @@ import styles from "./styles.module.scss";
  */
 // eslint-disable-next-line max-lines-per-function
 const CatalogPage = () => {
-    useTitle("Каталог книг — Sharead");
+    dom.useTitle("Каталог книг — Sharead");
 
     return (
         <Layout>
