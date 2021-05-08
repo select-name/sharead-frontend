@@ -10,7 +10,7 @@ import {
 import type { ReactNode } from "react";
 
 import { Header, Footer, Wallet } from "features";
-import type { AbstractBook } from "entities/types";
+import type { AbstractBook, User } from "entities/types";
 import { useViewer } from "entities/viewer";
 import { BookCard } from "entities/book";
 import * as fapi from "shared/fixtures";
@@ -41,11 +41,18 @@ const ProfilePage = () => {
     );
 };
 
-const stats = [
+const getStats = (viewer: User) => [
     { key: "registered", label: "В сервисе с", value: "2 мая 2021" },
     { key: "closed", label: "Закрыто", value: "10 сделок" },
     { key: "saved", label: "Сэкономлено", value: "400 ₽" },
-    { key: "earned", label: "Заработано", value: "0 ₽" },
+    {
+        key: "earned",
+        label: "Заработано",
+        value: `${viewer.books
+            .map(getOwnBookPseudoStat)
+            .map((it) => it.earned)
+            .reduce((a, b) => a + b)} ₽`,
+    },
 ];
 
 // eslint-disable-next-line max-lines-per-function
@@ -79,7 +86,7 @@ const Aside = () => {
                 <section>
                     {/* <Typography.Title level={4}>С нашим сервисом</Typography.Title> */}
                     <Row justify="space-between" gutter={[0, 20]} className={styles.stats}>
-                        {stats.map((stat) => (
+                        {getStats(viewer).map((stat) => (
                             <Col key={stat.key} span={11} className={styles.statsItem}>
                                 <span>
                                     {stat.label}
@@ -153,14 +160,15 @@ const Content = () => {
 };
 
 const statuses: Record<number, ReactNode> = {
-    0: <Typography.Text type="warning">В аренде</Typography.Text>,
-    1: <Typography.Text style={{ color: "#108ee9" }}>В доступе</Typography.Text>,
+    0: <Typography.Text type="success">Арендуется</Typography.Text>,
+    1: <Typography.Text type="warning">Ожидает передачи</Typography.Text>,
+    2: <Typography.Text style={{ color: "#108ee9" }}>Свободна</Typography.Text>,
 };
 
 // FIXME: temp!
 const getOwnBookPseudoStat = (book: AbstractBook) => ({
     earned: fapi.books.getPseudoPrice(book) * (book.name.length % 4),
-    status: statuses[book.name.length % 2],
+    status: statuses[book.name.length % 3],
 });
 
 type SectionProps = {
