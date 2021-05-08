@@ -77,7 +77,7 @@ const Content = () => {
 };
 
 const RecommendationsSection = () => {
-    const recommended = orderModel.useRecommended();
+    const recommended = orderModel.books.useRecommended();
 
     return (
         <>

@@ -74,7 +74,7 @@ const LocationAlert = () => (
 
 const Header = (props: Props) => {
     const { className } = props;
-    const orderTotal = orderModel.useOrderBooks().length;
+    const orderTotal = orderModel.books.useOrderBooks().length;
 
     const count: Record<ActionId, number> = {
         cart: orderTotal,

@@ -9,7 +9,7 @@ import { BookCard } from "entities/book";
 import styles from "./styles.module.scss";
 
 export const Form = () => {
-    const order = orderModel.useOrder();
+    const order = orderModel.books.useOrder();
     return (
         <section className={styles.section}>
             <Row justify="space-between" align="middle">
@@ -48,7 +48,7 @@ export const Card = ({ children }: Props) => {
 };
 
 export const CartMini = () => {
-    const order = orderModel.useOrder();
+    const order = orderModel.books.useOrder();
 
     return (
         <article className={cn(styles.root, styles.cartContainer)}>
