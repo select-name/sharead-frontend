@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { ShoppingOutlined, ShoppingFilled } from "@ant-design/icons";
 
 import { orderModel } from "entities/order";
@@ -27,4 +27,30 @@ export const AddBookMini = ({ bookId }: Props) => {
 
     const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
     return <Icon style={{ fontSize: 20 }} onClick={() => orderModel.toggleBook(bookId)} />;
+};
+
+export const DeleteBook = ({ bookId }: Props) => {
+    return (
+        <Button
+            type="ghost"
+            danger
+            icon={<ShoppingFilled />}
+            onClick={() =>
+                Modal.confirm({
+                    title: "Вы точно хотите удалить книгу из корзины?",
+                    icon: <ShoppingFilled />,
+                    content: "Действие нельзя будет отменить",
+                    okText: "Да",
+                    cancelText: "Нет",
+                    okType: "danger",
+                    onOk() {
+                        orderModel.toggleBook(bookId);
+                    },
+                })
+            }
+            block
+        >
+            Удалить
+        </Button>
+    );
 };

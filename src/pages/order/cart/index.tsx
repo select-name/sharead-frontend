@@ -3,8 +3,9 @@ import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import pluralize from "plural-ru";
 
-import { Header, Footer } from "features";
+import { Header, Footer, Order } from "features";
 import { BookCard, BookRowCard } from "entities/book";
+import { orderModel } from "entities/order";
 import { TariffRadio } from "entities/tariff";
 import { dom, alert } from "shared/lib";
 import { useOrder } from "../hooks";
@@ -41,7 +42,7 @@ const CardPage = () => {
 };
 
 const Content = () => {
-    const order = useOrder();
+    const orderBooks = orderModel.useOrderBooks();
 
     return (
         <Layout className={styles.content}>
@@ -54,12 +55,17 @@ const Content = () => {
                     Проверьте выбранные книги перед оформлением
                 </Typography.Text>
                 <Row gutter={[0, 20]}>
-                    {order.books.map((book) => (
+                    {orderBooks.map((book) => (
                         <Col key={book.id} span={24}>
                             <BookRowCard
                                 data={book}
                                 size="large"
-                                actions={<TariffRadio onChange={alert.success} />}
+                                actions={
+                                    <>
+                                        <Order.DeleteBook bookId={book.id} />
+                                        <TariffRadio onChange={alert.success} />
+                                    </>
+                                }
                             />
                         </Col>
                     ))}
