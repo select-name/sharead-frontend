@@ -1,5 +1,12 @@
 import { Typography, Layout, Avatar, Row, Col, Divider } from "antd";
-import { UserOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import {
+    UserOutlined,
+    CheckCircleOutlined,
+    ClockCircleOutlined,
+    DollarOutlined,
+    ShoppingOutlined,
+} from "@ant-design/icons";
+import type { ReactNode } from "react";
 
 import { Header, Footer, Wallet } from "features";
 import type { AbstractBook } from "entities/types";
@@ -102,38 +109,46 @@ const Content = () => {
                 title="Мои книги"
                 description="Добавленные мною в сервис"
                 books={viewer.books}
+                Icon={DollarOutlined}
             />
             <Section
                 title="Арендованные книги"
                 description="Книги на руках"
                 books={viewer.openedOrders}
+                Icon={ShoppingOutlined}
             />
             <Section
                 title="Забронированные книги"
                 description="Добавленные в очередь на аренду"
                 books={viewer.reservations}
+                Icon={ClockCircleOutlined}
             />
             <Section
                 title="Закрытые заказы"
                 description="Книги с прошлых заказов"
                 books={viewer.closedOrders}
+                Icon={CheckCircleOutlined}
             />
         </Layout>
     );
 };
 
 type SectionProps = {
-    title: import("react").ReactNode;
-    description: import("react").ReactNode;
+    title: ReactNode;
+    description: ReactNode;
+    // FIXME: specify later
+    Icon: typeof CheckCircleOutlined;
     books: AbstractBook[];
 };
 
 const Section = (props: SectionProps) => {
-    const { title, description, books } = props;
+    const { title, description, books, Icon } = props;
 
     return (
         <section className={styles.contentSection}>
-            <Typography.Title level={3}>{title}</Typography.Title>
+            <Typography.Title level={3}>
+                {title} <Icon style={{ color: "gray", fontSize: 20 }} />
+            </Typography.Title>
             <Typography.Text className={styles.contentSectionDescription} type="secondary">
                 {description}
             </Typography.Text>

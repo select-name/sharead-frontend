@@ -72,7 +72,7 @@ export const BRAD_DOE: User = {
         books.FIGHT_CLUB_2018,
     ],
     closedOrders: [books.GOT__DANCE_OF_DRAGONS_2019],
-    openedOrders: [...orders.getOrderBooks(), ...orders.getOrderBooks()],
+    openedOrders: orders.getOrderBooks(),
     reservations: [books.BRAVE_NEW_WORLD_2017],
     roles: [roles.USER],
     statusBan: false,
