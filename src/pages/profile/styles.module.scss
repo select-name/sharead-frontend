@@ -31,6 +31,19 @@
             padding-bottom: 20px;
             overflow: auto;
         }
+
+        &Title {
+            a {
+                margin-right: 4px;
+                margin-left: -20px;
+                opacity: 0;
+                transition: 0.25s;
+            }
+
+            &:hover a {
+                opacity: 1;
+            }
+        }
     }
 }
 

@@ -106,24 +106,28 @@ const Content = () => {
     return (
         <Layout className={styles.content}>
             <Section
+                id="my"
                 title="Мои книги"
                 description="Добавленные мною в сервис"
                 books={viewer.books}
                 Icon={DollarOutlined}
             />
             <Section
+                id="opened"
                 title="Арендованные книги"
                 description="Книги на руках"
                 books={viewer.openedOrders}
                 Icon={ShoppingOutlined}
             />
             <Section
+                id="reserved"
                 title="Забронированные книги"
                 description="Добавленные в очередь на аренду"
                 books={viewer.reservations}
                 Icon={ClockCircleOutlined}
             />
             <Section
+                id="closed"
                 title="Закрытые заказы"
                 description="Книги с прошлых заказов"
                 books={viewer.closedOrders}
@@ -134,6 +138,7 @@ const Content = () => {
 };
 
 type SectionProps = {
+    id: string;
     title: ReactNode;
     description: ReactNode;
     // FIXME: specify later
@@ -142,11 +147,12 @@ type SectionProps = {
 };
 
 const Section = (props: SectionProps) => {
-    const { title, description, books, Icon } = props;
+    const { title, description, books, Icon, id } = props;
 
     return (
-        <section className={styles.contentSection}>
-            <Typography.Title level={3}>
+        <section className={styles.contentSection} id={id}>
+            <Typography.Title level={3} className={styles.contentSectionTitle}>
+                <a href={`#${id}`}>#</a>
                 {title} <Icon style={{ color: "gray", fontSize: 20 }} />
             </Typography.Title>
             <Typography.Text className={styles.contentSectionDescription} type="secondary">
