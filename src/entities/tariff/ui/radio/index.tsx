@@ -1,20 +1,21 @@
-import { Radio, Typography } from "antd";
+import { Radio } from "antd";
 
 const tariffs = [7, 14, 30];
 const DEFAULT = 14;
 
 type Props = {
-    onChange: (value: number) => void;
+    onChange?: (value: number) => void;
+    withTitle?: boolean;
 };
 
-const TariffRadio = ({ onChange }: Props) => {
+const TariffRadio = ({ onChange, withTitle = true }: Props) => {
     return (
         <div style={{ textAlign: "center" }}>
-            <Typography.Text>Срок аренды</Typography.Text>
+            {withTitle && <h4>Срок аренды</h4>}
             <Radio.Group
                 value={DEFAULT}
                 buttonStyle="solid"
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(e) => onChange?.(e.target.value)}
                 style={{ marginTop: 12 }}
             >
                 {tariffs.map((t) => (

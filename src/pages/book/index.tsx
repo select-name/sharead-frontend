@@ -11,9 +11,9 @@ import cn from "classnames";
 import { Header, Footer } from "features";
 import type { AbstractBook } from "entities/types";
 import { BookCard } from "entities/book";
+import { TariffRadio } from "entities/tariff";
 import * as fapi from "shared/fixtures";
-// eslint-disable-next-line no-restricted-imports
-import { useTitle } from "shared/lib/dom";
+import { dom, alert } from "shared/lib";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -34,7 +34,7 @@ const BookPage = (props: Props) => {
     const book = fapi.books.getBookById(bookId);
 
     // FIXME: Сделать позже через промиз
-    useTitle(`${book ? book.name : "Книга не найдена"} | Sharead`);
+    dom.useTitle(`${book ? book.name : "Книга не найдена"} | Sharead`);
 
     // !!! TODO: add error page later (or even hoc)
     if (!book) {
@@ -154,6 +154,7 @@ const Checkout = ({ book }: BookProps) => {
                     <Button block icon={<ShoppingCartOutlined />} type="primary">
                         В аренду
                     </Button>
+                    <TariffRadio onChange={alert.info} withTitle={false} />
                 </div>
             </article>
         </Col>
