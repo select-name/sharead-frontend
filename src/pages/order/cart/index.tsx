@@ -1,4 +1,4 @@
-import { Steps, Typography, Layout, Row, Col, Button } from "antd";
+import { Typography, Layout, Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
 
 import { Header, Footer, Order } from "features";
@@ -22,12 +22,7 @@ const CartPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                {/* FIXME: DRY */}
-                <Steps current={0} className={styles.rootSteps}>
-                    <Steps.Step title="Корзина" description="Проверьте свой выбор" />
-                    <Steps.Step title="Оформление" description="Выбор оплаты, доставки" />
-                    <Steps.Step title="Доставка" description="Получение заказа" />
-                </Steps>
+                <Order.Steps.View current={0} className={styles.rootSteps} />
                 <Layout>
                     <Content />
                     <Sidebar />

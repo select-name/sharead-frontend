@@ -1,7 +1,7 @@
-import { Steps, Layout, Button, Result } from "antd";
+import { Layout, Button, Result } from "antd";
 import { Link } from "react-router-dom";
 
-import { Header, Footer } from "features";
+import { Header, Footer, Order } from "features";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -19,11 +19,7 @@ const ResultPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                <Steps current={2} className={styles.rootSteps}>
-                    <Steps.Step title="Корзина" description="Проверьте свой выбор" />
-                    <Steps.Step title="Оформление" description="Выбор оплаты, доставки" />
-                    <Steps.Step title="Доставка" description="Получение заказа" />
-                </Steps>
+                <Order.Steps.View current={2} className={styles.rootSteps} />
                 <Layout>
                     <Result
                         status="success"

@@ -1,4 +1,4 @@
-import { Steps, Typography, Layout, Row, Button, Result, Input, Col } from "antd";
+import { Typography, Layout, Row, Button, Result, Input, Col } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { YMaps, Map } from "react-yandex-maps";
 
@@ -30,11 +30,7 @@ const CheckoutPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                <Steps current={1} className={styles.rootSteps}>
-                    <Steps.Step title="Корзина" description="Проверьте свой выбор" />
-                    <Steps.Step title="Оформление" description="Выбор оплаты, доставки" />
-                    <Steps.Step title="Доставка" description="Получение заказа" />
-                </Steps>
+                <Order.Steps.View current={1} className={styles.rootSteps} />
                 <Layout>
                     <Content />
                     <Sidebar />
@@ -125,7 +121,7 @@ const Sidebar = () => {
                     onClick={() =>
                         viewer.payment
                             .applyTransaction(-order.price)
-                            .then(() => history.push("/order/success"))
+                            .then(() => history.push("/order/result"))
                     }
                     loading={viewer.payment.isPending}
                 >
