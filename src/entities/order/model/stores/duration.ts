@@ -1,8 +1,8 @@
 import { useStore } from "effector-react";
 
 import { browser } from "shared/lib";
+import * as events from "../events";
 import * as books from "./books";
-import * as events from "./events";
 
 export const DEFAULT_DURATION = 14;
 

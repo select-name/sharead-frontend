@@ -29,7 +29,7 @@ const useDurations = () => {
     return `На ${from}-${to} дн.`;
 };
 export const Form = () => {
-    const order = orderModel.books.useOrder();
+    const order = orderModel.useOrder();
     const totalDuration = useDurations();
 
     return (
@@ -72,7 +72,7 @@ export const Card = ({ children }: Props) => {
 };
 
 export const CartMini = () => {
-    const order = orderModel.books.useOrder();
+    const order = orderModel.useOrder();
 
     return (
         <article className={cn(styles.root, styles.cartContainer)}>

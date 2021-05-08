@@ -28,7 +28,7 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 const useCheckoutValidation = () => {
-    const { price } = orderModel.books.useOrder();
+    const { price } = orderModel.useOrder();
     const { wallet } = viewerModel.useViewerWallet();
     const isEnoughMoney = wallet >= price;
     const message = isEnoughMoney ? "" : "Недостаточно средств для оплаты";
@@ -184,7 +184,7 @@ const DeliveryForm = () => {
 
 const Sidebar = () => {
     const viewer = viewerModel.useViewerWallet();
-    const order = orderModel.books.useOrder();
+    const order = orderModel.useOrder();
     const validation = useCheckoutValidation();
     const history = useHistory();
 

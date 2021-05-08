@@ -31,7 +31,7 @@ const CartPage = () => {
 };
 
 const Content = () => {
-    const order = orderModel.books.useOrder();
+    const order = orderModel.useOrder();
     const durations = orderModel.duration.useOrderDurations();
 
     return (

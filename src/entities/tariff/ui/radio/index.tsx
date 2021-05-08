@@ -11,10 +11,10 @@ type Props = {
 };
 
 const TariffRadio = (props: Props) => {
-    const { onChange, withTitle = true, value = DEFAULT, disabled } = props;
+    const { onChange, value = DEFAULT, disabled } = props;
     return (
         <div style={{ textAlign: "center" }}>
-            {withTitle && <h4>Срок аренды</h4>}
+            {/* {withTitle && <h4>Срок аренды</h4>} */}
             <Radio.Group
                 value={value}
                 buttonStyle="solid"

@@ -3,7 +3,7 @@ import { useStore, useStoreMap } from "effector-react";
 import { bookModel } from "entities/book";
 import { fakeApi } from "shared/api";
 import { browser } from "shared/lib";
-import * as events from "./events";
+import * as events from "../events";
 
 // FIXME: fetch later by API
 // export const initialState = fakeApi.orders.getOrderBooks().map((it) => it.id);
@@ -23,14 +23,6 @@ export const useOrderBooks = () => {
     const books = bookModel.useBooks();
     const orderIds = useStore($store);
     return books.filter((b) => orderIds.includes(b.id));
-};
-
-// FIXME: useStoreMap instea
-export const useOrder = () => {
-    const books = useOrderBooks();
-    const price = books.map(fakeApi.books.getPseudoPrice).reduce((a, b) => a + b, 0);
-
-    return { books, price };
 };
 
 const RECOMMEND_MAX = 6;
