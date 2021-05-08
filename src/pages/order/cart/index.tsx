@@ -1,7 +1,5 @@
-import { Steps, Typography, Layout, Row, Col, Divider, Button } from "antd";
-import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { Steps, Typography, Layout, Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
-import pluralize from "plural-ru";
 
 import { Header, Footer, Order } from "features";
 import { BookCard, BookRowCard } from "entities/book";
@@ -108,40 +106,15 @@ const RecommendationsSection = () => {
 // FIXME: DRY with order/checkout
 // eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
-    const order = orderModel.useOrder();
-
     return (
         <Layout.Sider className={styles.sidebarContainer} width={400}>
-            <div className={styles.sidebar}>
-                <section className={styles.sidebarSection}>
-                    <Row justify="space-between" align="middle">
-                        <Typography.Title level={4}>Итого</Typography.Title>
-                        <Typography.Title level={4} style={{ margin: 0 }}>
-                            {order.price} ₽
-                        </Typography.Title>
-                    </Row>
-                    <Row align="middle" className={styles.sidebarSectionDetail}>
-                        <BookOutlined />
-                        &nbsp;
-                        <Typography.Text type="secondary">
-                            {pluralize(order.books.length, "%d книга", "%d книги", "%d книг")}
-                        </Typography.Text>
-                    </Row>
-                    <Row align="middle" className={styles.sidebarSectionDetail}>
-                        <ClockCircleOutlined />
-                        &nbsp;
-                        <Typography.Text type="secondary">На 2-3 недели</Typography.Text>
-                    </Row>
-                </section>
-                <Divider style={{ margin: 0 }} />
-                <section className={styles.sidebarSection}>
-                    <Link to="/order/checkout">
-                        <Button block type="primary" style={{ height: 50 }}>
-                            Перейти к оформлению
-                        </Button>
-                    </Link>
-                </section>
-            </div>
+            <Order.TotalInfo.Card>
+                <Link to="/order/checkout">
+                    <Button block type="primary" style={{ height: 50 }}>
+                        Перейти к оформлению
+                    </Button>
+                </Link>
+            </Order.TotalInfo.Card>
         </Layout.Sider>
     );
 };
