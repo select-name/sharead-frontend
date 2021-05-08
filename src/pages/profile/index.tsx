@@ -95,46 +95,68 @@ const EmailVerified = ({ emailVerified }: { emailVerified: boolean }) => {
 };
 
 const Content = () => {
-    const viewer = useViewer();
-
     return (
         <Layout className={styles.content}>
-            <section className={styles.contentSection}>
-                <Typography.Title level={3}>Мои книги</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                    Добавленные мною в сервис
-                </Typography.Text>
-                <SkeletonСard height={200} />
-            </section>
-            <section className={styles.contentSection}>
-                <Typography.Title level={3}>Арендованные книги</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                    Книги на руках
-                </Typography.Text>
-                <Row gutter={[10, 10]} wrap={false} className={styles.contentSectionList}>
-                    {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
-                    {viewer.openedOrders.map((book) => (
-                        <Col key={book.id} span={7}>
-                            <BookCard data={book} size="small" />
-                        </Col>
-                    ))}
-                </Row>
-            </section>
-            <section className={styles.contentSection}>
-                <Typography.Title level={3}>Забронированные книги</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                    Добавленные в очередь на аренду
-                </Typography.Text>
-                <SkeletonСard height={200} />
-            </section>
-            <section className={styles.contentSection}>
-                <Typography.Title level={3}>Закрытые заказы</Typography.Title>
-                <Typography.Text className={styles.contentSectionDescription} type="secondary">
-                    Книги с прошлых заказов
-                </Typography.Text>
-                <SkeletonСard height={200} />
-            </section>
+            <OwnSection />
+            <OpenedSection />
+            <ReservationsSection />
+            <ClosedSection />
         </Layout>
+    );
+};
+
+const OwnSection = () => {
+    return (
+        <section className={styles.contentSection}>
+            <Typography.Title level={3}>Мои книги</Typography.Title>
+            <Typography.Text className={styles.contentSectionDescription} type="secondary">
+                Добавленные мною в сервис
+            </Typography.Text>
+            <SkeletonСard height={200} />
+        </section>
+    );
+};
+
+const OpenedSection = () => {
+    const viewer = useViewer();
+    return (
+        <section className={styles.contentSection}>
+            <Typography.Title level={3}>Арендованные книги</Typography.Title>
+            <Typography.Text className={styles.contentSectionDescription} type="secondary">
+                Книги на руках
+            </Typography.Text>
+            <Row gutter={[10, 10]} wrap={false} className={styles.contentSectionList}>
+                {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
+                {viewer.openedOrders.map((book) => (
+                    <Col key={book.id} span={7}>
+                        <BookCard data={book} size="small" />
+                    </Col>
+                ))}
+            </Row>
+        </section>
+    );
+};
+const ReservationsSection = () => {
+    return (
+        <section className={styles.contentSection}>
+            <Typography.Title level={3}>Забронированные книги</Typography.Title>
+            <Typography.Text className={styles.contentSectionDescription} type="secondary">
+                Добавленные в очередь на аренду
+            </Typography.Text>
+            <SkeletonСard height={200} />
+        </section>
+    );
+};
+
+const ClosedSection = () => {
+    return (
+        <section className={styles.contentSection}>
+            <Typography.Title level={3}>Закрытые заказы</Typography.Title>
+            <Typography.Text className={styles.contentSectionDescription} type="secondary">
+                Книги с прошлых заказов
+            </Typography.Text>
+            <SkeletonСard height={200} />
+        </section>
     );
 };
 
