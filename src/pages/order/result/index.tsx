@@ -9,9 +9,9 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 /**
- * @page Страница успешного оформления заказа
+ * @page Страница результата оформления заказа
  */
-const SuccessPage = () => {
+const ResultPage = () => {
     // FIXME: Сделать позже через промиз
     dom.useTitle("Аренда успешно оформлена! | Sharead");
 
@@ -45,4 +45,4 @@ const SuccessPage = () => {
     );
 };
 
-export default SuccessPage;
+export default ResultPage;

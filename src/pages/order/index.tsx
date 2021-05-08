@@ -3,7 +3,7 @@ import { Route, Switch, Redirect, useRouteMatch } from "react-router-dom";
 
 const CartPage = lazy(() => import("./cart"));
 const CheckoutPage = lazy(() => import("./checkout"));
-const SuccessPage = lazy(() => import("./success"));
+const ResultPage = lazy(() => import("./result"));
 
 const Routing = () => {
     const match = useRouteMatch();
@@ -12,7 +12,7 @@ const Routing = () => {
         <Switch>
             <Route exact path={`${match.path}`} component={CartPage} />
             <Route exact path={`${match.path}/checkout`} component={CheckoutPage} />
-            <Route exact path={`${match.path}/success`} component={SuccessPage} />
+            <Route exact path={`${match.path}/result`} component={ResultPage} />
             <Redirect to={`${match.path}`} />
         </Switch>
     );
