@@ -61,7 +61,7 @@ const BookCard = (props: Props) => {
             bodyStyle={bodyStyle[size]}
             cover={<BookFilled style={imgStyle[size]} />}
             className={cn(styles.root, styles[`bookCard${string.capitalize(size)}`], className)}
-            actions={isMini || !actions ? undefined : [<div key="actions">{actions}</div>]}
+            actions={isMini || !actions ? undefined : [<>{actions}</>]}
         >
             {/* FIXME: Поправить разметку */}
             <Card.Meta

@@ -16,7 +16,7 @@ const CATALOG_ROUTE = "/catalog";
 const mapToOptions = (books: AbstractBook[]) =>
     books.map((book) => ({
         value: String(book.id),
-        label: <BookRow data={book} size="small" titleAsLink={false} withActions={false} />,
+        label: <BookRow data={book} size="small" titleAsLink={false} />,
     }));
 
 const TOOLTIP = {

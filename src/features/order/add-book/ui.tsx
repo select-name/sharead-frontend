@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingOutlined, ShoppingFilled } from "@ant-design/icons";
 
 import { orderModel } from "entities/order";
 
@@ -12,12 +12,19 @@ export const AddBook = ({ bookId }: Props) => {
 
     return (
         <Button
-            type={isBookInCart ? "primary" : "dashed"}
-            icon={<ShoppingCartOutlined />}
+            type={isBookInCart ? "dashed" : "primary"}
+            icon={<ShoppingOutlined />}
             onClick={() => orderModel.toggleBook(bookId)}
             block
         >
             {isBookInCart ? "Убрать из корзины" : "В корзину"}
         </Button>
     );
+};
+
+export const AddBookMini = ({ bookId }: Props) => {
+    const { isBookInCart } = orderModel.useBookStatus(bookId);
+
+    const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
+    return <Icon style={{ fontSize: 20 }} onClick={() => orderModel.toggleBook(bookId)} />;
 };

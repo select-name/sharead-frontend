@@ -1,7 +1,7 @@
 import { Badge, Empty, Layout, Row, Col, Radio } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
-import { headerParams } from "features/header";
+import { headerParams, Order } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import * as fapi from "shared/fixtures";
 import * as catalogParams from "../params";
@@ -68,8 +68,19 @@ const CatalogContent = () => {
                         return (
                             <Col key={b.id} span={span}>
                                 <Badge.Ribbon text="Популярное" style={style} color="magenta">
-                                    {vtParam.isGrid && <BookCard data={b} />}
-                                    {vtParam.isList && <BookRowCard data={b} size="large" />}
+                                    {vtParam.isGrid && (
+                                        <BookCard
+                                            data={b}
+                                            actions={<Order.AddBookMini bookId={b.id} />}
+                                        />
+                                    )}
+                                    {vtParam.isList && (
+                                        <BookRowCard
+                                            data={b}
+                                            size="large"
+                                            actions={<Order.AddBook bookId={b.id} />}
+                                        />
+                                    )}
                                 </Badge.Ribbon>
                             </Col>
                         );
