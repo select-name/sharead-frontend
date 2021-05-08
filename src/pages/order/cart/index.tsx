@@ -56,7 +56,7 @@ const Content = () => {
                     {order.books.map((book) => (
                         <Col key={book.id} span={24}>
                             <Card hoverable className={styles.cartItemCard}>
-                                <BookRow data={book} size="large" />
+                                <BookRow data={book} size="large" withActions={false} />
                             </Card>
                         </Col>
                     ))}

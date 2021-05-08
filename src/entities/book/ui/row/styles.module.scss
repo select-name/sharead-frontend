@@ -1,23 +1,22 @@
-.bookRow {
-    // padding: 20px;
+.root {
+}
 
-    &Icon {
-        background-color: var(--color-accent);
+.icon {
+    background-color: var(--color-accent);
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &Description {
+        // margin-top: 30px;
+        color: gray;
     }
 
-    &Details {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        &Description {
-            // margin-top: 30px;
-            color: gray;
-        }
-
-        &Price {
-            font-size: 1.4rem;
-            font-weight: 500;
-        }
+    &Price {
+        font-size: 1.4rem;
+        font-weight: 500;
     }
 }
