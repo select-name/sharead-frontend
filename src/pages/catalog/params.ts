@@ -1,4 +1,9 @@
-import { DelimitedNumericArrayParam, useQueryParam, withDefault } from "use-query-params";
+import {
+    DelimitedNumericArrayParam,
+    StringParam,
+    useQueryParam,
+    withDefault,
+} from "use-query-params";
 
 // FIXME: fix delimiters
 // FIXME: return back null default value?
@@ -49,4 +54,27 @@ export const useFilterByCategory = () => {
 
     // FIXME: types
     return { categories: categories as number[], setCategories };
+};
+
+export const VIEW_TYPE = {
+    grid: "grid" as const,
+    list: "list" as const,
+};
+
+type ViewTypeValue = typeof VIEW_TYPE[keyof typeof VIEW_TYPE];
+
+export const defaultViewType = VIEW_TYPE.grid;
+
+/** @query Способ отображения */
+export const useViewType = () => {
+    const [viewType, setParam] = useQueryParam("vt", withDefault(StringParam, defaultViewType));
+
+    const setViewType = (value: ViewTypeValue) => {
+        setParam(value || defaultViewType);
+    };
+
+    const isGrid = viewType === "grid";
+    const isList = viewType === "list";
+
+    return { viewType: viewType as ViewTypeValue, setViewType, isGrid, isList };
 };

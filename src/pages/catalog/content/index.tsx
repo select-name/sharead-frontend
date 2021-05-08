@@ -19,6 +19,7 @@ const useFilters = () => {
 const CatalogContent = () => {
     const filters = useFilters();
     const booksQuery = fapi.books.getList(filters);
+    const vtParam = catalogParams.useViewType();
 
     // FIXME: add later ListView
     // FIXME: Layout.Content?
@@ -35,36 +36,21 @@ const CatalogContent = () => {
                 </ul>
             </section>
             <section className={styles.catalog}>
-                {/* <Row justify="start" gutter={[0, 10]} className={styles.grid}>
+                <Row justify="start" gutter={[20, 20]}>
                     {booksQuery.map((b) => {
                         const popular = fapi.books.isPopular(b);
                         const style = { display: popular ? "block" : "none" };
+                        const span = vtParam.isGrid ? 8 : 24;
 
                         return (
-                            <Col span={8} key={b.id}>
-                                <Badge.Ribbon
-                                    text="Популярное"
-                                    className={styles.gridItemRibbon}
-                                    style={style}
-                                    color="magenta"
-                                >
-                                    <BookCard data={b} className={styles.gridItem} />
-                                </Badge.Ribbon>
-                            </Col>
-                        );
-                    })}
-                </Row> */}
-                <Row justify="start" gutter={[0, 20]} className={styles.list}>
-                    {booksQuery.map((b) => {
-                        const popular = fapi.books.isPopular(b);
-                        const style = { display: popular ? "block" : "none" };
-
-                        return (
-                            <Col key={b.id} span={24}>
+                            <Col key={b.id} span={span}>
                                 <Badge.Ribbon text="Популярное" style={style} color="magenta">
-                                    <Card hoverable>
-                                        <BookRow data={b} size="large" />
-                                    </Card>
+                                    {vtParam.isGrid && <BookCard data={b} />}
+                                    {vtParam.isList && (
+                                        <Card hoverable>
+                                            <BookRow data={b} size="large" />
+                                        </Card>
+                                    )}
                                 </Badge.Ribbon>
                             </Col>
                         );
