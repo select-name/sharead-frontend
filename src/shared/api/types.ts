@@ -80,3 +80,10 @@ export type Category = {
     description: string;
     cover: any;
 };
+
+export type CoffeeShop = {
+    id: number;
+    name: string;
+    address: string;
+    deliveryAt: string;
+};
