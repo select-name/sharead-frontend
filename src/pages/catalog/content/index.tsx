@@ -1,7 +1,7 @@
 import { Badge, Empty, Layout, Row, Col, Radio } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
-import { headerParams, Order } from "features";
+import { headerParams, Order, Fav } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { fakeApi } from "shared/api";
 import * as catalogParams from "../params";
@@ -71,14 +71,25 @@ const CatalogContent = () => {
                                     {vtParam.isGrid && (
                                         <BookCard
                                             data={b}
-                                            actions={<Order.Actions.AddBookMini bookId={b.id} />}
+                                            actions={[
+                                                <Fav.Actions.AddBookMini key="fav" />,
+                                                <Order.Actions.AddBookMini
+                                                    bookId={b.id}
+                                                    key="order"
+                                                />,
+                                            ]}
                                         />
                                     )}
                                     {vtParam.isList && (
                                         <BookRowCard
                                             data={b}
                                             size="large"
-                                            actions={<Order.Actions.AddBook bookId={b.id} />}
+                                            actions={
+                                                <>
+                                                    <Fav.Actions.AddBook />
+                                                    <Order.Actions.AddBook bookId={b.id} />
+                                                </>
+                                            }
                                         />
                                     )}
                                 </Badge.Ribbon>

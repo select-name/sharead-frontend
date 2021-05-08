@@ -1,7 +1,7 @@
 import { Typography, Layout, Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
 
-import { Header, Footer, Order } from "features";
+import { Header, Footer, Order, Fav } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { orderModel } from "entities/order";
 import { TariffRadio } from "entities/tariff";
@@ -94,7 +94,10 @@ const RecommendationsSection = () => {
                             data={b}
                             size="small"
                             className={styles.recommendsFeedItem}
-                            actions={<Order.Actions.AddBookMini bookId={b.id} />}
+                            actions={[
+                                <Fav.Actions.AddBookMini key="fav" />,
+                                <Order.Actions.AddBookMini bookId={b.id} key="order" />,
+                            ]}
                             withDescription
                         />
                     </Col>

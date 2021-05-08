@@ -16,7 +16,7 @@ type Props = {
     children?: ReactNode;
     className?: string;
     size?: Size;
-    actions?: ReactNode;
+    actions?: ReactNode[];
     withDescription?: boolean;
 };
 
@@ -64,7 +64,7 @@ const BookCard = (props: Props) => {
             bodyStyle={bodyStyle[size]}
             cover={<BookFilled style={imgStyle[size]} />}
             className={cn(styles.root, styles[`bookCard${string.capitalize(size)}`], className)}
-            actions={isMini || !actions ? undefined : [<>{actions}</>]}
+            actions={isMini || !actions?.length ? undefined : actions}
         >
             {/* FIXME: Поправить разметку */}
             <Card.Meta

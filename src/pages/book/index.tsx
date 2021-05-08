@@ -1,14 +1,9 @@
 import { Carousel, Typography, Layout, Result, Button, Descriptions, Row, Col } from "antd";
-import {
-    HeartOutlined,
-    ShoppingCartOutlined,
-    HistoryOutlined,
-    InboxOutlined,
-} from "@ant-design/icons";
+import { HistoryOutlined, InboxOutlined } from "@ant-design/icons";
 import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
-import { Header, Footer, Order } from "features";
+import { Header, Footer, Order, Fav } from "features";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import type { AbstractBook } from "shared/api";
@@ -148,9 +143,7 @@ const Checkout = ({ book }: BookProps) => {
                     </p>
                 </div>
                 <div className={styles.checkoutActions}>
-                    <Button block icon={<HeartOutlined />}>
-                        В избранное
-                    </Button>
+                    <Fav.Actions.AddBook />
                     <Order.Actions.AddBook bookId={book.id} />
                     <TariffRadio onChange={alert.info} withTitle={false} disabled />
                 </div>
