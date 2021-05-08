@@ -8,7 +8,7 @@ import {
 import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
-import { Header, Footer } from "features";
+import { Header, Footer, Order } from "features";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import type { AbstractBook } from "shared/api";
@@ -151,10 +151,8 @@ const Checkout = ({ book }: BookProps) => {
                     <Button block icon={<HeartOutlined />}>
                         В избранное
                     </Button>
-                    <Button block icon={<ShoppingCartOutlined />} type="primary">
-                        В аренду
-                    </Button>
-                    <TariffRadio onChange={alert.info} withTitle={false} />
+                    <Order.Actions.AddBook bookId={book.id} />
+                    <TariffRadio onChange={alert.info} withTitle={false} disabled />
                 </div>
             </article>
         </Col>
