@@ -20,9 +20,24 @@ type Props = {
 };
 
 const bodyStyle: Record<Size, CSSProperties> = {
-    default: { height: 168 },
-    small: { height: 168 },
+    default: { height: 176 },
+    small: { height: 176 },
     mini: { display: "none" },
+};
+
+const imgStyle: Record<Size, CSSProperties> = {
+    default: {
+        padding: "100px 0",
+        fontSize: 100,
+    },
+    small: {
+        padding: "80px 0",
+        fontSize: 100,
+    },
+    mini: {
+        padding: "40px 0",
+        fontSize: 70,
+    },
 };
 
 // FIXME:
@@ -44,19 +59,19 @@ const BookCard = (props: Props) => {
             hoverable
             // headStyle={{ background: "grey" }}
             bodyStyle={bodyStyle[size]}
-            cover={<BookFilled className={styles.bookCardImgPlaceholder} />}
-            className={cn(styles.bookCard, styles[`bookCard${string.capitalize(size)}`], className)}
+            cover={<BookFilled style={imgStyle[size]} />}
+            className={cn(styles.root, styles[`bookCard${string.capitalize(size)}`], className)}
             actions={withActions && !isMini ? getActions(title) : undefined}
         >
             {/* FIXME: Поправить разметку */}
             <Card.Meta
-                className={styles.bookCardMeta}
+                className={styles.meta}
                 title={
-                    <div className={styles.bookCardTitle}>
-                        <span className={styles.bookCardPrice}>
-                            от {fapi.books.getPseudoPrice(b)} ₽
-                        </span>
-                        <Link to={`/book/${b.id}`}>{title}</Link>
+                    <div className={styles.header}>
+                        <span className={styles.price}>от {fapi.books.getPseudoPrice(b)} ₽</span>
+                        <Link to={`/book/${b.id}`} title={title} className={styles.title}>
+                            {string.textOverflow(title, 50)}
+                        </Link>
                     </div>
                 }
                 description={
