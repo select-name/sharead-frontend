@@ -8,6 +8,7 @@ import {
     PlusOutlined,
 } from "@ant-design/icons";
 import type { ReactNode } from "react";
+import pluralize from "plural-ru";
 
 import { Header, Footer, Wallet } from "features";
 import type { AbstractBook, User } from "entities/types";
@@ -129,11 +130,10 @@ const Content = () => {
                 renderBookDetails={(b) => {
                     const { status, earned } = getOwnBookPseudoStat(b);
                     return (
-                        <span>
-                            {status}
-                            <br />
-                            Заработано {earned} ₽
-                        </span>
+                        <ul>
+                            <li>{status}</li>
+                            <li>Заработано {earned} ₽</li>
+                        </ul>
                     );
                 }}
             />
@@ -147,21 +147,23 @@ const Content = () => {
                     const { status, statusId } = getRentedBookStat(b);
 
                     return (
-                        <span>
-                            {status}
-                            <br />
-                            {statusId === 0 && "Будет доставлена через 3 дня"}
-                            {statusId === 1 && "Осталось: 4 дня"}
-                            <br />
-                            <sup>
-                                <Typography.Text disabled>
-                                    <i>
-                                        Получите обратно на счет за возврат{" "}
-                                        <b>{fapi.books.getPseudoPrice(b) * 0.2} ₽</b>
-                                    </i>
-                                </Typography.Text>
-                            </sup>
-                        </span>
+                        <ul>
+                            <li>{status}</li>
+                            <li>
+                                {statusId === 0 && "Будет доставлена через 3 дня"}
+                                {statusId === 1 && "Осталось: 4 дня"}
+                            </li>
+                            <li>
+                                <sup>
+                                    <Typography.Text disabled>
+                                        <i>
+                                            Получите обратно на счет за возврат{" "}
+                                            <b>{fapi.books.getPseudoPrice(b) * 0.2} ₽</b>
+                                        </i>
+                                    </Typography.Text>
+                                </sup>
+                            </li>
+                        </ul>
                     );
                 }}
             />
@@ -171,10 +173,24 @@ const Content = () => {
                 description="Добавленные в очередь на аренду"
                 books={viewer.reservations}
                 Icon={ClockCircleOutlined}
+                renderBookDetails={(b) => {
+                    const queueIdx = Math.floor(b.name.length / 2);
+                    return (
+                        <ul>
+                            <li>
+                                В очереди: <b>{queueIdx}</b>
+                            </li>
+                            <li>
+                                Время ожидания: ~{" "}
+                                <b>{pluralize(queueIdx * 7, "%d день", "%d дня", "%d дней")}</b>
+                            </li>
+                        </ul>
+                    );
+                }}
             />
             <Section
                 id="closed"
-                title="Закрытые заказы"
+                title="История аренды"
                 description="Книги с прошлых заказов"
                 books={viewer.closedOrders}
                 Icon={CheckCircleOutlined}
