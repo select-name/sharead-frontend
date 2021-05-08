@@ -46,14 +46,22 @@ const ProfilePage = () => {
 const getStats = (viewer: User) => [
     { key: "registered", label: "В сервисе с", value: "2 мая 2021" },
     { key: "closed", label: "Закрыто", value: "10 сделок" },
-    { key: "saved", label: "Сэкономлено", value: "400 ₽" },
+    {
+        key: "saved",
+        label: "Сэкономлено",
+        value: `${viewer.closedOrders
+            .map(fakeApi.books.getPseudoPrice)
+            // Если учитывать, что цена на книгу уменьшается в среднем в 6 раз по сравнению с оригиналом
+            .map((p) => p * (6 - 1))
+            .reduce((a, b) => a + b, 0)} ₽`,
+    },
     {
         key: "earned",
         label: "Заработано",
         value: `${viewer.books
             .map(getOwnBookPseudoStat)
             .map((it) => it.earned)
-            .reduce((a, b) => a + b)} ₽`,
+            .reduce((a, b) => a + b, 0)} ₽`,
     },
 ];
 
