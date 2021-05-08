@@ -1,7 +1,7 @@
-import { Badge, Empty, Layout, Row, Col } from "antd";
+import { Badge, Empty, Layout, Row, Col, Card } from "antd";
 
 import { headerParams } from "features/header";
-import { BookCard } from "entities/book";
+import { BookCard, BookRow } from "entities/book";
 import * as fapi from "shared/fixtures";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
@@ -15,6 +15,7 @@ const useFilters = () => {
     return { authors, publishers, categories, search: params.search };
 };
 
+// eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const filters = useFilters();
     const booksQuery = fapi.books.getList(filters);
@@ -33,8 +34,8 @@ const CatalogContent = () => {
                     <li className={styles.sortListItem}>по новизне</li>
                 </ul>
             </section>
-            <section className={styles.grid}>
-                <Row justify="start" gutter={[0, 10]}>
+            <section className={styles.catalog}>
+                {/* <Row justify="start" gutter={[0, 10]} className={styles.grid}>
                     {booksQuery.map((b) => {
                         const popular = fapi.books.isPopular(b);
                         const style = { display: popular ? "block" : "none" };
@@ -52,14 +53,30 @@ const CatalogContent = () => {
                             </Col>
                         );
                     })}
+                </Row> */}
+                <Row justify="start" gutter={[0, 20]} className={styles.list}>
+                    {booksQuery.map((b) => {
+                        const popular = fapi.books.isPopular(b);
+                        const style = { display: popular ? "block" : "none" };
+
+                        return (
+                            <Col key={b.id} span={24}>
+                                <Badge.Ribbon text="Популярное" style={style} color="magenta">
+                                    <Card hoverable>
+                                        <BookRow data={b} size="large" />
+                                    </Card>
+                                </Badge.Ribbon>
+                            </Col>
+                        );
+                    })}
                 </Row>
+                {booksQuery.length === 0 && (
+                    <Empty
+                        className={styles.placeholder}
+                        description="Не удалось ничего найти по вашему запросу"
+                    />
+                )}
             </section>
-            {booksQuery.length === 0 && (
-                <Empty
-                    className={styles.placeholder}
-                    description="Не удалось ничего найти по вашему запросу"
-                />
-            )}
         </Layout>
     );
 };

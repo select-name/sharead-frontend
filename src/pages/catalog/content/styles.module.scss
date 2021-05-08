@@ -30,8 +30,6 @@
 }
 
 .grid {
-    margin-right: 40px;
-
     &Item {
         &Ribbon {
             margin-right: 10px;
@@ -41,4 +39,8 @@
 
 .placeholder {
     margin: 100px 0;
+}
+
+.catalog {
+    margin-right: 40px;
 }
