@@ -1,4 +1,4 @@
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Card } from "antd";
 import { BookFilled, ShoppingCartOutlined, HeartOutlined } from "@ant-design/icons";
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
@@ -95,5 +95,11 @@ const BookRow = (props: Props) => {
         </Row>
     );
 };
+
+export const BookRowCard = (props: Props) => (
+    <Card hoverable className={styles.rootCard}>
+        <BookRow {...props} />
+    </Card>
+);
 
 export default BookRow;

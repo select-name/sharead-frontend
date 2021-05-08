@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import pluralize from "plural-ru";
 
 import { Header, Footer } from "features";
-import { BookCard, BookRow } from "entities/book";
+import { BookCard, BookRowCard } from "entities/book";
 import { dom } from "shared/lib";
 import { useOrder } from "../hooks";
 import styles from "./styles.module.scss";
@@ -55,9 +55,7 @@ const Content = () => {
                 <Row gutter={[0, 20]}>
                     {order.books.map((book) => (
                         <Col key={book.id} span={24}>
-                            <Card hoverable className={styles.cartItemCard}>
-                                <BookRow data={book} size="large" withActions={false} />
-                            </Card>
+                            <BookRowCard data={book} size="large" withActions={false} />
                         </Col>
                     ))}
                 </Row>

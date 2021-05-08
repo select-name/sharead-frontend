@@ -2,7 +2,7 @@ import { Badge, Empty, Layout, Row, Col, Card, Radio } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
 import { headerParams } from "features/header";
-import { BookCard, BookRow } from "entities/book";
+import { BookCard, BookRowCard } from "entities/book";
 import * as fapi from "shared/fixtures";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
@@ -69,11 +69,7 @@ const CatalogContent = () => {
                             <Col key={b.id} span={span}>
                                 <Badge.Ribbon text="Популярное" style={style} color="magenta">
                                     {vtParam.isGrid && <BookCard data={b} />}
-                                    {vtParam.isList && (
-                                        <Card hoverable>
-                                            <BookRow data={b} size="large" />
-                                        </Card>
-                                    )}
+                                    {vtParam.isList && <BookRowCard data={b} size="large" />}
                                 </Badge.Ribbon>
                             </Col>
                         );
