@@ -110,6 +110,7 @@ const EmailVerified = ({ emailVerified }: { emailVerified: boolean }) => {
     return <ClockCircleOutlined title="Ожидает подтверждения" style={{ color: "red" }} />;
 };
 
+// eslint-disable-next-line max-lines-per-function
 const Content = () => {
     const viewer = useViewer();
     return (
@@ -126,10 +127,12 @@ const Content = () => {
                     </Button>
                 }
                 renderBookDetails={(b) => {
-                    const bookStat = getOwnBookPseudoStat(b);
+                    const { status, earned } = getOwnBookPseudoStat(b);
                     return (
                         <span>
-                            {bookStat.status}, заработано {bookStat.earned} ₽
+                            {status}
+                            <br />
+                            Заработано {earned} ₽
                         </span>
                     );
                 }}
@@ -140,6 +143,19 @@ const Content = () => {
                 description="Книги на руках"
                 books={viewer.openedOrders}
                 Icon={ShoppingOutlined}
+                renderBookDetails={(b) => {
+                    const { status, statusId } = getRentedBookStat(b);
+                    const label =
+                        statusId === 0 ? "Будет доставлена через 3 дня" : "Осталось: 4 дня";
+
+                    return (
+                        <span>
+                            {status}
+                            <br />
+                            {label}
+                        </span>
+                    );
+                }}
             />
             <Section
                 id="reserved"
@@ -159,16 +175,25 @@ const Content = () => {
     );
 };
 
-const statuses: Record<number, ReactNode> = {
+const ownStatuses: Record<number, ReactNode> = {
     0: <Typography.Text type="success">Арендуется</Typography.Text>,
-    1: <Typography.Text type="warning">Ожидает передачи</Typography.Text>,
-    2: <Typography.Text style={{ color: "#108ee9" }}>Свободна</Typography.Text>,
+    1: <Typography.Text style={{ color: "#108ee9" }}>Свободна</Typography.Text>,
+};
+
+const rentedStatuses: Record<number, ReactNode> = {
+    0: <Typography.Text type="warning">Ожидает передачи</Typography.Text>,
+    1: <Typography.Text type="success">На руках</Typography.Text>,
 };
 
 // FIXME: temp!
 const getOwnBookPseudoStat = (book: AbstractBook) => ({
     earned: fapi.books.getPseudoPrice(book) * (book.name.length % 4),
-    status: statuses[book.name.length % 3],
+    status: ownStatuses[book.name.length % 2],
+});
+
+const getRentedBookStat = (book: AbstractBook) => ({
+    status: rentedStatuses[book.name.length % 2],
+    statusId: book.name.length % 2,
 });
 
 type SectionProps = {
