@@ -14,6 +14,7 @@ import { Header, Footer, Wallet } from "features";
 import type { AbstractBook, User } from "entities/types";
 import { useViewer } from "entities/viewer";
 import { BookCard } from "entities/book";
+import { Tile } from "shared/ui";
 import * as fapi from "shared/fixtures";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
@@ -86,17 +87,7 @@ const Aside = () => {
                 <Divider />
                 <section>
                     {/* <Typography.Title level={4}>С нашим сервисом</Typography.Title> */}
-                    <Row justify="space-between" gutter={[0, 20]} className={styles.stats}>
-                        {getStats(viewer).map((stat) => (
-                            <Col key={stat.key} span={11} className={styles.statsItem}>
-                                <span>
-                                    {stat.label}
-                                    <br />
-                                    <b>{stat.value}</b>
-                                </span>
-                            </Col>
-                        ))}
-                    </Row>
+                    <Tile.Group data={getStats(viewer)} />
                 </section>
             </div>
         </Layout.Sider>
