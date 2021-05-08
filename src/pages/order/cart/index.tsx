@@ -42,7 +42,7 @@ const CardPage = () => {
 };
 
 const Content = () => {
-    const orderBooks = orderModel.useOrderBooks();
+    const order = orderModel.useOrder();
 
     return (
         <Layout className={styles.content}>
@@ -55,7 +55,7 @@ const Content = () => {
                     Проверьте выбранные книги перед оформлением
                 </Typography.Text>
                 <Row gutter={[0, 20]}>
-                    {orderBooks.map((book) => (
+                    {order.books.map((book) => (
                         <Col key={book.id} span={24}>
                             <BookRowCard
                                 data={book}
@@ -92,7 +92,12 @@ const RecommendationsSection = () => {
             <Row className={styles.recommendsFeed} wrap={false} gutter={[20, 0]}>
                 {order.recommended.map((b) => (
                     <Col key={b.id} span={8}>
-                        <BookCard data={b} size="small" className={styles.recommendsFeedItem} />
+                        <BookCard
+                            data={b}
+                            size="small"
+                            className={styles.recommendsFeedItem}
+                            actions={<Order.AddBookMini bookId={b.id} />}
+                        />
                     </Col>
                 ))}
             </Row>
@@ -103,7 +108,7 @@ const RecommendationsSection = () => {
 // FIXME: DRY with order/checkout
 // eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
-    const order = useOrder();
+    const order = orderModel.useOrder();
 
     return (
         <Layout.Sider className={styles.sidebarContainer} width={400}>

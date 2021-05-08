@@ -25,6 +25,14 @@ export const useOrderBooks = () => {
     return books.filter((b) => orderIds.includes(b.id));
 };
 
+// FIXME: useStoreMap instea
+export const useOrder = () => {
+    const books = useOrderBooks();
+    const price = books.map(fapi.books.getPseudoPrice).reduce((a, b) => a + b);
+
+    return { books, price };
+};
+
 export const useBookStatus = (bookId: number) => {
     const isBookInCart = useStoreMap({
         store: $store,
