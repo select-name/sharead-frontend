@@ -33,8 +33,31 @@ export const useOrder = () => {
     return { books, price };
 };
 
+const RECOMMEND_MAX = 6;
+
 export const useRecommended = () => {
-    const books = fapi.orders.getRecommendedBooks();
+    const order = useOrderBooks();
+    const orderIds = order.map((b) => b.id);
+    const totalBooks = bookModel.useBooks();
+
+    const orderAuthors = order
+        .map((b) => b.authors)
+        .flat()
+        .map((a) => a.id);
+
+    const otherBooks = totalBooks.filter((b) => !orderIds.includes(b.id));
+
+    const booksByAuthor = otherBooks.filter((b) =>
+        b.authors.some((a) => orderAuthors.includes(a.id)),
+    );
+    const lenA = booksByAuthor.length;
+    const booksByAuthorLimited = booksByAuthor.filter((b) => Math.random() < RECOMMEND_MAX / lenA);
+    const booksByAuthorLimitedIds = booksByAuthorLimited.map((b) => b.id);
+    const booksPopular = otherBooks
+        .filter(fapi.books.isPopular)
+        .filter((b) => !booksByAuthorLimitedIds.includes(b.id));
+    const books = [...booksByAuthorLimited, ...booksPopular];
+
     return { books };
 };
 

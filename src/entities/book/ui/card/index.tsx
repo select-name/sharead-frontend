@@ -17,6 +17,7 @@ type Props = {
     className?: string;
     size?: Size;
     actions?: ReactNode;
+    withDescription?: boolean;
 };
 
 const bodyStyle: Record<Size, CSSProperties> = {
@@ -53,6 +54,8 @@ const BookCard = (props: Props) => {
     // const isSmall = size === "small";
     const isMini = size === "mini";
 
+    const withDescription = props.withDescription || isDefault;
+
     return (
         <Card
             key={b.id}
@@ -76,7 +79,7 @@ const BookCard = (props: Props) => {
                 }
                 description={
                     <>
-                        {isDefault && <span>{description}</span>}
+                        {withDescription && <span>{description}</span>}
                         {children}
                     </>
                 }

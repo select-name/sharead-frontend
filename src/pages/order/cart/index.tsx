@@ -95,6 +95,7 @@ const RecommendationsSection = () => {
                             size="small"
                             className={styles.recommendsFeedItem}
                             actions={<Order.Actions.AddBookMini bookId={b.id} />}
+                            withDescription
                         />
                     </Col>
                 ))}
