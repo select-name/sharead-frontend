@@ -1,10 +1,11 @@
-import { Typography, Layout, Avatar, Row, Col, Divider, Empty } from "antd";
+import { Typography, Layout, Avatar, Row, Col, Divider, Empty, Button } from "antd";
 import {
     UserOutlined,
     CheckCircleOutlined,
     ClockCircleOutlined,
     DollarOutlined,
     ShoppingOutlined,
+    PlusOutlined,
 } from "@ant-design/icons";
 import type { ReactNode } from "react";
 
@@ -112,6 +113,11 @@ const Content = () => {
                 description="Добавленные мною в сервис"
                 books={viewer.books}
                 Icon={DollarOutlined}
+                titleAfter={
+                    <Button title="Добавить книгу в сервис" icon={<PlusOutlined />} type="primary">
+                        Добавить
+                    </Button>
+                }
                 renderBookDetails={(b) => {
                     const bookStat = getOwnBookPseudoStat(b);
                     return (
@@ -160,6 +166,7 @@ const getOwnBookPseudoStat = (book: AbstractBook) => ({
 type SectionProps = {
     id: string;
     title: ReactNode;
+    titleAfter?: ReactNode;
     description: ReactNode;
     renderBookDetails?: (book: AbstractBook) => ReactNode;
     // FIXME: specify later
@@ -168,14 +175,17 @@ type SectionProps = {
 };
 
 const Section = (props: SectionProps) => {
-    const { title, description, books, Icon, id, renderBookDetails } = props;
+    const { title, description, books, Icon, id, renderBookDetails, titleAfter } = props;
 
     return (
         <section className={styles.contentSection} id={id}>
-            <Typography.Title level={3} className={styles.contentSectionTitle}>
-                <a href={`#${id}`}>#</a>
-                {title} <Icon style={{ color: "gray", fontSize: 20 }} />
-            </Typography.Title>
+            <Row justify="space-between">
+                <Typography.Title level={3} className={styles.contentSectionTitle}>
+                    <a href={`#${id}`}>#</a>
+                    {title} <Icon style={{ color: "gray", fontSize: 20 }} />
+                </Typography.Title>
+                {titleAfter}
+            </Row>
             <Typography.Text className={styles.contentSectionDescription} type="secondary">
                 {description}
             </Typography.Text>
