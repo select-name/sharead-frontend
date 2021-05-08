@@ -8,9 +8,10 @@ import {
     MenuOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+
 // !!! FIXME:
 import { Wallet } from "features/wallet";
-
+import { orderModel } from "entities/order";
 import { ReactComponent as Logo } from "./logo.svg";
 import Search from "./search";
 import styles from "./styles.module.scss";
@@ -23,41 +24,42 @@ type Props = {
 
 const actions = [
     {
+        id: "catalog" as const,
         label: "Каталог",
         Icon: MenuOutlined,
         url: "/catalog",
-        showBadge: false,
         disabled: false,
     },
     // {
     //     label: "Заказы",
     //     Icon: FolderOpenOutlined,
     //     url: "#orders",
-    //     showBadge: false,
     //     disabled: true,
     // },
     {
+        id: "fav" as const,
         label: "Избранное",
         Icon: HeartOutlined,
         url: "#fav",
-        showBadge: false,
         disabled: true,
     },
     {
+        id: "cart" as const,
         label: "Корзина",
         Icon: ShoppingCartOutlined,
         url: "/order",
-        showBadge: true,
         disabled: false,
     },
     {
+        id: "profile" as const,
         label: "Профиль",
         Icon: UserOutlined,
         url: "/profile",
-        showBadge: true,
         disabled: false,
     },
 ];
+
+type ActionId = typeof actions[number]["id"];
 
 const LocationAlert = () => (
     <Alert
@@ -72,6 +74,14 @@ const LocationAlert = () => (
 
 const Header = (props: Props) => {
     const { className } = props;
+    const orderTotal = orderModel.useOrderBooks().length;
+
+    const count: Record<ActionId, number> = {
+        cart: orderTotal,
+        catalog: 0,
+        fav: 0,
+        profile: 0,
+    };
 
     return (
         <>
@@ -87,7 +97,7 @@ const Header = (props: Props) => {
                 <div className={styles.toolbar}>
                     <Wallet.AddFunds.Popover className={styles.toolbarWallet} />
                     {/* TODO: add amount-label later */}
-                    {actions.map(({ label, Icon, url, showBadge, disabled }) => (
+                    {actions.map(({ id, label, Icon, url, disabled }) => (
                         <Link
                             key={label}
                             to={url}
@@ -98,7 +108,7 @@ const Header = (props: Props) => {
                         >
                             {/* Для выравнивания бейджа */}
                             <span className={styles.toolbarActionIcon}>
-                                <Badge dot={showBadge} style={{ backgroundColor: "#108ee9" }}>
+                                <Badge count={count[id]} style={{ backgroundColor: "#108ee9" }}>
                                     <Icon style={{ fontSize: 24 }} />
                                 </Badge>
                             </span>
