@@ -153,7 +153,7 @@ const Content = () => {
                                 {statusId === 0 && "Будет доставлена через 3 дня"}
                                 {statusId === 1 && "Осталось: 4 дня"}
                             </li>
-                            <li>
+                            {/* <li>
                                 <sup>
                                     <Typography.Text disabled>
                                         <i>
@@ -162,7 +162,7 @@ const Content = () => {
                                         </i>
                                     </Typography.Text>
                                 </sup>
-                            </li>
+                            </li> */}
                         </ul>
                     );
                 }}
