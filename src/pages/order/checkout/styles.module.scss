@@ -17,38 +17,6 @@
     }
 }
 
-.sidebar {
-    &Card {
-        margin-left: 40px;
-        text-align: center;
-        border-radius: 10px;
-
-        @include box-shadow-bottom();
-
-        & + & {
-            margin-top: 20px;
-        }
-    }
-
-    h4 {
-        margin: 0;
-    }
-
-    &Section {
-        padding: 40px;
-
-        &Detail {
-            padding-top: 4px;
-        }
-    }
-
-    &Main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
 .wallet {
     padding: 20px;
     background: var(--color-accent);
@@ -69,17 +37,5 @@
 
     &Map {
         background: white;
-    }
-}
-
-.cart {
-    margin-top: 16px;
-
-    &Container {
-        padding: 20px;
-    }
-
-    &Item {
-        cursor: pointer !important;
     }
 }

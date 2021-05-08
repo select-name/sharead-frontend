@@ -1,18 +1,23 @@
-import { Steps, Typography, Layout, Row, Divider, Button, Result, Input, Col } from "antd";
-import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import cn from "classnames";
+import { Steps, Typography, Layout, Row, Button, Result, Input, Col } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { YMaps, Map } from "react-yandex-maps";
-import pluralize from "plural-ru";
 
-import { Header, Footer, Wallet } from "features";
-import { BookCard } from "entities/book";
+import { Header, Footer, Wallet, Order } from "features";
+import { orderModel } from "entities/order";
+import * as viewerModel from "entities/viewer";
 import { dom } from "shared/lib";
-import { useOrder } from "../hooks";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
 // TODO: Add skeletons loader
+
+const useCheckoutValidation = () => {
+    const { price } = orderModel.useOrder();
+    const { wallet } = viewerModel.useViewerWallet();
+    const isEnoughMoney = wallet >= price;
+    const message = isEnoughMoney ? "" : "Недостаточно средств для оплаты";
+    return { isEnoughMoney, message };
+};
 
 /**
  * @page Страница оформления заказа
@@ -68,10 +73,10 @@ const Content = () => {
 };
 
 const WalletForm = () => {
-    const order = useOrder();
+    const validation = useCheckoutValidation();
     return (
         <Row gutter={[0, 20]} className={styles.wallet} justify="center">
-            {order.isEnoughMoney ? (
+            {validation.isEnoughMoney ? (
                 <Result status="success" title="На счете достаточно средств" />
             ) : (
                 <Result
@@ -102,74 +107,32 @@ const DeliveryForm = () => (
     </Row>
 );
 
-const CartMini = () => {
-    const order = useOrder();
-    return (
-        <Row justify="space-between" gutter={[0, 30]} className={styles.cart}>
-            {order.books.map((book) => (
-                <Col key={book.id} span={11}>
-                    <Link to={`/book/${book.id}`} title={book.name}>
-                        <BookCard data={book} size="mini" className={styles.cartItem} />
-                    </Link>
-                </Col>
-            ))}
-        </Row>
-    );
-};
-
-// eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
-    const order = useOrder();
+    const viewer = viewerModel.useViewerWallet();
+    const order = orderModel.useOrder();
+    const validation = useCheckoutValidation();
     const history = useHistory();
 
     return (
         <Layout.Sider className={styles.sidebar} width={400}>
-            <div className={styles.sidebarCard}>
-                <section className={styles.sidebarSection}>
-                    <Row justify="space-between" align="middle">
-                        <Typography.Title level={4}>Итого</Typography.Title>
-                        <Typography.Title level={4} style={{ margin: 0 }}>
-                            {order.price} ₽
-                        </Typography.Title>
-                    </Row>
-                    <Row align="middle" className={styles.sidebarSectionDetail}>
-                        <BookOutlined />
-                        &nbsp;
-                        <Typography.Text type="secondary">
-                            {pluralize(order.books.length, "%d книга", "%d книги", "%d книг")}
-                        </Typography.Text>
-                    </Row>
-                    <Row align="middle" className={styles.sidebarSectionDetail}>
-                        <ClockCircleOutlined />
-                        &nbsp;
-                        <Typography.Text type="secondary">На 2-3 недели</Typography.Text>
-                    </Row>
-                </section>
-                <Divider style={{ margin: 0 }} />
-                <section className={styles.sidebarSection}>
-                    <Button
-                        block
-                        type="primary"
-                        style={{ height: 50 }}
-                        disabled={!order.isEnoughMoney}
-                        title={order.isEnoughMoney ? "" : "Недостаточно средств для оплаты"}
-                        onClick={() =>
-                            order.payment
-                                .applyTransaction(-order.price)
-                                .then(() => history.push("/order/success"))
-                        }
-                        loading={order.payment.isPending}
-                    >
-                        Оплатить заказ
-                    </Button>
-                </section>
-            </div>
-            <div className={cn(styles.sidebarCard, styles.cartContainer)}>
-                <Typography.Title level={4} type="secondary">
-                    Ваш заказ
-                </Typography.Title>
-                <CartMini />
-            </div>
+            <Order.TotalInfo.Card>
+                <Button
+                    block
+                    type="primary"
+                    style={{ height: 50 }}
+                    disabled={!validation.isEnoughMoney}
+                    title={validation.message}
+                    onClick={() =>
+                        viewer.payment
+                            .applyTransaction(-order.price)
+                            .then(() => history.push("/order/success"))
+                    }
+                    loading={viewer.payment.isPending}
+                >
+                    Оплатить заказ
+                </Button>
+            </Order.TotalInfo.Card>
+            <Order.TotalInfo.CartMini />
         </Layout.Sider>
     );
 };

@@ -5,11 +5,15 @@
     text-align: center;
     border-radius: 10px;
 
+    @include box-shadow-bottom();
+
+    & + & {
+        margin-top: 20px;
+    }
+
     h4 {
         margin: 0;
     }
-
-    @include box-shadow-bottom();
 }
 
 .section {
@@ -18,4 +22,16 @@
 
 .details {
     padding-top: 4px;
+}
+
+.cart {
+    margin-top: 16px;
+
+    &Container {
+        padding: 20px;
+    }
+
+    &Item {
+        cursor: pointer !important;
+    }
 }

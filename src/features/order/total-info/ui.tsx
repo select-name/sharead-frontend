@@ -1,8 +1,11 @@
-import { Typography, Row, Divider } from "antd";
+import { Typography, Row, Divider, Col } from "antd";
 import { BookOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import cn from "classnames";
+import { Link } from "react-router-dom";
 import pluralize from "plural-ru";
 
 import { orderModel } from "entities/order";
+import { BookCard } from "entities/book";
 import styles from "./styles.module.scss";
 
 export const Form = () => {
@@ -40,6 +43,27 @@ export const Card = ({ children }: Props) => {
             <Form />
             <Divider style={{ margin: 0 }} />
             <section className={styles.section}>{children}</section>
+        </article>
+    );
+};
+
+export const CartMini = () => {
+    const order = orderModel.useOrder();
+
+    return (
+        <article className={cn(styles.root, styles.cartContainer)}>
+            <Typography.Title level={4} type="secondary">
+                Ваш заказ
+            </Typography.Title>
+            <Row justify="space-between" gutter={[0, 30]} className={styles.cart}>
+                {order.books.map((book) => (
+                    <Col key={book.id} span={11}>
+                        <Link to={`/book/${book.id}`} title={book.name}>
+                            <BookCard data={book} size="mini" className={styles.cartItem} />
+                        </Link>
+                    </Col>
+                ))}
+            </Row>
         </article>
     );
 };

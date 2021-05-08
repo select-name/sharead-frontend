@@ -6,7 +6,6 @@ import { BookCard, BookRowCard } from "entities/book";
 import { orderModel } from "entities/order";
 import { TariffRadio } from "entities/tariff";
 import { dom, alert } from "shared/lib";
-import { useOrder } from "../hooks";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -77,7 +76,7 @@ const Content = () => {
 };
 
 const RecommendationsSection = () => {
-    const order = useOrder();
+    const recommended = orderModel.useRecommended();
 
     return (
         <>
@@ -88,7 +87,7 @@ const RecommendationsSection = () => {
                 Подборка рекомендованых книг, на основе вашего заказа
             </Typography.Text>
             <Row className={styles.recommendsFeed} wrap={false} gutter={[20, 0]}>
-                {order.recommended.map((b) => (
+                {recommended.books.map((b) => (
                     <Col key={b.id} span={8}>
                         <BookCard
                             data={b}
@@ -103,8 +102,6 @@ const RecommendationsSection = () => {
     );
 };
 
-// FIXME: DRY with order/checkout
-// eslint-disable-next-line max-lines-per-function
 const Sidebar = () => {
     return (
         <Layout.Sider className={styles.sidebarContainer} width={400}>

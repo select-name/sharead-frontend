@@ -33,6 +33,11 @@ export const useOrder = () => {
     return { books, price };
 };
 
+export const useRecommended = () => {
+    const books = fapi.orders.getRecommendedBooks();
+    return { books };
+};
+
 export const useBookStatus = (bookId: number) => {
     const isBookInCart = useStoreMap({
         store: $store,
