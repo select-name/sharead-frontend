@@ -1,4 +1,5 @@
-import { Badge, Empty, Layout, Row, Col, Card } from "antd";
+import { Badge, Empty, Layout, Row, Col, Card, Radio } from "antd";
+import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
 import { headerParams } from "features/header";
 import { BookCard, BookRow } from "entities/book";
@@ -15,6 +16,11 @@ const useFilters = () => {
     return { authors, publishers, categories, search: params.search };
 };
 
+const viewTypes = [
+    { key: "grid", Icon: AppstoreOutlined },
+    { key: "list", Icon: BarsOutlined },
+];
+
 // eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const filters = useFilters();
@@ -25,15 +31,32 @@ const CatalogContent = () => {
     // FIXME: Layout.Content?
     return (
         <Layout>
-            <section className={styles.sort}>
-                <b className={styles.sortLabel}>Сортировать по:</b>
-
-                <ul className={styles.sortList}>
-                    <li className={styles.sortListItem}>по популярности</li>
-                    <li className={styles.sortListItem}>по цене аренды</li>
-                    <li className={styles.sortListItem}>по сроку аренды</li>
-                    <li className={styles.sortListItem}>по новизне</li>
-                </ul>
+            <section className={styles.toolbar}>
+                <Row className={styles.toolbarSort}>
+                    <b className={styles.toolbarSortLabel}>Сортировать по:</b>
+                    <ul className={styles.toolbarSortList}>
+                        <li className={styles.toolbarSortListItem}>по популярности</li>
+                        <li className={styles.toolbarSortListItem}>по цене аренды</li>
+                        <li className={styles.toolbarSortListItem}>по сроку аренды</li>
+                        <li className={styles.toolbarSortListItem}>по новизне</li>
+                    </ul>
+                </Row>
+                <Radio.Group
+                    value={vtParam.viewType}
+                    onChange={(e) => vtParam.setViewType(e.target.value)}
+                    className={styles.toolbarViews}
+                    buttonStyle="solid"
+                >
+                    {viewTypes.map((vt) => (
+                        <Radio.Button
+                            key={vt.key}
+                            value={vt.key}
+                            className={styles.toolbarViewsItem}
+                        >
+                            <vt.Icon style={{ fontSize: 20 }} />
+                        </Radio.Button>
+                    ))}
+                </Radio.Group>
             </section>
             <section className={styles.catalog}>
                 <Row justify="start" gutter={[20, 20]}>
