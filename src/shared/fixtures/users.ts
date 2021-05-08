@@ -81,6 +81,6 @@ export const BRAD_DOE: User = {
     },
 };
 
-export const __VIEWER = BRAD_DOE;
+export const __VIEWER = JULY_DOE;
 
 export const getAll = () => [JOHN_DOE, JULY_DOE, JANE_DOE, BRAD_DOE];

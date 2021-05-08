@@ -1,4 +1,4 @@
-import { Typography, Layout, Avatar, Row, Col, Divider } from "antd";
+import { Typography, Layout, Avatar, Row, Col, Divider, Empty } from "antd";
 import {
     UserOutlined,
     CheckCircleOutlined,
@@ -166,6 +166,9 @@ const Section = (props: SectionProps) => {
                     </Col>
                 ))}
             </Row>
+            {!books.length && (
+                <Empty className={styles.contentSectionPlaceholder} description="Пусто" />
+            )}
         </section>
     );
 };

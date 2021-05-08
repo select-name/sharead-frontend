@@ -75,7 +75,7 @@ const CatalogContent = () => {
                         );
                     })}
                 </Row>
-                {booksQuery.length === 0 && (
+                {!booksQuery.length && (
                     <Empty
                         className={styles.placeholder}
                         description="Не удалось ничего найти по вашему запросу"
