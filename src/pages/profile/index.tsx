@@ -12,6 +12,7 @@ import { Header, Footer, Wallet } from "features";
 import type { AbstractBook } from "entities/types";
 import { useViewer } from "entities/viewer";
 import { BookCard } from "entities/book";
+import * as fapi from "shared/fixtures";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -111,6 +112,14 @@ const Content = () => {
                 description="Добавленные мною в сервис"
                 books={viewer.books}
                 Icon={DollarOutlined}
+                renderBookDetails={(b) => {
+                    const bookStat = getOwnBookPseudoStat(b);
+                    return (
+                        <span>
+                            {bookStat.status}, заработано {bookStat.earned} ₽
+                        </span>
+                    );
+                }}
             />
             <Section
                 id="opened"
@@ -137,17 +146,29 @@ const Content = () => {
     );
 };
 
+const statuses: Record<number, ReactNode> = {
+    0: <Typography.Text type="warning">В аренде</Typography.Text>,
+    1: <Typography.Text style={{ color: "#108ee9" }}>В доступе</Typography.Text>,
+};
+
+// FIXME: temp!
+const getOwnBookPseudoStat = (book: AbstractBook) => ({
+    earned: fapi.books.getPseudoPrice(book) * (book.name.length % 4),
+    status: statuses[book.name.length % 2],
+});
+
 type SectionProps = {
     id: string;
     title: ReactNode;
     description: ReactNode;
+    renderBookDetails?: (book: AbstractBook) => ReactNode;
     // FIXME: specify later
     Icon: typeof CheckCircleOutlined;
     books: AbstractBook[];
 };
 
 const Section = (props: SectionProps) => {
-    const { title, description, books, Icon, id } = props;
+    const { title, description, books, Icon, id, renderBookDetails } = props;
 
     return (
         <section className={styles.contentSection} id={id}>
@@ -162,7 +183,9 @@ const Section = (props: SectionProps) => {
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
                 {books.map((book) => (
                     <Col key={book.id} span={8}>
-                        <BookCard data={book} size="small" withActions={false} />
+                        <BookCard data={book} size="small" withActions={false}>
+                            {renderBookDetails?.(book)}
+                        </BookCard>
                     </Col>
                 ))}
             </Row>

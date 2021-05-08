@@ -71,7 +71,7 @@ export const BRAD_DOE: User = {
         books.CHOKE_2006,
         books.FIGHT_CLUB_2018,
     ],
-    closedOrders: [books.GOT__DANCE_OF_DRAGONS_2019],
+    closedOrders: [],
     openedOrders: orders.getOrderBooks(),
     reservations: [books.BRAVE_NEW_WORLD_2017],
     roles: [roles.USER],
@@ -81,6 +81,6 @@ export const BRAD_DOE: User = {
     },
 };
 
-export const __VIEWER = JULY_DOE;
+export const __VIEWER = BRAD_DOE;
 
 export const getAll = () => [JOHN_DOE, JULY_DOE, JANE_DOE, BRAD_DOE];
