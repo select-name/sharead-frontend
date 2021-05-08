@@ -49,6 +49,10 @@ const styleDetails: Record<Size, CSSProperties> = {
     },
 };
 
+const spanActions = 4;
+
+const MAX_SPAN = 24;
+
 // FIXME:
 // eslint-disable-next-line max-lines-per-function
 const BookRow = (props: Props) => {
@@ -57,13 +61,14 @@ const BookRow = (props: Props) => {
     const title = fapi.books.getShortname(data);
     const price = fapi.books.getPseudoPrice(data);
     const isSmall = size === "small";
+    const spanDetails = MAX_SPAN - spanIcon[size] - spanActions - 1;
 
     return (
         <Row align="middle" className={cn(styles.root, className)}>
             <Col span={spanIcon[size]}>
                 <BookFilled className={styles.icon} style={styleIcon[size]} />
             </Col>
-            <Col className={styles.details} style={styleDetails[size]} flex="auto">
+            <Col className={styles.details} style={styleDetails[size]} span={spanDetails}>
                 {titleAsLink ? <Link to={`/book/${data.id}`}>{title}</Link> : <span>{title}</span>}
 
                 <span className={styles.detailsDescription}>

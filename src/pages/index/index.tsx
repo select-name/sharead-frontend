@@ -126,7 +126,12 @@ const Books = () => {
         <Row className={styles.books} justify="space-between">
             {booksQuery.map((book) => (
                 <Col key={book.id} className={styles.booksItem} span={6}>
-                    <BookCard data={book} size="small" className={styles.booksItemCard} />
+                    <BookCard
+                        data={book}
+                        size="small"
+                        className={styles.booksItemCard}
+                        withActions={false}
+                    />
                 </Col>
             ))}
         </Row>

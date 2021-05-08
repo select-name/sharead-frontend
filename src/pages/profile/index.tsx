@@ -161,8 +161,8 @@ const Section = (props: SectionProps) => {
             <Row gutter={[10, 10]} wrap={false} className={styles.contentSectionList}>
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
                 {books.map((book) => (
-                    <Col key={book.id} span={7}>
-                        <BookCard data={book} size="small" />
+                    <Col key={book.id} span={8}>
+                        <BookCard data={book} size="small" withActions={false} />
                     </Col>
                 ))}
             </Row>
