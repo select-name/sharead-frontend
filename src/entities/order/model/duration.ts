@@ -6,7 +6,13 @@ export const setBookDuration = createEvent<{ bookId: number; duration: number | 
 
 export const DEFAULT_DURATION = 14;
 
-export const initialState: Record<number, number | undefined> = {};
+export const initialState = books.initialState.reduce(
+    (acc: Record<number, number | undefined>, it) => {
+        acc[it] = DEFAULT_DURATION;
+        return acc;
+    },
+    {},
+);
 export const $store = createStore<typeof initialState>(initialState)
     .on(setBookDuration, (state, { bookId, duration }) => {
         return { ...state, [bookId]: duration };

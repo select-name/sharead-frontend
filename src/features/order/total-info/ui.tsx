@@ -8,8 +8,26 @@ import { orderModel } from "entities/order";
 import { BookCard } from "entities/book";
 import styles from "./styles.module.scss";
 
+const useDurations = () => {
+    const durations = orderModel.duration.useOrderDurations();
+
+    const durationsSorted = Object.values(durations)
+        .filter(Boolean)
+        .sort((a, b) => Number(a) - Number(b)) as number[];
+
+    const from = durationsSorted[0];
+    const to = durationsSorted[durationsSorted.length - 1];
+
+    if (from === to) {
+        return `На ${from} дн.`;
+    }
+
+    return `На ${from}-${to} дн.`;
+};
 export const Form = () => {
     const order = orderModel.books.useOrder();
+    const totalDuration = useDurations();
+
     return (
         <section className={styles.section}>
             <Row justify="space-between" align="middle">
@@ -28,7 +46,7 @@ export const Form = () => {
             <Row align="middle" className={styles.details}>
                 <ClockCircleOutlined />
                 &nbsp;
-                <Typography.Text type="secondary">На 2-3 недели</Typography.Text>
+                <Typography.Text type="secondary">{totalDuration}</Typography.Text>
             </Row>
         </section>
     );
