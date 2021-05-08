@@ -2,8 +2,8 @@ import { useState } from "react";
 import { AutoComplete, Input } from "antd";
 import { useHistory, useLocation } from "react-router-dom";
 
-import type { AbstractBook } from "entities/types";
 import { BookRow } from "entities/book";
+import type { AbstractBook } from "shared/api";
 import { fakeApi } from "shared/api";
 import { useSearchParam } from "../../params";
 

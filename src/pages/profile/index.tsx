@@ -11,9 +11,9 @@ import type { ReactNode } from "react";
 import pluralize from "plural-ru";
 
 import { Header, Footer, Wallet } from "features";
-import type { AbstractBook, User } from "entities/types";
 import { useViewer } from "entities/viewer";
 import { BookCard } from "entities/book";
+import type { AbstractBook, User } from "shared/api";
 import { Tile } from "shared/ui";
 import { fakeApi } from "shared/api";
 import { dom } from "shared/lib";

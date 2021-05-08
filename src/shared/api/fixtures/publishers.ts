@@ -1,4 +1,4 @@
-import type { Publisher } from "entities/types";
+import type { Publisher } from "../types";
 
 export const AST: Publisher = {
     id: 1,

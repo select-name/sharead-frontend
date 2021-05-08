@@ -1,4 +1,4 @@
-import type { Author } from "entities/types";
+import type { Author } from "../types";
 
 export const TOLSTOY: Author = {
     id: 1,

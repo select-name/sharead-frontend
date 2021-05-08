@@ -9,9 +9,9 @@ import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
 import { Header, Footer } from "features";
-import type { AbstractBook } from "entities/types";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
+import type { AbstractBook } from "shared/api";
 import { fakeApi } from "shared/api";
 import { dom, alert } from "shared/lib";
 import styles from "./styles.module.scss";

@@ -1,4 +1,4 @@
-import type { AbstractBook } from "entities/types";
+import type { AbstractBook } from "../types";
 import * as authors from "./authors";
 import * as publishers from "./publishers";
 import * as categories from "./categories";

@@ -1,4 +1,4 @@
-import type { User } from "entities/types";
+import type { User } from "../types";
 import * as roles from "./roles";
 import * as books from "./books";
 import * as orders from "./orders";

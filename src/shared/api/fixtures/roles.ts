@@ -1,4 +1,4 @@
-import type { Role } from "entities/types";
+import type { Role } from "../types";
 
 export const USER: Role = {
     id: 1,

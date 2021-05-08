@@ -1,4 +1,4 @@
-import type { Category } from "entities/types";
+import type { Category } from "../types";
 
 // Художественные
 // Бизнес-литература

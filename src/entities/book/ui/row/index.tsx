@@ -4,7 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
 
-import type { AbstractBook } from "entities/types";
+import type { AbstractBook } from "shared/api";
 import { fakeApi } from "shared/api";
 import styles from "./styles.module.scss";
 
