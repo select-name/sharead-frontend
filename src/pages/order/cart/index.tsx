@@ -5,11 +5,8 @@ import { Header, Footer, Order } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { orderModel } from "entities/order";
 import { TariffRadio } from "entities/tariff";
-import { dom, alert } from "shared/lib";
+import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
-
-// !!! FIXME: split by features!
-// TODO: Add skeletons loader
 
 /**
  * @page Страница текущей корзины заказа
@@ -34,7 +31,8 @@ const CartPage = () => {
 };
 
 const Content = () => {
-    const order = orderModel.useOrder();
+    const order = orderModel.books.useOrder();
+    const durations = orderModel.duration.useOrderDurations();
 
     return (
         <Layout className={styles.content}>
@@ -55,7 +53,15 @@ const Content = () => {
                                 actions={
                                     <>
                                         <Order.Actions.DeleteBook bookId={book.id} />
-                                        <TariffRadio onChange={alert.success} />
+                                        <TariffRadio
+                                            onChange={(value) =>
+                                                orderModel.duration.setBookDuration({
+                                                    bookId: book.id,
+                                                    duration: value,
+                                                })
+                                            }
+                                            value={durations[book.id]}
+                                        />
                                     </>
                                 }
                             />
