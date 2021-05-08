@@ -1,22 +1,22 @@
 import { Card } from "antd";
-import { BookFilled, ShoppingCartOutlined, HeartOutlined } from "@ant-design/icons";
+import { BookFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import type { CSSProperties, ReactNode } from "react";
 import cn from "classnames";
 
-import type { CSSProperties } from "react";
 import type { AbstractBook } from "entities/types";
 import * as fapi from "shared/fixtures";
-import { alert, string } from "shared/lib";
+import { string } from "shared/lib";
 import styles from "./styles.module.scss";
 
 type Size = "default" | "small" | "mini";
 
 type Props = {
     data: AbstractBook;
-    children?: import("react").ReactNode;
+    children?: ReactNode;
     className?: string;
     size?: Size;
-    withActions?: boolean;
+    actions?: ReactNode;
 };
 
 const bodyStyle: Record<Size, CSSProperties> = {
@@ -43,7 +43,7 @@ const imgStyle: Record<Size, CSSProperties> = {
 // FIXME:
 // eslint-disable-next-line max-lines-per-function
 const BookCard = (props: Props) => {
-    const { data: b, className, size = "default", withActions = true, children } = props;
+    const { data: b, className, size = "default", children, actions } = props;
     const author = b.authors.map(fapi.authors.getShortname).join(", ");
     const publisher = `${b.publishingHouse.name}`;
     const title = `${author} — ${b.name}`;
@@ -61,7 +61,7 @@ const BookCard = (props: Props) => {
             bodyStyle={bodyStyle[size]}
             cover={<BookFilled style={imgStyle[size]} />}
             className={cn(styles.root, styles[`bookCard${string.capitalize(size)}`], className)}
-            actions={withActions && !isMini ? getActions(title) : undefined}
+            actions={isMini || !actions ? undefined : [<div key="actions">{actions}</div>]}
         >
             {/* FIXME: Поправить разметку */}
             <Card.Meta
@@ -85,8 +85,8 @@ const BookCard = (props: Props) => {
     );
 };
 
-const getActions = (title: string) => [
-    <HeartOutlined key="fav" onClick={() => alert.success("Добавлено в избранное", title)} />,
-    <ShoppingCartOutlined key="cart" onClick={() => alert.success("Добавлено к заказу", title)} />,
-];
+// const getActions = (title: string) => [
+//     <HeartOutlined key="fav" onClick={() => alert.success("Добавлено в избранное", title)} />,
+// ];
+
 export default BookCard;

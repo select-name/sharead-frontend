@@ -59,8 +59,7 @@ const Content = () => {
                             <BookRowCard
                                 data={book}
                                 size="large"
-                                withActions={false}
-                                extra={<TariffRadio onChange={alert.success} />}
+                                actions={<TariffRadio onChange={alert.success} />}
                             />
                         </Col>
                     ))}
