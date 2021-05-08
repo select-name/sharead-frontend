@@ -1,23 +1,22 @@
-import { createEvent, createStore } from "effector";
+import { createStore } from "effector";
 import { useStore, useStoreMap } from "effector-react";
 
 import { bookModel } from "entities/book";
 import * as fapi from "shared/fixtures";
-
-export const toggleBook = createEvent<number>();
+import * as events from "./events";
 
 // FIXME: fetch later by API
-export const initialState = fapi.orders.getOrderBooks().map((it) => it.id);
+// export const initialState = fapi.orders.getOrderBooks().map((it) => it.id);
+export const initialState: number[] = [];
 
-export const $store = createStore<typeof initialState>(initialState).on(
-    toggleBook,
-    (state, payload) => {
+export const $store = createStore<typeof initialState>(initialState)
+    .on(events.toggleBook, (state, payload) => {
         if (state.includes(payload)) {
             return state.filter((it) => it !== payload);
         }
         return [...state, payload];
-    },
-);
+    })
+    .reset(events.submitOrder);
 
 export const useOrderBooks = () => {
     const books = bookModel.useBooks();
@@ -28,7 +27,7 @@ export const useOrderBooks = () => {
 // FIXME: useStoreMap instea
 export const useOrder = () => {
     const books = useOrderBooks();
-    const price = books.map(fapi.books.getPseudoPrice).reduce((a, b) => a + b);
+    const price = books.map(fapi.books.getPseudoPrice).reduce((a, b) => a + b, 0);
 
     return { books, price };
 };

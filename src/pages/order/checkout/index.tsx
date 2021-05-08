@@ -119,9 +119,10 @@ const Sidebar = () => {
                     disabled={!validation.isEnoughMoney}
                     title={validation.message}
                     onClick={() =>
-                        viewer.payment
-                            .applyTransaction(-order.price)
-                            .then(() => history.push("/order/result"))
+                        viewer.payment.applyTransaction(-order.price).then(() => {
+                            orderModel.events.submitOrder();
+                            history.push("/order/result");
+                        })
                     }
                     loading={viewer.payment.isPending}
                 >

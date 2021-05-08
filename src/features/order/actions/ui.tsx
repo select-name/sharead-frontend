@@ -14,7 +14,7 @@ export const AddBook = ({ bookId }: Props) => {
         <Button
             type={isBookInCart ? "dashed" : "primary"}
             icon={<ShoppingOutlined />}
-            onClick={() => orderModel.books.toggleBook(bookId)}
+            onClick={() => orderModel.events.toggleBook(bookId)}
             block
         >
             {isBookInCart ? "Убрать из корзины" : "В корзину"}
@@ -26,7 +26,7 @@ export const AddBookMini = ({ bookId }: Props) => {
     const { isBookInCart } = orderModel.books.useBookStatus(bookId);
 
     const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
-    return <Icon style={{ fontSize: 20 }} onClick={() => orderModel.books.toggleBook(bookId)} />;
+    return <Icon style={{ fontSize: 20 }} onClick={() => orderModel.events.toggleBook(bookId)} />;
 };
 
 export const DeleteBook = ({ bookId }: Props) => {
@@ -44,7 +44,7 @@ export const DeleteBook = ({ bookId }: Props) => {
                     cancelText: "Нет",
                     okType: "danger",
                     onOk() {
-                        orderModel.books.toggleBook(bookId);
+                        orderModel.events.toggleBook(bookId);
                     },
                 })
             }

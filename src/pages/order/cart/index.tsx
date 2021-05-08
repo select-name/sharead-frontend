@@ -55,7 +55,7 @@ const Content = () => {
                                         <Order.Actions.DeleteBook bookId={book.id} />
                                         <TariffRadio
                                             onChange={(value) =>
-                                                orderModel.duration.setBookDuration({
+                                                orderModel.events.setBookDuration({
                                                     bookId: book.id,
                                                     duration: value,
                                                 })

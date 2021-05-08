@@ -8,15 +8,19 @@ import { orderModel } from "entities/order";
 import { BookCard } from "entities/book";
 import styles from "./styles.module.scss";
 
+export const PLACEHOLDER = "Пустой заказ";
+
 const useDurations = () => {
     const durations = orderModel.duration.useOrderDurations();
 
-    const durationsSorted = Object.values(durations)
-        .filter(Boolean)
-        .sort((a, b) => Number(a) - Number(b)) as number[];
+    const durationsSorted = Object.values(durations).sort((a, b) => a - b);
 
     const from = durationsSorted[0];
     const to = durationsSorted[durationsSorted.length - 1];
+
+    if (durationsSorted.length === 0) {
+        return PLACEHOLDER;
+    }
 
     if (from === to) {
         return `На ${from} дн.`;
@@ -40,7 +44,9 @@ export const Form = () => {
                 <BookOutlined />
                 &nbsp;
                 <Typography.Text type="secondary">
-                    {pluralize(order.books.length, "%d книга", "%d книги", "%d книг")}
+                    {order.books.length
+                        ? pluralize(order.books.length, "%d книга", "%d книги", "%d книг")
+                        : PLACEHOLDER}
                 </Typography.Text>
             </Row>
             <Row align="middle" className={styles.details}>
