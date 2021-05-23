@@ -24,13 +24,9 @@ const useToggleBook = (bookId: number) => {
 export const AddBook = ({ bookId }: Props) => {
     const { handleToggle, isBookInCart } = useToggleBook(bookId);
 
+    const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
     return (
-        <Button
-            type={isBookInCart ? "dashed" : "primary"}
-            icon={<ShoppingOutlined />}
-            onClick={handleToggle}
-            block
-        >
+        <Button type="primary" icon={<Icon />} onClick={handleToggle} block>
             {isBookInCart ? "Убрать из заказа" : "В заказ"}
         </Button>
     );

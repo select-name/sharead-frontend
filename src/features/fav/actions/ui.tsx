@@ -25,13 +25,9 @@ const useToggleBook = (bookId: number) => {
 export const AddBook = ({ bookId }: Props) => {
     const { handleToggle, isBookFav } = useToggleBook(bookId);
 
+    const Icon = isBookFav ? HeartFilled : HeartOutlined;
     return (
-        <Button
-            type={isBookFav ? "dashed" : "primary"}
-            block
-            icon={<HeartOutlined />}
-            onClick={handleToggle}
-        >
+        <Button block icon={<Icon />} onClick={handleToggle}>
             {isBookFav ? "Убрать из избранного" : "В избранное"}
         </Button>
     );
