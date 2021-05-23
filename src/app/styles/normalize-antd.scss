@@ -65,3 +65,10 @@
 // .ant-typography + .ant-typography {
 //     margin: 0;
 // }
+
+.ant-anchor {
+    &,
+    &-link-title {
+        color: inherit;
+    }
+}

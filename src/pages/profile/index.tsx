@@ -1,4 +1,4 @@
-import { Typography, Layout, Avatar, Row, Col, Divider, Empty, Button } from "antd";
+import { Typography, Layout, Avatar, Row, Col, Divider, Empty, Button, Anchor } from "antd";
 import {
     UserOutlined,
     CheckCircleOutlined,
@@ -36,6 +36,7 @@ const ProfilePage = () => {
                 <Layout>
                     <Aside />
                     <Content />
+                    <Sidebar />
                 </Layout>
             </Layout.Content>
             <Footer />
@@ -108,6 +109,19 @@ const EmailVerified = ({ emailVerified }: { emailVerified: boolean }) => {
     }
 
     return <ClockCircleOutlined title="Ожидает подтверждения" style={{ color: "red" }} />;
+};
+
+const Sidebar = () => {
+    return (
+        <Layout.Sider width={150}>
+            <Anchor className={styles.sidebarAnchor}>
+                <Anchor.Link href="#my" title="Мои книги" />
+                <Anchor.Link href="#opened" title="В аренде" />
+                <Anchor.Link href="#reserved" title="Забронированы" />
+                <Anchor.Link href="#closed" title="История аренды" />
+            </Anchor>
+        </Layout.Sider>
+    );
 };
 
 // eslint-disable-next-line max-lines-per-function
