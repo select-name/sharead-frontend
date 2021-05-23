@@ -139,7 +139,7 @@ const Section = (props: SectionProps) => {
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
                 {books.map((book, idx) => (
                     <Col key={book.id} span={8}>
-                        <BookCard data={book} size="small">
+                        <BookCard data={book} size="small" withPrice={false}>
                             {renderBookDetails?.(book, idx)}
                         </BookCard>
                     </Col>

@@ -1,7 +1,6 @@
-import { Modal, Button, Row, Col, Card, Descriptions } from "antd";
+import { Modal, Button, Row, Card, Descriptions } from "antd";
 import dayjs from "dayjs";
 
-import { BookRow } from "entities/book";
 import { fakeApi } from "shared/api";
 import { hooks } from "shared/lib";
 
