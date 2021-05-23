@@ -1,4 +1,4 @@
-import { Typography, Layout, Row, Col, Button } from "antd";
+import { Typography, Layout, Row, Col, Button, Empty } from "antd";
 import { Link } from "react-router-dom";
 
 import { Header, Footer, Cart, Fav } from "features";
@@ -68,6 +68,9 @@ const Content = () => {
                         </Col>
                     ))}
                 </Row>
+                {!order.books.length && (
+                    <Empty className={styles.placeholder} description="Заказ пустой" />
+                )}
             </section>
             <section className={styles.contentSection}>
                 <RecommendationsSection />
@@ -78,6 +81,8 @@ const Content = () => {
 
 const RecommendationsSection = () => {
     const recommended = orderModel.cart.useRecommended();
+
+    if (!recommended.books) return null;
 
     return (
         <>
