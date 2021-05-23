@@ -2,34 +2,53 @@ import { Button, Modal } from "antd";
 import { ShoppingOutlined, ShoppingFilled } from "@ant-design/icons";
 
 import { orderModel } from "entities/order";
+import { bookModel } from "entities/book";
+import { alert } from "shared/lib";
 
 type Props = {
     bookId: number;
 };
 
+const useToggleBook = (bookId: number) => {
+    const { isBookInCart } = orderModel.books.useBookStatus(bookId);
+    const book = bookModel.useBook(bookId);
+
+    const handleToggle = () => {
+        alert.info(
+            `Книга "${book?.name}" ${isBookInCart ? "удалена из заказа" : "добавлена в заказ"}`,
+        );
+        orderModel.events.toggleBook(bookId);
+    };
+
+    return { handleToggle };
+};
 export const AddBook = ({ bookId }: Props) => {
     const { isBookInCart } = orderModel.books.useBookStatus(bookId);
+    const { handleToggle } = useToggleBook(bookId);
 
     return (
         <Button
             type={isBookInCart ? "dashed" : "primary"}
             icon={<ShoppingOutlined />}
-            onClick={() => orderModel.events.toggleBook(bookId)}
+            onClick={handleToggle}
             block
         >
-            {isBookInCart ? "Убрать из корзины" : "В корзину"}
+            {isBookInCart ? "Убрать из заказа" : "В заказ"}
         </Button>
     );
 };
 
 export const AddBookMini = ({ bookId }: Props) => {
     const { isBookInCart } = orderModel.books.useBookStatus(bookId);
+    const { handleToggle } = useToggleBook(bookId);
 
     const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
-    return <Icon style={{ fontSize: 20 }} onClick={() => orderModel.events.toggleBook(bookId)} />;
+    return <Icon style={{ fontSize: 20 }} onClick={handleToggle} />;
 };
 
 export const DeleteBook = ({ bookId }: Props) => {
+    const { handleToggle } = useToggleBook(bookId);
+
     return (
         <Button
             type="ghost"
@@ -37,14 +56,14 @@ export const DeleteBook = ({ bookId }: Props) => {
             icon={<ShoppingFilled />}
             onClick={() =>
                 Modal.confirm({
-                    title: "Вы точно хотите удалить книгу из корзины?",
+                    title: "Вы точно хотите удалить книгу из заказа?",
                     icon: <ShoppingFilled />,
                     content: "Действие нельзя будет отменить",
                     okText: "Да",
                     cancelText: "Нет",
                     okType: "danger",
                     onOk() {
-                        orderModel.events.toggleBook(bookId);
+                        handleToggle();
                     },
                 })
             }
