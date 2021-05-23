@@ -330,6 +330,9 @@ export const getAll = () =>
         GOT__STORM_OF_SWORDS_2018,
     ].sort((a, b) => a.id - b.id);
 
+export const getByIds = (bookIds: number[]) => {
+    return getAll().filter((b) => bookIds.includes(b.id));
+};
 export const toString = (entity: AbstractBook) => {
     const author = entity.authors.map(authors.getShortname).join(", ");
     const publisher = publishers.toString(entity.publishingHouse);

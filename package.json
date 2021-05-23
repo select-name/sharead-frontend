@@ -17,6 +17,7 @@
     "dayjs": "^1.10.4",
     "effector": "^21.8.11",
     "effector-react": "^21.3.2",
+    "faker": "^5.5.3",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "plural-ru": "^2.0.2",
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "@types/compose-function": "0.0.30",
+    "@types/faker": "^5.5.5",
     "@types/react-router": "^5.1.13",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-router-hash-link": "^2.4.0",

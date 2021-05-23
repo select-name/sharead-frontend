@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import faker from "faker";
 import App from "./app";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
+
+faker.locale = "en";
 
 ReactDOM.render(
     <React.StrictMode>

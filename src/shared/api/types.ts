@@ -73,6 +73,13 @@ export type AbstractBook = {
     category: Category;
 };
 
+export type Book = {
+    id: number;
+    abstractBook: AbstractBook;
+    costPerDay: number;
+    owner: User;
+};
+
 export type Category = {
     id: number;
     name: string;
