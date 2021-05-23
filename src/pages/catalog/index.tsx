@@ -3,10 +3,8 @@ import { Typography, Layout } from "antd";
 import { Header, Footer } from "features";
 import { dom } from "shared/lib";
 import Content from "./content";
-import Sidebar from "./sidebar";
-// FIXME: Не умеет обрабатывать jpg!
-// import ImgPlaceholder from "./book-placeholder.jpg";
 import styles from "./styles.module.scss";
+import Sidebar from "./sidebar";
 
 // !!! FIXME: split by features!
 // TODO: Add skeletons loader

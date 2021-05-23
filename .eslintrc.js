@@ -13,7 +13,7 @@ const DENIED_PATH_GROUPS = [
     "pages/*/**",
     "features/*/**",
     "entities/*/**",
-    "shared/*/**",
+    "shared/*/*/**",
     // Prefer absolute imports instead of relatives (for root modules)
     "../**/app",
     "../**/pages",

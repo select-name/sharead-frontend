@@ -41,6 +41,7 @@ const AddFundsForm = ({ className }: Props) => {
                 block
                 // href="#redirect-to-payment-service"
                 onClick={() => {
+                    // eslint-disable-next-line no-restricted-globals
                     viewer.payment.applyTransaction(money).then(() => location.reload());
                 }}
                 loading={viewer.payment.isPending}
