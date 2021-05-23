@@ -13,6 +13,7 @@ import { useViewer } from "entities/viewer";
 import { BookCard } from "entities/book";
 import type { AbstractBook } from "shared/api";
 import * as lib from "../lib";
+import { TOPIC_CLOSED, TOPIC_MY, TOPIC_OPENED, TOPIC_RESERVED } from "../config";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
@@ -21,9 +22,9 @@ export const Content = () => {
     return (
         <Layout className={styles.root}>
             <Section
-                id="my"
-                title="Мои книги"
-                description="Добавленные мною в сервис"
+                id={TOPIC_MY.id}
+                title={TOPIC_MY.fullTitle}
+                description={TOPIC_MY.description}
                 books={viewer.books}
                 Icon={DollarOutlined}
                 titleAfter={
@@ -42,9 +43,9 @@ export const Content = () => {
                 }}
             />
             <Section
-                id="opened"
-                title="Арендованные книги"
-                description="Книги на руках"
+                id={TOPIC_OPENED.id}
+                title={TOPIC_OPENED.fullTitle}
+                description={TOPIC_OPENED.description}
                 books={viewer.openedOrders}
                 Icon={ShoppingOutlined}
                 renderBookDetails={(b) => {
@@ -72,9 +73,9 @@ export const Content = () => {
                 }}
             />
             <Section
-                id="reserved"
-                title="Забронированные книги"
-                description="Добавленные в очередь на аренду"
+                id={TOPIC_RESERVED.id}
+                title={TOPIC_RESERVED.fullTitle}
+                description={TOPIC_RESERVED.description}
                 books={viewer.reservations}
                 Icon={ClockCircleOutlined}
                 renderBookDetails={(b) => {
@@ -93,9 +94,9 @@ export const Content = () => {
                 }}
             />
             <Section
-                id="closed"
-                title="История аренды"
-                description="Книги с прошлых заказов"
+                id={TOPIC_CLOSED.id}
+                title={TOPIC_CLOSED.fullTitle}
+                description={TOPIC_CLOSED.description}
                 books={viewer.closedOrders}
                 Icon={CheckCircleOutlined}
             />
