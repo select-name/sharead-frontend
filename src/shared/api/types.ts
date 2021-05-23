@@ -8,7 +8,7 @@ export type User = {
     // closedOrders: Order[];
     // openedOrders: Order[];
     // reservations: Reservation[];
-    closedOrders: AbstractBook[];
+    closedOrders: number[];
     openedOrders: number[];
     reservations: AbstractBook[];
     email: string;

@@ -92,7 +92,7 @@ export const Content = () => {
                 id={TOPIC_CLOSED.id}
                 title={TOPIC_CLOSED.fullTitle}
                 description={TOPIC_CLOSED.description}
-                books={viewer.closedOrders}
+                books={viewerOrders.closedBooks}
                 Icon={CheckCircleOutlined}
                 active={TOPIC_CLOSED.id === currentAnchor}
             />

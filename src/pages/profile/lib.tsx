@@ -9,7 +9,10 @@ export const getStats = (viewer: User) => [
     {
         key: "saved",
         label: "Сэкономлено",
-        value: `${viewer.closedOrders
+        value: `${fakeApi.orders
+            .getByIds(viewer.closedOrders)
+            .map((o) => o.bookId)
+            .map((id) => fakeApi.books.getByIds([id])[0])
             .map(fakeApi.books.getPseudoPrice)
             // Если учитывать, что цена на книгу уменьшается в среднем в 6 раз по сравнению с оригиналом
             .map((p) => p * (6 - 1))

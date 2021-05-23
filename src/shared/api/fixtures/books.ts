@@ -399,7 +399,6 @@ export const isPopular = (book: AbstractBook) =>
 // FIXME: @temp @hardcoded @lowCoupling
 
 export const orders = {
-    getOrderBooks: () => [N1984_2013, CLEAN_CODE_2019, BLACK_SWAN_2021],
     getRecommendedBooks: () => [
         BRAVE_NEW_WORLD_2017,
         PERFECT_PROGRAMMER_2021,
