@@ -14,14 +14,14 @@ export const TOPIC_OPENED = {
 
 export const TOPIC_RESERVED = {
     id: "reserved",
-    title: "Забронированы",
+    title: "Бронь",
     fullTitle: "Забронированные книги",
     description: "Добавленные в очередь на аренду",
 };
 
 export const TOPIC_CLOSED = {
     id: "closed",
-    title: "История аренды",
+    title: "История",
     fullTitle: "История аренды",
     description: "Книги с прошлых заказов",
 };

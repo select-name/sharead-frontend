@@ -8,6 +8,8 @@ import {
     HeartOutlined,
 } from "@ant-design/icons";
 import type { ReactNode } from "react";
+import { useLocation } from "react-router-dom";
+import cn from "classnames";
 import pluralize from "plural-ru";
 
 import { viewerModel } from "entities/viewer";
@@ -21,6 +23,7 @@ import styles from "./styles.module.scss";
 export const Content = () => {
     const viewer = viewerModel.useViewer();
     const favBooks = viewerModel.useFavBooks();
+    const currentAnchor = useLocation().hash.slice(1);
 
     return (
         <Layout className={styles.root}>
@@ -30,6 +33,7 @@ export const Content = () => {
                 description={TOPIC_MY.description}
                 books={viewer.books}
                 Icon={DollarOutlined}
+                active={TOPIC_MY.id === currentAnchor}
                 titleAfter={
                     <Button title="Добавить книгу в сервис" icon={<PlusOutlined />} type="primary">
                         Добавить
@@ -51,6 +55,7 @@ export const Content = () => {
                 description={TOPIC_OPENED.description}
                 books={viewer.openedOrders}
                 Icon={ShoppingOutlined}
+                active={TOPIC_OPENED.id === currentAnchor}
                 renderBookDetails={(b) => {
                     const { status, statusId } = lib.getRentedBookStat(b);
 
@@ -81,6 +86,7 @@ export const Content = () => {
                 description={TOPIC_RESERVED.description}
                 books={viewer.reservations}
                 Icon={ClockCircleOutlined}
+                active={TOPIC_RESERVED.id === currentAnchor}
                 renderBookDetails={(b) => {
                     const queueIdx = Math.floor(b.name.length / 2);
                     return (
@@ -102,6 +108,7 @@ export const Content = () => {
                 description={TOPIC_CLOSED.description}
                 books={viewer.closedOrders}
                 Icon={CheckCircleOutlined}
+                active={TOPIC_CLOSED.id === currentAnchor}
             />
             <Section
                 id={TOPIC_FAV.id}
@@ -109,6 +116,7 @@ export const Content = () => {
                 description={TOPIC_FAV.description}
                 books={favBooks}
                 Icon={HeartOutlined}
+                active={TOPIC_FAV.id === currentAnchor}
             />
         </Layout>
     );
@@ -123,13 +131,14 @@ type SectionProps = {
     // FIXME: specify later
     Icon: typeof CheckCircleOutlined;
     books: AbstractBook[];
+    active?: boolean;
 };
 
 const Section = (props: SectionProps) => {
-    const { title, description, books, Icon, id, renderBookDetails, titleAfter } = props;
+    const { title, description, books, Icon, id, renderBookDetails, titleAfter, active } = props;
 
     return (
-        <section className={styles.section} id={id}>
+        <section className={cn(styles.section, { [styles.sectionActive]: active })} id={id}>
             <Row justify="space-between">
                 <Typography.Title level={3} className={styles.sectionTitle}>
                     <a href={`#${id}`}>#</a>
