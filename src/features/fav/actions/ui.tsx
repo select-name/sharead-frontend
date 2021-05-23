@@ -1,21 +1,45 @@
 import { Button } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
+import { viewerModel } from "entities/viewer";
+import { bookModel } from "entities/book";
 import { alert } from "shared/lib";
 
-export const AddBook = () => (
-    <Button
-        block
-        icon={<HeartOutlined />}
-        onClick={() => alert.info("[mock] Добавлено в избранное")}
-    >
-        В избранное
-    </Button>
-);
+type Props = {
+    bookId: number;
+};
 
-export const AddBookMini = () => (
-    <HeartOutlined
-        style={{ fontSize: 20 }}
-        onClick={() => alert.info("[mock] Добавлено в избранное")}
-    />
-);
+const useToggleBook = (bookId: number) => {
+    const { isBookFav } = viewerModel.useBookFavStatus(bookId);
+    const book = bookModel.useBook(bookId);
+
+    const handleToggle = () => {
+        const action = isBookFav ? "Удалено из избранного" : "Добавлено в избранное";
+        alert.info(`${book?.name}`, action, <HeartOutlined />);
+        viewerModel.events.toggleBook(bookId);
+    };
+
+    return { handleToggle, isBookFav };
+};
+
+export const AddBook = ({ bookId }: Props) => {
+    const { handleToggle, isBookFav } = useToggleBook(bookId);
+
+    return (
+        <Button
+            type={isBookFav ? "dashed" : "primary"}
+            block
+            icon={<HeartOutlined />}
+            onClick={handleToggle}
+        >
+            {isBookFav ? "Убрать из избранного" : "В избранное"}
+        </Button>
+    );
+};
+
+export const AddBookMini = ({ bookId }: Props) => {
+    const { handleToggle, isBookFav } = useToggleBook(bookId);
+
+    const Icon = isBookFav ? HeartFilled : HeartOutlined;
+    return <Icon style={{ fontSize: 20 }} onClick={handleToggle} />;
+};

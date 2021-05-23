@@ -14,17 +14,15 @@ const useToggleBook = (bookId: number) => {
     const book = bookModel.useBook(bookId);
 
     const handleToggle = () => {
-        alert.info(
-            `Книга "${book?.name}" ${isBookInCart ? "удалена из заказа" : "добавлена в заказ"}`,
-        );
+        const action = isBookInCart ? "Удалено из заказа" : "Добавлено в заказ";
+        alert.info(`${book?.name}`, action, <ShoppingOutlined />);
         orderModel.events.toggleBook(bookId);
     };
 
-    return { handleToggle };
+    return { handleToggle, isBookInCart };
 };
 export const AddBook = ({ bookId }: Props) => {
-    const { isBookInCart } = orderModel.books.useBookStatus(bookId);
-    const { handleToggle } = useToggleBook(bookId);
+    const { handleToggle, isBookInCart } = useToggleBook(bookId);
 
     return (
         <Button
@@ -39,8 +37,7 @@ export const AddBook = ({ bookId }: Props) => {
 };
 
 export const AddBookMini = ({ bookId }: Props) => {
-    const { isBookInCart } = orderModel.books.useBookStatus(bookId);
-    const { handleToggle } = useToggleBook(bookId);
+    const { handleToggle, isBookInCart } = useToggleBook(bookId);
 
     const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
     return <Icon style={{ fontSize: 20 }} onClick={handleToggle} />;

@@ -72,11 +72,9 @@ const CatalogContent = () => {
                                         <BookCard
                                             data={b}
                                             actions={[
-                                                <Fav.Actions.AddBookMini key="fav" />,
-                                                <Order.Actions.AddBookMini
-                                                    bookId={b.id}
-                                                    key="order"
-                                                />,
+                                                <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
+                                                // prettier-ignore
+                                                <Order.Actions.AddBookMini key="order" bookId={b.id} />,
                                             ]}
                                         />
                                     )}
@@ -86,7 +84,7 @@ const CatalogContent = () => {
                                             size="large"
                                             actions={
                                                 <>
-                                                    <Fav.Actions.AddBook />
+                                                    <Fav.Actions.AddBook bookId={b.id} />
                                                     <Order.Actions.AddBook bookId={b.id} />
                                                 </>
                                             }

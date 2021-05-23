@@ -143,7 +143,7 @@ const Checkout = ({ book }: BookProps) => {
                     </p>
                 </div>
                 <div className={styles.checkoutActions}>
-                    <Fav.Actions.AddBook />
+                    <Fav.Actions.AddBook bookId={book.id} />
                     <Order.Actions.AddBook bookId={book.id} />
                     <TariffRadio onChange={alert.info} withTitle={false} disabled />
                 </div>

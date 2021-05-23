@@ -95,8 +95,8 @@ const RecommendationsSection = () => {
                             size="small"
                             className={styles.recommendsFeedItem}
                             actions={[
-                                <Fav.Actions.AddBookMini key="fav" />,
-                                <Order.Actions.AddBookMini bookId={b.id} key="order" />,
+                                <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
+                                <Order.Actions.AddBookMini key="order" bookId={b.id} />,
                             ]}
                             withDescription
                         />

@@ -8,8 +8,9 @@ import { notification } from "antd";
 const generateOpener = (type: import("antd/lib/notification").IconType) => (
     message: any,
     description?: any,
+    icon?: import("react").ReactNode,
 ) => {
-    notification.open({ type, message, description, placement: "bottomRight" });
+    notification.open({ type, message, description, placement: "bottomRight", icon });
 };
 
 const error = generateOpener("error");
