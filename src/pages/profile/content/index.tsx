@@ -10,9 +10,8 @@ import {
 import type { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import cn from "classnames";
-import pluralize from "plural-ru";
 
-import { viewerModel } from "entities/viewer";
+import { viewerModel, viewerLib } from "entities/viewer";
 import { BookCard } from "entities/book";
 import type { AbstractBook } from "shared/api";
 import * as lib from "../lib";
@@ -22,6 +21,7 @@ import styles from "./styles.module.scss";
 // eslint-disable-next-line max-lines-per-function
 export const Content = () => {
     const viewer = viewerModel.useViewer();
+    const viewerOrders = viewerModel.useViewerOrders();
     const favBooks = viewerModel.useFavBooks();
     const currentAnchor = useLocation().hash.slice(1);
 
@@ -53,29 +53,16 @@ export const Content = () => {
                 id={TOPIC_OPENED.id}
                 title={TOPIC_OPENED.fullTitle}
                 description={TOPIC_OPENED.description}
-                books={viewer.openedOrders}
+                books={viewerOrders.openedBooks}
                 Icon={ShoppingOutlined}
                 active={TOPIC_OPENED.id === currentAnchor}
-                renderBookDetails={(b) => {
-                    const { status, statusId } = lib.getRentedBookStat(b);
+                renderBookDetails={(_, idx) => {
+                    const order = viewerOrders.opened[idx];
 
                     return (
                         <ul>
-                            <li>{status}</li>
-                            <li>
-                                {statusId === 0 && "Будет доставлена через 3 дня"}
-                                {statusId === 1 && "Осталось: 4 дня"}
-                            </li>
-                            {/* <li>
-                                <sup>
-                                    <Typography.Text disabled>
-                                        <i>
-                                            Получите обратно на счет за возврат{" "}
-                                            <b>{fakeApi.books.getPseudoPrice(b) * 0.2} ₽</b>
-                                        </i>
-                                    </Typography.Text>
-                                </sup>
-                            </li> */}
+                            <li>{lib.STATUSES[order.status]}</li>
+                            <li>{viewerLib.getOrderInfo(order)}</li>
                         </ul>
                     );
                 }}
@@ -95,8 +82,7 @@ export const Content = () => {
                                 В очереди: <b>{queueIdx}</b>
                             </li>
                             <li>
-                                Время ожидания: ~{" "}
-                                <b>{pluralize(queueIdx * 7, "%d день", "%d дня", "%d дней")}</b>
+                                Время ожидания: ~ <b>{viewerLib.getDaysLabel(queueIdx * 7)}</b>
                             </li>
                         </ul>
                     );
@@ -127,7 +113,7 @@ type SectionProps = {
     title: ReactNode;
     titleAfter?: ReactNode;
     description: ReactNode;
-    renderBookDetails?: (book: AbstractBook) => ReactNode;
+    renderBookDetails?: (book: AbstractBook, idx: number) => ReactNode;
     // FIXME: specify later
     Icon: typeof CheckCircleOutlined;
     books: AbstractBook[];
@@ -151,10 +137,10 @@ const Section = (props: SectionProps) => {
             </Typography.Text>
             <Row gutter={[10, 10]} wrap={false} className={styles.sectionList}>
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
-                {books.map((book) => (
+                {books.map((book, idx) => (
                     <Col key={book.id} span={8}>
                         <BookCard data={book} size="small">
-                            {renderBookDetails?.(book)}
+                            {renderBookDetails?.(book, idx)}
                         </BookCard>
                     </Col>
                 ))}

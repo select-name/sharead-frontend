@@ -26,6 +26,17 @@ export const useViewer = () => {
     return fakeApi.users.__VIEWER;
 };
 
+export const useViewerOrders = () => {
+    const viewer = useViewer();
+    const opened = fakeApi.orders.getByIds(viewer.openedOrders);
+    const openedBooks = fakeApi.books.getByIds(opened.map((o) => o.bookId));
+
+    return {
+        opened,
+        openedBooks,
+    };
+};
+
 const WALLET_MONEY = 300;
 
 export const useViewerWallet = () => {

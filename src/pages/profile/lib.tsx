@@ -25,14 +25,21 @@ export const getStats = (viewer: User) => [
     },
 ];
 
+export const STATUSES = {
+    BUSY: <Typography.Text type="success">Арендуется</Typography.Text>,
+    FREE: <Typography.Text style={{ color: "#108ee9" }}>Свободна</Typography.Text>,
+    WAITING_TRANSFER: <Typography.Text type="warning">Ожидает передачи</Typography.Text>,
+    RENTED: <Typography.Text type="success">На руках</Typography.Text>,
+    CLOSED: <Typography.Text type="secondary">Аренда завершена</Typography.Text>,
+};
 export const ownStatuses: Record<number, ReactNode> = {
-    0: <Typography.Text type="success">Арендуется</Typography.Text>,
-    1: <Typography.Text style={{ color: "#108ee9" }}>Свободна</Typography.Text>,
+    0: STATUSES.BUSY,
+    1: STATUSES.FREE,
 };
 
 export const rentedStatuses: Record<number, ReactNode> = {
-    0: <Typography.Text type="warning">Ожидает передачи</Typography.Text>,
-    1: <Typography.Text type="success">На руках</Typography.Text>,
+    0: STATUSES.WAITING_TRANSFER,
+    1: STATUSES.RENTED,
 };
 
 // FIXME: temp!
