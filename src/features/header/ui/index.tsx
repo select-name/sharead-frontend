@@ -4,13 +4,14 @@ import {
     HeartOutlined,
     ShoppingCartOutlined,
     UserOutlined,
-    // FolderOpenOutlined,
+    FolderOpenOutlined,
     MenuOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 // !!! FIXME:
 import { Wallet } from "features/wallet";
+import { viewerModel } from "entities/viewer";
 import { orderModel } from "entities/order";
 import { ReactComponent as Logo } from "./logo.svg";
 import Search from "./search";
@@ -30,18 +31,19 @@ const actions = [
         url: "/catalog",
         disabled: false,
     },
-    // {
-    //     label: "Заказы",
-    //     Icon: FolderOpenOutlined,
-    //     url: "#orders",
-    //     disabled: true,
-    // },
+    {
+        id: "orders" as const,
+        label: "Заказы",
+        Icon: FolderOpenOutlined,
+        url: "/profile#opened",
+        disabled: false,
+    },
     {
         id: "fav" as const,
         label: "Избранное",
         Icon: HeartOutlined,
-        url: "#fav",
-        disabled: true,
+        url: "/profile#fav",
+        disabled: false,
     },
     {
         id: "cart" as const,
@@ -72,14 +74,17 @@ const LocationAlert = () => (
 
 // const NOT_AVAILABLE = "Пока что данный функционал не доступен";
 
+// eslint-disable-next-line max-lines-per-function
 const Header = (props: Props) => {
     const { className } = props;
     const orderTotal = orderModel.books.useOrderBooks().length;
+    const favTotal = viewerModel.useFavBooks().length;
 
     const count: Record<ActionId, number> = {
         cart: orderTotal,
         catalog: 0,
-        fav: 0,
+        orders: 0,
+        fav: favTotal,
         profile: 0,
     };
 
