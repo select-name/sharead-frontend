@@ -5,6 +5,7 @@ import {
     DollarOutlined,
     ShoppingOutlined,
     PlusOutlined,
+    HeartOutlined,
 } from "@ant-design/icons";
 import type { ReactNode } from "react";
 import pluralize from "plural-ru";
@@ -13,12 +14,14 @@ import { viewerModel } from "entities/viewer";
 import { BookCard } from "entities/book";
 import type { AbstractBook } from "shared/api";
 import * as lib from "../lib";
-import { TOPIC_CLOSED, TOPIC_MY, TOPIC_OPENED, TOPIC_RESERVED } from "../config";
+import { TOPIC_CLOSED, TOPIC_MY, TOPIC_OPENED, TOPIC_RESERVED, TOPIC_FAV } from "../config";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
 export const Content = () => {
     const viewer = viewerModel.useViewer();
+    const favBooks = viewerModel.useFavBooks();
+
     return (
         <Layout className={styles.root}>
             <Section
@@ -99,6 +102,13 @@ export const Content = () => {
                 description={TOPIC_CLOSED.description}
                 books={viewer.closedOrders}
                 Icon={CheckCircleOutlined}
+            />
+            <Section
+                id={TOPIC_FAV.id}
+                title={TOPIC_FAV.fullTitle}
+                description={TOPIC_FAV.description}
+                books={favBooks}
+                Icon={HeartOutlined}
             />
         </Layout>
     );

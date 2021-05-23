@@ -26,10 +26,18 @@ export const TOPIC_CLOSED = {
     description: "Книги с прошлых заказов",
 };
 
+export const TOPIC_FAV = {
+    id: "fav",
+    title: "Избранное",
+    fullTitle: "Книги в избранном",
+    description: "Понравившиеся книги",
+};
+
 // prettier-ignore
 export const topics = [
     TOPIC_MY,
     TOPIC_OPENED,
     TOPIC_RESERVED,
     TOPIC_CLOSED,
+    TOPIC_FAV,
 ];
