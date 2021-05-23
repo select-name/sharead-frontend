@@ -21,7 +21,7 @@ import { Header, Footer, Wallet, Cart } from "features";
 import { orderModel } from "entities/order";
 import { viewerModel } from "entities/viewer";
 import { fakeApi } from "shared/api";
-import { dom } from "shared/lib";
+import { dom, hooks } from "shared/lib";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -188,6 +188,7 @@ const Sidebar = () => {
     const { isEmptyCart } = orderModel.cart.useOrderValidation();
     const validation = useCheckoutValidation();
     const history = useHistory();
+    hooks.useRedirectOn(isEmptyCart, "/order");
 
     return (
         <Layout.Sider className={styles.sidebar} width={400}>
