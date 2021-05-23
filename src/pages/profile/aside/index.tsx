@@ -2,14 +2,14 @@ import { Typography, Layout, Avatar, Divider } from "antd";
 import { UserOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 import { Wallet } from "features";
-import { useViewer } from "entities/viewer";
+import { viewerModel } from "entities/viewer";
 import { Tile } from "shared/ui";
 import * as lib from "../lib";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
 export const Aside = () => {
-    const viewer = useViewer();
+    const viewer = viewerModel.useViewer();
 
     /* FIXME: move to entitites */
     return (

@@ -1,7 +1,7 @@
 import { Popover, Button } from "antd";
 import type { PopoverProps } from "antd";
 
-import { useViewerWallet } from "entities/viewer";
+import { viewerModel } from "entities/viewer";
 import AddFundsForm from "../form";
 import styles from "./styles.module.scss";
 
@@ -12,7 +12,7 @@ type Props = {
 };
 
 const AddFundsPopover = ({ className, placement = "bottom", buttonStyle }: Props) => {
-    const viewer = useViewerWallet();
+    const viewer = viewerModel.useViewerWallet();
 
     return (
         <Popover

@@ -1,1 +1,1 @@
-export * from "./hooks";
+export * as viewerModel from "./model";

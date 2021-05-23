@@ -2,7 +2,7 @@ import { Input, Typography, Button, Form } from "antd";
 import cn from "classnames";
 import { useState } from "react";
 
-import { useViewerWallet } from "entities/viewer";
+import { viewerModel } from "entities/viewer";
 import styles from "./styles.module.scss";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 const MIN_MONEY = 100;
 
 const AddFundsForm = ({ className }: Props) => {
-    const viewer = useViewerWallet();
+    const viewer = viewerModel.useViewerWallet();
     const [money, setMoney] = useState(MIN_MONEY);
     const isValid = money >= MIN_MONEY;
 

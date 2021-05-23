@@ -19,7 +19,7 @@ import moment from "moment";
 
 import { Header, Footer, Wallet, Order } from "features";
 import { orderModel } from "entities/order";
-import * as viewerModel from "entities/viewer";
+import { viewerModel } from "entities/viewer";
 import { fakeApi } from "shared/api";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";

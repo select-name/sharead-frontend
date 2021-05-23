@@ -9,7 +9,7 @@ import {
 import type { ReactNode } from "react";
 import pluralize from "plural-ru";
 
-import { useViewer } from "entities/viewer";
+import { viewerModel } from "entities/viewer";
 import { BookCard } from "entities/book";
 import type { AbstractBook } from "shared/api";
 import * as lib from "../lib";
@@ -18,7 +18,7 @@ import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
 export const Content = () => {
-    const viewer = useViewer();
+    const viewer = viewerModel.useViewer();
     return (
         <Layout className={styles.root}>
             <Section

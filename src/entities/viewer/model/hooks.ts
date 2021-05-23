@@ -1,7 +1,16 @@
 import { useState } from "react";
+import { useStore } from "effector-react";
 
+import { bookModel } from "entities/book";
 import { fakeApi } from "shared/api";
 import { browser } from "shared/lib";
+import { fav } from "./stores";
+
+export const useFavBooks = () => {
+    const books = bookModel.useBooks();
+    const favIds = useStore(fav.$store);
+    return books.filter((b) => favIds.includes(b.id));
+};
 
 export const useViewer = () => {
     return fakeApi.users.__VIEWER;
