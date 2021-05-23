@@ -1,0 +1,14 @@
+@import "shared/styles/mixins.scss";
+
+.aside {
+    padding: 40px;
+    text-align: center;
+
+    @include box-shadow-bottom();
+
+    &Main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
