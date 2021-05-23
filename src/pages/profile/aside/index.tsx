@@ -17,7 +17,7 @@ export const Aside = () => {
             <div className={styles.root}>
                 <section className={styles.main}>
                     <Avatar size={128} icon={<UserOutlined />} />
-                    <Typography.Title level={3}>
+                    <Typography.Title level={3} style={{ marginTop: 10 }}>
                         {viewer.firstName} {viewer.lastName}
                     </Typography.Title>
                     <Typography.Text>
