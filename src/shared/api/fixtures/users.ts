@@ -51,6 +51,7 @@ const createUser = (userId: number): User => {
         favABooks: [],
         roles: [roles.USER],
         statusBan: false,
+        registeredAt: "2021-04-15T00:00:00.354Z",
     };
 };
 
@@ -69,6 +70,7 @@ export const JOHN_DOE: User = {
     favABooks: [],
     roles: [roles.USER],
     statusBan: false,
+    registeredAt: "2021-05-20T00:00:00.354Z",
 };
 
 export const JULY_DOE: User = {
@@ -84,6 +86,7 @@ export const JULY_DOE: User = {
     favABooks: [],
     roles: [roles.USER],
     statusBan: false,
+    registeredAt: "2021-05-16T00:00:00.354Z",
 };
 
 export const JANE_DOE: User = {
@@ -99,6 +102,7 @@ export const JANE_DOE: User = {
     favABooks: [],
     roles: [roles.USER],
     statusBan: false,
+    registeredAt: "2021-05-12T00:00:00.354Z",
 };
 
 export const __VIEWER: User = {
@@ -118,6 +122,7 @@ export const __VIEWER: User = {
     favABooks: [25],
     roles: [roles.USER],
     statusBan: false,
+    registeredAt: "2021-05-02T00:00:00.354Z",
     wallet: {
         moneyCount: 300,
     },

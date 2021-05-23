@@ -20,6 +20,7 @@ export type User = {
     roles: Role[];
     statusBan: boolean;
     wallet?: Wallet;
+    registeredAt: string;
 };
 
 export type Order = {

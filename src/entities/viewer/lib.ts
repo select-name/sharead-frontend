@@ -81,7 +81,7 @@ export const getUserStat = (user: User) => {
     return {
         saved: `~ ${saved} ₽`,
         earned: `${earned} ₽`,
-        registered: "2 мая 2021",
+        registered: dayjs(user.registeredAt).format("D MMM YYYY"),
         closed: getOrdersLabel(closed),
     };
 };
