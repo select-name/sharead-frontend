@@ -142,6 +142,13 @@ let size = 0;
 //     price + PRICE_OFFSET * 1.5,
 // ];
 
+// prettier-ignore
+const dates = [
+    "2021-06-10T00:24:35.354Z",
+    "2021-07-17T00:24:35.354Z",
+    "2021-08-28T00:24:35.354Z",
+];
+
 // FIXME: @hardcoded @temp @lowCoupling
 const createBookUnits = (abstractBookId: number): Book[] => {
     const abstract = books.getBookById(abstractBookId);
@@ -151,13 +158,13 @@ const createBookUnits = (abstractBookId: number): Book[] => {
 
     const owners = getAllWithBook(abstractBookId);
 
-    return owners.map((owner) => ({
+    return owners.map((owner, idx) => ({
         id: ++size,
         abstractBook: abstract,
         // !!! FIXME: temp
         costPerDay: price,
         owner,
-        availableBefore: faker.date.future(0.5).toISOString(),
+        availableBefore: dates[idx % dates.length],
     }));
 };
 

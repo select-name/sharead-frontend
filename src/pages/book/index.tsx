@@ -9,6 +9,7 @@ import { TariffRadio } from "entities/tariff";
 import type { AbstractBook } from "shared/api";
 import { fakeApi } from "shared/api";
 import { dom, alert } from "shared/lib";
+import { BooksModal } from "./modal";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -146,6 +147,7 @@ const Checkout = ({ book }: BookProps) => {
                     <Fav.Actions.AddBook bookId={book.id} />
                     <Order.Actions.AddBook bookId={book.id} />
                     <TariffRadio onChange={alert.info} withTitle={false} disabled />
+                    <BooksModal bookId={book.id} />
                 </div>
             </article>
         </Col>
