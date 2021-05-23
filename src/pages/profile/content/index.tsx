@@ -19,7 +19,7 @@ import styles from "./styles.module.scss";
 export const Content = () => {
     const viewer = useViewer();
     return (
-        <Layout className={styles.content}>
+        <Layout className={styles.root}>
             <Section
                 id="my"
                 title="Мои книги"
@@ -118,18 +118,18 @@ const Section = (props: SectionProps) => {
     const { title, description, books, Icon, id, renderBookDetails, titleAfter } = props;
 
     return (
-        <section className={styles.contentSection} id={id}>
+        <section className={styles.section} id={id}>
             <Row justify="space-between">
-                <Typography.Title level={3} className={styles.contentSectionTitle}>
+                <Typography.Title level={3} className={styles.sectionTitle}>
                     <a href={`#${id}`}>#</a>
                     {title} <Icon style={{ color: "gray", fontSize: 20 }} />
                 </Typography.Title>
                 {titleAfter}
             </Row>
-            <Typography.Text className={styles.contentSectionDescription} type="secondary">
+            <Typography.Text className={styles.sectionDescription} type="secondary">
                 {description}
             </Typography.Text>
-            <Row gutter={[10, 10]} wrap={false} className={styles.contentSectionList}>
+            <Row gutter={[10, 10]} wrap={false} className={styles.sectionList}>
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
                 {books.map((book) => (
                     <Col key={book.id} span={8}>
@@ -139,9 +139,7 @@ const Section = (props: SectionProps) => {
                     </Col>
                 ))}
             </Row>
-            {!books.length && (
-                <Empty className={styles.contentSectionPlaceholder} description="Пусто" />
-            )}
+            {!books.length && <Empty className={styles.sectionPlaceholder} description="Пусто" />}
         </section>
     );
 };

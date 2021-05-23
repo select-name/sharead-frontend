@@ -13,9 +13,9 @@ export const Aside = () => {
 
     /* FIXME: move to entitites */
     return (
-        <Layout.Sider className={styles.asideContainer} width={400}>
-            <div className={styles.aside}>
-                <section className={styles.asideMain}>
+        <Layout.Sider className={styles.rootContiner} width={400}>
+            <div className={styles.root}>
+                <section className={styles.main}>
                     <Avatar size={128} icon={<UserOutlined />} />
                     <Typography.Title level={3}>
                         {viewer.firstName} {viewer.lastName}

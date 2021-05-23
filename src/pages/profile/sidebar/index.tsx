@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 export const Sidebar = () => {
     return (
         <Layout.Sider width={150}>
-            <Anchor className={styles.sidebarAnchor}>
+            <Anchor className={styles.anchor}>
                 <Anchor.Link href="#my" title="Мои книги" />
                 <Anchor.Link href="#opened" title="В аренде" />
                 <Anchor.Link href="#reserved" title="Забронированы" />
