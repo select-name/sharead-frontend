@@ -393,17 +393,3 @@ export const isPopular = (book: AbstractBook) =>
     getPopular()
         .map((it) => it.id)
         .includes(book.id);
-
-// === ORDERS
-
-// FIXME: @temp @hardcoded @lowCoupling
-
-export const orders = {
-    getRecommendedBooks: () => [
-        BRAVE_NEW_WORLD_2017,
-        PERFECT_PROGRAMMER_2021,
-        RISKING_SKIN_2021,
-        WRITE_CUT_2020,
-        BLOOD_PIXELS_2018,
-    ],
-};

@@ -53,7 +53,7 @@ const BookPage = (props: Props) => {
     return (
         <Layout className={styles.root}>
             <Header />
-            <Layout.Content>
+            <Layout.Content className={styles.rootContent}>
                 <Link to="/catalog">Каталог</Link>
                 <Typography.Title className={styles.title} level={2}>
                     {fakeApi.books.toString(book)}
@@ -147,7 +147,8 @@ const Checkout = ({ book }: BookProps) => {
                     <Fav.Actions.AddBook bookId={book.id} />
                     <Cart.Actions.AddBook bookId={book.id} />
                     <TariffRadio onChange={alert.info} withTitle={false} disabled />
-                    <BooksModal bookId={book.id} />
+                    {/* FIXME: @temp */}
+                    {false && <BooksModal bookId={book.id} />}
                 </div>
             </article>
         </Col>
@@ -156,9 +157,11 @@ const Checkout = ({ book }: BookProps) => {
 
 // !!! FIXME: Скроллить наверх при переходе к книге
 const Recommendations = ({ book }: BookProps) => {
-    const booksQuery = fakeApi.books.getList({ authors: book.authors.map((a) => a.id) });
+    const booksQuery = fakeApi.books
+        .getList({ authors: book.authors.map((a) => a.id) })
+        .filter((b) => b.id !== book.id);
 
-    if (!booksQuery) return null;
+    if (!booksQuery.length) return null;
 
     return (
         <Col span={16} className={styles.recommendations}>

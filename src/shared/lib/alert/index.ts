@@ -9,6 +9,7 @@ const generateOpener = (type: import("antd/lib/notification").IconType) => (
     message: any,
     description?: any,
     icon?: import("react").ReactNode,
+    // eslint-disable-next-line max-params
 ) => {
     notification.open({ type, message, description, placement: "bottomRight", icon });
 };
