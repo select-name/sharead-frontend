@@ -11,15 +11,17 @@ import type { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import cn from "classnames";
 
+import { Fav } from "features/fav";
 import { viewerModel, viewerLib } from "entities/viewer";
 import { BookCard } from "entities/book";
-import type { Book } from "shared/api";
+import type { Book, AbstractBook } from "shared/api";
 import * as lib from "../lib";
 import { TOPIC_CLOSED, TOPIC_MY, TOPIC_OPENED, TOPIC_RESERVED, TOPIC_FAV } from "../config";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
 export const Content = () => {
+    const viewer = viewerModel.useViewer();
     const viewerNrml = viewerModel.useViewerNormalized();
     const favBooks = viewerModel.useFavBooks();
     const currentAnchor = useLocation().hash.slice(1);
@@ -70,12 +72,11 @@ export const Content = () => {
                 id={TOPIC_RESERVED.id}
                 title={TOPIC_RESERVED.fullTitle}
                 description={TOPIC_RESERVED.description}
-                books={[]}
-                // books={viewer.reservations}
+                books={viewer.reservations}
                 Icon={ClockCircleOutlined}
                 active={TOPIC_RESERVED.id === currentAnchor}
                 renderBookDetails={(b) => {
-                    const queueIdx = Math.floor(b.abstractBook.name.length / 2);
+                    const queueIdx = Math.floor(b.name.length / 2);
                     return (
                         <ul>
                             <li>
@@ -100,29 +101,30 @@ export const Content = () => {
                 id={TOPIC_FAV.id}
                 title={TOPIC_FAV.fullTitle}
                 description={TOPIC_FAV.description}
-                // books={favBooks}
-                books={[]}
+                books={favBooks}
                 Icon={HeartOutlined}
                 active={TOPIC_FAV.id === currentAnchor}
+                renderBookActions={(b) => [<Fav.Actions.AddBookMini key="fav" bookId={b.id} />]}
             />
         </Layout>
     );
 };
 
-type SectionProps = {
+type SectionProps<T> = {
     id: string;
     title: ReactNode;
     titleAfter?: ReactNode;
     description: ReactNode;
-    renderBookDetails?: (book: Book, idx: number) => ReactNode;
+    renderBookDetails?: (book: T, idx: number) => ReactNode;
+    renderBookActions?: (book: T, idx: number) => ReactNode[];
     // FIXME: specify later
     Icon: typeof CheckCircleOutlined;
-    books: Book[];
+    books: T[];
     active?: boolean;
 };
 
-const Section = (props: SectionProps) => {
-    const { title, description, books, Icon, id, renderBookDetails, titleAfter, active } = props;
+function Section<T extends Book | AbstractBook>(props: SectionProps<T>) {
+    const { title, description, books, Icon, id, titleAfter, active } = props;
 
     return (
         <section className={cn(styles.section, { [styles.sectionActive]: active })} id={id}>
@@ -140,8 +142,14 @@ const Section = (props: SectionProps) => {
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
                 {books.map((book, idx) => (
                     <Col key={book.id} span={8}>
-                        <BookCard data={book.abstractBook} size="small" withPrice={false}>
-                            {renderBookDetails?.(book, idx)}
+                        <BookCard
+                            // @ts-ignore
+                            data={book.abstractBook || book}
+                            size="small"
+                            withPrice={false}
+                            actions={props.renderBookActions?.(book, idx)}
+                        >
+                            {props.renderBookDetails?.(book, idx)}
                         </BookCard>
                     </Col>
                 ))}
@@ -149,4 +157,4 @@ const Section = (props: SectionProps) => {
             {!books.length && <Empty className={styles.sectionPlaceholder} description="Пусто" />}
         </section>
     );
-};
+}

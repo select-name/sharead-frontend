@@ -107,7 +107,7 @@ export const __VIEWER: User = {
     closedOrders: [4],
     // FIXME: hardcoded
     openedOrders: [1, 2, 3],
-    reservations: books.getByIds([26]),
+    reservations: books.getByIds([18]),
     roles: [roles.USER],
     statusBan: false,
     wallet: {
