@@ -330,8 +330,12 @@ export const getAll = () =>
         GOT__STORM_OF_SWORDS_2018,
     ].sort((a, b) => a.id - b.id);
 
+export const getById = (bookId: number) => {
+    return getAll().find((b) => b.id === bookId);
+};
+
 export const getByIds = (bookIds: number[]) => {
-    return getAll().filter((b) => bookIds.includes(b.id));
+    return bookIds.map((id) => getById(id)!);
 };
 export const toString = (entity: AbstractBook) => {
     const author = entity.authors.map(authors.getShortname).join(", ");
@@ -373,10 +377,6 @@ export const getList = (params: GetListParams) => {
         .filter(
             (book) => !params.categories?.length || params.categories?.includes(book.category.id),
         );
-};
-
-export const getBookById = (bookId: number) => {
-    return getAll().find((it) => it.id === bookId);
 };
 
 export const getPseudoPrice = (book: AbstractBook) => {

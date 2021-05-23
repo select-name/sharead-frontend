@@ -10,24 +10,32 @@ const createOrder = (params: {
     bookId: number;
     userId: number;
     costs: number;
-    deliveredDelta: number;
-    startDelta: number;
-    endDelta: number;
+    deliveredDelta?: number;
+    startDelta?: number;
+    endDelta?: number;
     status: Order["status"];
-}) => ({
-    id: params.id,
-    bookId: params.bookId,
-    costs: params.costs,
-    deliveredAt: dayjs().add(params.deliveredDelta, "days").toISOString(),
-    startAt: dayjs().add(params.startDelta, "days").toISOString(),
-    endAt: dayjs().add(params.endDelta, "days").toISOString(),
-    status: params.status,
-    userId: params.userId,
-});
+}) => {
+    return {
+        id: params.id,
+        bookId: params.bookId,
+        costs: params.costs,
+        deliveredAt: dayjs()
+            .add(params.deliveredDelta || -2, "days")
+            .toISOString(),
+        startAt: dayjs()
+            .add(params.startDelta || -4, "days")
+            .toISOString(),
+        endAt: dayjs()
+            .add(params.endDelta || 3, "days")
+            .toISOString(),
+        status: params.status,
+        userId: params.userId,
+    };
+};
 
 export const VI_ORDER_1: Order = createOrder({
     id: 1,
-    bookId: 25,
+    bookId: 45,
     costs: 400,
     deliveredDelta: 3,
     startDelta: -1,
@@ -38,7 +46,7 @@ export const VI_ORDER_1: Order = createOrder({
 
 export const VI_ORDER_2: Order = createOrder({
     id: 2,
-    bookId: 19,
+    bookId: 38,
     costs: 100,
     deliveredDelta: 2,
     startDelta: 0,
@@ -49,7 +57,7 @@ export const VI_ORDER_2: Order = createOrder({
 
 export const VI_ORDER_3: Order = createOrder({
     id: 3,
-    bookId: 3,
+    bookId: 9,
     costs: 200,
     deliveredDelta: -2,
     startDelta: -3,
@@ -69,6 +77,52 @@ export const VI_ORDER_4: Order = createOrder({
     userId: VIEWER_ID,
 });
 
-export const getAll = () => [VI_ORDER_1, VI_ORDER_2, VI_ORDER_3, VI_ORDER_4];
+export const YA_ORDER_1: Order = createOrder({
+    id: 5,
+    bookId: 4,
+    costs: 100,
+    status: "CLOSED",
+    userId: 2,
+});
+
+export const YA_ORDER_2: Order = createOrder({
+    id: 6,
+    bookId: 4,
+    costs: 400,
+    status: "RENTED",
+    userId: 3,
+});
+
+export const YA_ORDER_3: Order = createOrder({
+    id: 7,
+    bookId: 16,
+    costs: 150,
+    status: "CLOSED",
+    userId: 1,
+});
+
+export const YA_ORDER_4: Order = createOrder({
+    id: 8,
+    bookId: 32,
+    costs: 300,
+    status: "CLOSED",
+    userId: 5,
+});
+
+export const getAll = () => [
+    VI_ORDER_1,
+    VI_ORDER_2,
+    VI_ORDER_3,
+    VI_ORDER_4,
+    YA_ORDER_1,
+    YA_ORDER_2,
+    YA_ORDER_3,
+    YA_ORDER_4,
+];
+
+export const getById = (orderId: number) => getAll().find((o) => o.id === orderId);
+
 export const getByUserId = (userId: number) => getAll().filter((o) => o.userId === userId);
-export const getByIds = (orderIds: number[]) => getAll().filter((o) => orderIds.includes(o.id));
+export const getByIds = (orderIds: number[]) => orderIds.map((id) => getById(id)!);
+
+export const getByBookId = (bookId: number) => getAll().filter((o) => o.bookId === bookId);

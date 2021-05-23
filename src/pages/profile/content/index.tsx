@@ -13,15 +13,14 @@ import cn from "classnames";
 
 import { viewerModel, viewerLib } from "entities/viewer";
 import { BookCard } from "entities/book";
-import type { AbstractBook } from "shared/api";
+import type { Book } from "shared/api";
 import * as lib from "../lib";
 import { TOPIC_CLOSED, TOPIC_MY, TOPIC_OPENED, TOPIC_RESERVED, TOPIC_FAV } from "../config";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
 export const Content = () => {
-    const viewer = viewerModel.useViewer();
-    const viewerOrders = viewerModel.useViewerOrders();
+    const viewerNrml = viewerModel.useViewerNormalized();
     const favBooks = viewerModel.useFavBooks();
     const currentAnchor = useLocation().hash.slice(1);
 
@@ -31,7 +30,7 @@ export const Content = () => {
                 id={TOPIC_MY.id}
                 title={TOPIC_MY.fullTitle}
                 description={TOPIC_MY.description}
-                books={viewer.books}
+                books={viewerNrml.ownBooks}
                 Icon={DollarOutlined}
                 active={TOPIC_MY.id === currentAnchor}
                 titleAfter={
@@ -40,11 +39,11 @@ export const Content = () => {
                     </Button>
                 }
                 renderBookDetails={(b) => {
-                    const { status, earned } = lib.getOwnBookPseudoStat(b);
+                    const bookInfo = viewerLib.getMyBookInfo(b);
                     return (
                         <ul>
-                            <li>{status}</li>
-                            <li>Заработано {earned} ₽</li>
+                            <li>{lib.STATUSES[bookInfo.status]}</li>
+                            <li>Заработано {bookInfo.earned} ₽</li>
                         </ul>
                     );
                 }}
@@ -53,11 +52,11 @@ export const Content = () => {
                 id={TOPIC_OPENED.id}
                 title={TOPIC_OPENED.fullTitle}
                 description={TOPIC_OPENED.description}
-                books={viewerOrders.openedBooks}
+                books={viewerNrml.openedBooks}
                 Icon={ShoppingOutlined}
                 active={TOPIC_OPENED.id === currentAnchor}
                 renderBookDetails={(_, idx) => {
-                    const order = viewerOrders.opened[idx];
+                    const order = viewerNrml.opened[idx];
 
                     return (
                         <ul>
@@ -71,11 +70,12 @@ export const Content = () => {
                 id={TOPIC_RESERVED.id}
                 title={TOPIC_RESERVED.fullTitle}
                 description={TOPIC_RESERVED.description}
-                books={viewer.reservations}
+                books={[]}
+                // books={viewer.reservations}
                 Icon={ClockCircleOutlined}
                 active={TOPIC_RESERVED.id === currentAnchor}
                 renderBookDetails={(b) => {
-                    const queueIdx = Math.floor(b.name.length / 2);
+                    const queueIdx = Math.floor(b.abstractBook.name.length / 2);
                     return (
                         <ul>
                             <li>
@@ -92,7 +92,7 @@ export const Content = () => {
                 id={TOPIC_CLOSED.id}
                 title={TOPIC_CLOSED.fullTitle}
                 description={TOPIC_CLOSED.description}
-                books={viewerOrders.closedBooks}
+                books={viewerNrml.closedBooks}
                 Icon={CheckCircleOutlined}
                 active={TOPIC_CLOSED.id === currentAnchor}
             />
@@ -100,7 +100,8 @@ export const Content = () => {
                 id={TOPIC_FAV.id}
                 title={TOPIC_FAV.fullTitle}
                 description={TOPIC_FAV.description}
-                books={favBooks}
+                // books={favBooks}
+                books={[]}
                 Icon={HeartOutlined}
                 active={TOPIC_FAV.id === currentAnchor}
             />
@@ -113,10 +114,10 @@ type SectionProps = {
     title: ReactNode;
     titleAfter?: ReactNode;
     description: ReactNode;
-    renderBookDetails?: (book: AbstractBook, idx: number) => ReactNode;
+    renderBookDetails?: (book: Book, idx: number) => ReactNode;
     // FIXME: specify later
     Icon: typeof CheckCircleOutlined;
-    books: AbstractBook[];
+    books: Book[];
     active?: boolean;
 };
 
@@ -139,7 +140,7 @@ const Section = (props: SectionProps) => {
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
                 {books.map((book, idx) => (
                     <Col key={book.id} span={8}>
-                        <BookCard data={book} size="small" withPrice={false}>
+                        <BookCard data={book.abstractBook} size="small" withPrice={false}>
                             {renderBookDetails?.(book, idx)}
                         </BookCard>
                     </Col>

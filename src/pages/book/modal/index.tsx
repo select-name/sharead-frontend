@@ -9,11 +9,11 @@ type BaseProps = {
 };
 
 export const Content = ({ bookId }: BaseProps) => {
-    const bookUnits = fakeApi.users.booksUnits[bookId];
+    const userBooks = fakeApi.users.userBooksMap[bookId];
 
     return (
         <Row gutter={[0, 20]}>
-            {bookUnits.map((bu) => (
+            {userBooks.map((bu) => (
                 <Card key={bu.id} hoverable>
                     <Descriptions>
                         <Descriptions.Item label="Владелец">
@@ -26,7 +26,7 @@ export const Content = ({ bookId }: BaseProps) => {
                     </Descriptions>
                 </Card>
             ))}
-            {/* {bookUnits.map((bu) => (
+            {/* {userBooks.map((bu) => (
                 <Col key={bu.id} span={24}>
                     <Card
                         type="inner"

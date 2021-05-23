@@ -3,7 +3,7 @@
 
 export type User = {
     id: number;
-    books: AbstractBook[];
+    books: number[];
     // chats: Chat[]
     // closedOrders: Order[];
     // openedOrders: Order[];

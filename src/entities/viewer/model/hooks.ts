@@ -4,6 +4,7 @@ import { useStore, useStoreMap } from "effector-react";
 import { bookModel } from "entities/book";
 import { fakeApi } from "shared/api";
 import { browser } from "shared/lib";
+import * as lib from "../lib";
 import { fav } from "./stores";
 
 export const useFavBooks = () => {
@@ -26,19 +27,10 @@ export const useViewer = () => {
     return fakeApi.users.__VIEWER;
 };
 
-export const useViewerOrders = () => {
+export const useViewerNormalized = () => {
     const viewer = useViewer();
-    const opened = fakeApi.orders.getByIds(viewer.openedOrders);
-    const openedBooks = fakeApi.books.getByIds(opened.map((o) => o.bookId));
-    const closed = fakeApi.orders.getByIds(viewer.closedOrders);
-    const closedBooks = fakeApi.books.getByIds(closed.map((o) => o.bookId));
 
-    return {
-        opened,
-        openedBooks,
-        closed,
-        closedBooks,
-    };
+    return lib.getUserNormalized(viewer);
 };
 
 const WALLET_MONEY = 300;

@@ -27,7 +27,7 @@ type Props = RouterProps;
 // eslint-disable-next-line max-lines-per-function
 const BookPage = (props: Props) => {
     const bookId = Number(props.match?.params.bookId);
-    const book = fakeApi.books.getBookById(bookId);
+    const book = fakeApi.books.getById(bookId);
 
     // FIXME: Сделать позже через промиз
     dom.useTitle(`${book ? book.name : "Книга не найдена"} | Sharead`);
