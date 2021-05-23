@@ -9,7 +9,7 @@ export type User = {
     // openedOrders: Order[];
     // reservations: Reservation[];
     closedOrders: AbstractBook[];
-    openedOrders: AbstractBook[];
+    openedOrders: number[];
     reservations: AbstractBook[];
     email: string;
     emailVerified: boolean;
@@ -23,6 +23,21 @@ export type User = {
 
 export type Order = {
     id: number;
+    book?: Book;
+    bookId: number;
+    user?: User;
+    userId: number;
+    startAt: string;
+    deliveredAt: string;
+    endAt: string;
+    costs: number;
+    status: "WAITING_TRANSFER" | "RENTED" | "CLOSED";
+};
+
+export type Cart = {
+    id: number;
+    bookIds: number[];
+    userId: number;
 };
 
 export type Reservation = {

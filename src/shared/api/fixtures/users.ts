@@ -89,7 +89,8 @@ export const BRAD_DOE: User = {
     lastName: "Doe",
     books: books.getByIds(userBooksMap[4]),
     closedOrders: [],
-    openedOrders: books.orders.getOrderBooks(),
+    // FIXME: hardcoded
+    openedOrders: [1, 2, 3],
     reservations: books.getByIds([26]),
     roles: [roles.USER],
     statusBan: false,

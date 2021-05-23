@@ -1,2 +1,4 @@
-export * as fakeApi from "./fixtures";
+import * as fakeApi from "./fixtures";
 export * from "./types";
+
+export { fakeApi };
