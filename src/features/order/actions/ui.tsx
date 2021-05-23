@@ -7,13 +7,15 @@ import { alert } from "shared/lib";
 
 type Props = {
     bookId: number;
+    disabled?: boolean;
 };
 
-const useToggleBook = (bookId: number) => {
+const useToggleBook = ({ bookId, disabled }: Props) => {
     const { isBookInCart } = orderModel.books.useBookStatus(bookId);
     const book = bookModel.useBook(bookId);
 
     const handleToggle = () => {
+        if (disabled) return;
         const action = isBookInCart ? "Удалено из заказа" : "Добавлено в заказ";
         alert.info(`${book?.name}`, action, <ShoppingOutlined />);
         orderModel.events.toggleBook(bookId);
@@ -21,26 +23,39 @@ const useToggleBook = (bookId: number) => {
 
     return { handleToggle, isBookInCart };
 };
-export const AddBook = ({ bookId }: Props) => {
-    const { handleToggle, isBookInCart } = useToggleBook(bookId);
+export const AddBook = (props: Props) => {
+    const { handleToggle, isBookInCart } = useToggleBook(props);
+    const { disabled } = props;
 
     const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
     return (
-        <Button type="primary" icon={<Icon />} onClick={handleToggle} block>
+        <Button type="primary" icon={<Icon />} onClick={handleToggle} block disabled={disabled}>
             {isBookInCart ? "Убрать из заказа" : "В заказ"}
         </Button>
     );
 };
 
-export const AddBookMini = ({ bookId }: Props) => {
-    const { handleToggle, isBookInCart } = useToggleBook(bookId);
+export const AddBookMini = (props: Props) => {
+    const { handleToggle, isBookInCart } = useToggleBook(props);
+    const { disabled } = props;
 
     const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
-    return <Icon style={{ fontSize: 20 }} onClick={handleToggle} />;
+    const disabledStyles: import("react").CSSProperties = disabled
+        ? { color: "red", opacity: 0.5, cursor: "not-allowed" }
+        : {};
+
+    return (
+        <Icon
+            style={{ fontSize: 20, ...disabledStyles }}
+            onClick={handleToggle}
+            disabled={disabled}
+        />
+    );
 };
 
-export const DeleteBook = ({ bookId }: Props) => {
-    const { handleToggle } = useToggleBook(bookId);
+export const DeleteBook = (props: Props) => {
+    const { handleToggle } = useToggleBook(props);
+    const { disabled } = props;
 
     return (
         <Button
@@ -61,6 +76,7 @@ export const DeleteBook = ({ bookId }: Props) => {
                 })
             }
             block
+            disabled={disabled}
         >
             Удалить
         </Button>

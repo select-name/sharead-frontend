@@ -10,7 +10,7 @@ export type User = {
     // reservations: Reservation[];
     closedOrders: number[];
     openedOrders: number[];
-    reservations: AbstractBook[];
+    reservations: number[];
     favABooks: number[];
     email: string;
     emailVerified: boolean;
@@ -24,9 +24,7 @@ export type User = {
 
 export type Order = {
     id: number;
-    book?: Book;
     bookId: number;
-    user?: User;
     userId: number;
     startAt: string;
     deliveredAt: string;
@@ -43,6 +41,11 @@ export type Cart = {
 
 export type Reservation = {
     id: number;
+    aBookId: number;
+    userId: number;
+    // + 1-2 дня на выбор, но не можем заранее закладываться на 7 или 30 дней человек выбирает
+    // Ставим по сути "в очередь" на книгу, без особой конкретики
+    reservedAt: string;
 };
 
 export type Wallet = {

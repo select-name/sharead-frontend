@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import pluralize from "plural-ru";
-import { fakeApi } from "shared/api";
+import { AbstractBook, fakeApi, Reservation } from "shared/api";
 import type { Book, Order, User } from "shared/api";
 
 // Да здравствует свалка хелперов!
@@ -38,14 +38,20 @@ export const getMyBookInfo = (book: Book) => {
 
 // Страх и ужас, не показывайте такое детям
 export const getUserNormalized = (user: User) => {
-    const ownBooks = fakeApi.users.getUserBooksByIds(user.books);
-    const own = ownBooks.map((ob) => fakeApi.orders.getByBookId(ob.id)).flat();
+    const ownBooks: Book[] = fakeApi.users.getUserBooksByIds(user.books);
+    const own: Order[] = ownBooks.map((ob) => fakeApi.orders.getByBookId(ob.id)).flat();
 
-    const opened = fakeApi.orders.getByIds(user.openedOrders);
-    const openedBooks = fakeApi.users.getUserBooksByIds(opened.map((o) => o.bookId));
-    const closed = fakeApi.orders.getByIds(user.closedOrders);
-    const closedBooks = fakeApi.users.getUserBooksByIds(closed.map((o) => o.bookId));
-    const closedPrices = closedBooks.map((cb) => fakeApi.books.getPseudoPrice(cb.abstractBook));
+    const opened: Order[] = fakeApi.orders.getByIds(user.openedOrders);
+    const openedBooks: Book[] = fakeApi.users.getUserBooksByIds(opened.map((o) => o.bookId));
+
+    const closed: Order[] = fakeApi.orders.getByIds(user.closedOrders);
+    const closedBooks: Book[] = fakeApi.users.getUserBooksByIds(closed.map((o) => o.bookId));
+    const closedPrices: number[] = closedBooks.map((cb) =>
+        fakeApi.books.getPseudoPrice(cb.abstractBook),
+    );
+
+    const reserved: Reservation[] = fakeApi.reservations.getByIds(user.reservations);
+    const reservedBooks: AbstractBook[] = fakeApi.books.getByIds(reserved.map((o) => o.aBookId));
 
     return {
         own,
@@ -55,6 +61,8 @@ export const getUserNormalized = (user: User) => {
         closed,
         closedBooks,
         closedPrices,
+        reserved,
+        reservedBooks,
     };
 };
 
@@ -71,9 +79,17 @@ export const getUserStat = (user: User) => {
     const closed = un.closed.length + un.opened.length + un.own.length;
 
     return {
-        saved: `${saved} ₽`,
+        saved: `~ ${saved} ₽`,
         earned: `${earned} ₽`,
         registered: "2 мая 2021",
         closed: getOrdersLabel(closed),
     };
+};
+
+export const getReservationInfo = (reservation: Reservation) => {
+    const queryIdx = fakeApi.reservations.getUserIdx(reservation.userId, reservation.aBookId);
+    const awaitTime = queryIdx * 7;
+    const isAvailable = queryIdx === 0;
+
+    return { queryIdx, awaitTime, isAvailable };
 };

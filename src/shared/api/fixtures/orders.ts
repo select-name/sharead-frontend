@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
 import type { Order } from "../types";
 
-// FIXME: hardcoded!
-
+// FIXME: hardcoded! dry!
 const VIEWER_ID = 4;
 
 const createOrder = (params: {

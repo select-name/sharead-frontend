@@ -108,10 +108,13 @@ export const __VIEWER: User = {
     firstName: "Василий",
     lastName: "Обломов",
     books: USERS_UBOOKS[4],
+    // FIXME: hardcoded
     closedOrders: [4],
     // FIXME: hardcoded
     openedOrders: [1, 2, 3],
-    reservations: books.getByIds([18]),
+    // FIXME: hardcoded
+    reservations: [1],
+    // FIXME: hardcoded
     favABooks: [25],
     roles: [roles.USER],
     statusBan: false,

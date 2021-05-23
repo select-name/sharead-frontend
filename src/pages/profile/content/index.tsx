@@ -1,4 +1,4 @@
-import { Typography, Layout, Row, Col, Empty, Button } from "antd";
+import { Typography, Layout, Row, Col, Empty, Button, Badge } from "antd";
 import {
     CheckCircleOutlined,
     ClockCircleOutlined,
@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import cn from "classnames";
 
 import { Fav } from "features/fav";
+import { Order } from "features/order";
 import { viewerModel, viewerLib } from "entities/viewer";
 import { BookCard } from "entities/book";
 import type { Book, AbstractBook } from "shared/api";
@@ -21,7 +22,6 @@ import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
 export const Content = () => {
-    const viewer = viewerModel.useViewer();
     const viewerNrml = viewerModel.useViewerNormalized();
     const favBooks = viewerModel.useFavBooks();
     const currentAnchor = useLocation().hash.slice(1);
@@ -72,21 +72,42 @@ export const Content = () => {
                 id={TOPIC_RESERVED.id}
                 title={TOPIC_RESERVED.fullTitle}
                 description={TOPIC_RESERVED.description}
-                books={viewer.reservations}
+                books={viewerNrml.reservedBooks}
                 Icon={ClockCircleOutlined}
                 active={TOPIC_RESERVED.id === currentAnchor}
-                renderBookDetails={(b) => {
-                    const queueIdx = Math.floor(b.name.length / 2);
+                getRibbonProps={(_, idx) => {
+                    const reserve = viewerLib.getReservationInfo(viewerNrml.reserved[idx]);
+
+                    if (reserve.isAvailable) {
+                        return { color: "orange", text: "Подошла ваша очередь!" };
+                    }
+                    return { color: "lightslategray", text: `В очереди: ${reserve.queryIdx + 1}` };
+                }}
+                renderBookDetails={(_, idx) => {
+                    const reserve = viewerLib.getReservationInfo(viewerNrml.reserved[idx]);
+
+                    if (reserve.isAvailable) {
+                        return (
+                            <p>
+                                Сделайте заказ в течение двух дней, чтобы не потерять свою очередь
+                            </p>
+                        );
+                    }
                     return (
-                        <ul>
-                            <li>
-                                В очереди: <b>{queueIdx}</b>
-                            </li>
-                            <li>
-                                Время ожидания: ~ <b>{viewerLib.getDaysLabel(queueIdx * 7)}</b>
-                            </li>
-                        </ul>
+                        <span>
+                            Время ожидания: ~ <b>{viewerLib.getDaysLabel(reserve.awaitTime)}</b>
+                        </span>
                     );
+                }}
+                renderBookActions={(b, idx) => {
+                    const reserve = viewerLib.getReservationInfo(viewerNrml.reserved[idx]);
+                    return [
+                        <Order.Actions.AddBookMini
+                            key="cart"
+                            bookId={b.id}
+                            disabled={!reserve.isAvailable}
+                        />,
+                    ];
                 }}
             />
             <Section
@@ -117,6 +138,13 @@ type SectionProps<T> = {
     description: ReactNode;
     renderBookDetails?: (book: T, idx: number) => ReactNode;
     renderBookActions?: (book: T, idx: number) => ReactNode[];
+    getRibbonProps?: (
+        book: T,
+        idx: number,
+    ) => {
+        text: ReactNode;
+        color: import("react").CSSProperties["color"];
+    };
     // FIXME: specify later
     Icon: typeof CheckCircleOutlined;
     books: T[];
@@ -142,15 +170,23 @@ function Section<T extends Book | AbstractBook>(props: SectionProps<T>) {
                 {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
                 {books.map((book, idx) => (
                     <Col key={book.id} span={8}>
-                        <BookCard
-                            // @ts-ignore
-                            data={book.abstractBook || book}
-                            size="small"
-                            withPrice={false}
-                            actions={props.renderBookActions?.(book, idx)}
+                        <Badge.Ribbon
+                            {...props.getRibbonProps?.(book, idx)}
+                            style={{
+                                right: "-5px",
+                                opacity: Number(props.getRibbonProps !== undefined),
+                            }}
                         >
-                            {props.renderBookDetails?.(book, idx)}
-                        </BookCard>
+                            <BookCard
+                                // @ts-ignore
+                                data={book.abstractBook || book}
+                                size="small"
+                                withPrice={false}
+                                actions={props.renderBookActions?.(book, idx)}
+                            >
+                                {props.renderBookDetails?.(book, idx)}
+                            </BookCard>
+                        </Badge.Ribbon>
                     </Col>
                 ))}
             </Row>

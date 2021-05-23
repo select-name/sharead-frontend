@@ -24,8 +24,6 @@ export const Aside = () => {
                         {viewer.email}&nbsp;
                         <EmailVerified emailVerified={viewer.emailVerified} />
                     </Typography.Text>
-                    {/* <Typography.Text>FIXME: В сервисе с 2 мая 2021</Typography.Text> */}
-                    {/* <Typography.Text>10 закрытых сделок</Typography.Text> */}
                 </section>
                 <Divider />
                 <section>
@@ -36,7 +34,6 @@ export const Aside = () => {
                 </section>
                 <Divider />
                 <section>
-                    {/* <Typography.Title level={4}>С нашим сервисом</Typography.Title> */}
                     <Tile.Group data={lib.getStats(viewer)} itemSpan={11} />
                 </section>
             </div>
