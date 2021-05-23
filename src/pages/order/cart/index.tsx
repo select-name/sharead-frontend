@@ -31,8 +31,8 @@ const CartPage = () => {
 };
 
 const Content = () => {
-    const order = orderModel.useOrder();
-    const durations = orderModel.duration.useOrderDurations();
+    const order = orderModel.cart.useOrder();
+    const durations = orderModel.cart.useOrderDurations();
 
     return (
         <Layout className={styles.content}>
@@ -55,7 +55,7 @@ const Content = () => {
                                         <Cart.Actions.DeleteBook bookId={book.id} />
                                         <TariffRadio
                                             onChange={(value) =>
-                                                orderModel.events.setBookDuration({
+                                                orderModel.cart.events.setBookDuration({
                                                     bookId: book.id,
                                                     duration: value,
                                                 })
@@ -77,7 +77,7 @@ const Content = () => {
 };
 
 const RecommendationsSection = () => {
-    const recommended = orderModel.books.useRecommended();
+    const recommended = orderModel.cart.useRecommended();
 
     return (
         <>

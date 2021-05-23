@@ -11,14 +11,14 @@ type Props = {
 };
 
 const useToggleBook = ({ bookId, disabled }: Props) => {
-    const { isBookInCart } = orderModel.books.useBookStatus(bookId);
+    const { isBookInCart } = orderModel.cart.useBookStatus(bookId);
     const book = bookModel.useBook(bookId);
 
     const handleToggle = () => {
         if (disabled) return;
         const action = isBookInCart ? "Удалено из заказа" : "Добавлено в заказ";
         alert.info(`${book?.name}`, action, <ShoppingOutlined />);
-        orderModel.events.toggleBook(bookId);
+        orderModel.cart.events.toggleBook(bookId);
     };
 
     return { handleToggle, isBookInCart };

@@ -78,7 +78,7 @@ const LocationAlert = () => (
 // eslint-disable-next-line max-lines-per-function
 const Header = (props: Props) => {
     const { className } = props;
-    const orderTotal = orderModel.books.useOrderBooks().length;
+    const orderTotal = orderModel.cart.useOrderBooks().length;
     const favTotal = viewerModel.useFavBooks().length;
 
     const count: Record<ActionId, number> = {

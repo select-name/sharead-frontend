@@ -2,26 +2,13 @@ import { useStore, useStoreMap } from "effector-react";
 
 import { bookModel } from "entities/book";
 import { fakeApi } from "shared/api";
-import { browser } from "shared/lib";
-import * as events from "../events";
+import { $books, $durations, DEFAULT_DURATION } from "./store";
 
-// FIXME: fetch later by API
-// export const initialState = fakeApi.orders.getOrderBooks().map((it) => it.id);
-export const initialState: number[] = [];
-
-export const $store = browser
-    .createPersistStore(initialState, { name: "entities/order/books" })
-    .on(events.toggleBook, (state, payload) => {
-        if (state.includes(payload)) {
-            return state.filter((it) => it !== payload);
-        }
-        return [...state, payload];
-    })
-    .reset(events.submitOrder);
+export const useOrderDurations = () => useStore($durations);
 
 export const useOrderBooks = () => {
     const books = bookModel.useBooks();
-    const orderIds = useStore($store);
+    const orderIds = useStore($books);
     return books.filter((b) => orderIds.includes(b.id));
 };
 
@@ -52,13 +39,28 @@ export const useRecommended = () => {
 
     return { books };
 };
-
 export const useBookStatus = (bookId: number) => {
     const isBookInCart = useStoreMap({
-        store: $store,
+        store: $books,
         keys: [bookId],
         fn: (state, [bookId]) => state.includes(bookId),
     });
 
     return { isBookInCart };
+};
+
+// FIXME: useStoreMap instead
+export const useOrder = () => {
+    const books = useOrderBooks();
+    const durations = useOrderDurations();
+
+    const price = books
+        .map((b) => {
+            const price = fakeApi.books.getPseudoPrice(b);
+            const coeff = durations[b.id] / DEFAULT_DURATION;
+            return Math.floor(price * coeff);
+        })
+        .reduce((a, b) => a + b, 0);
+
+    return { books, price };
 };

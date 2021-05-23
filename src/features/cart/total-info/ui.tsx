@@ -11,7 +11,7 @@ import styles from "./styles.module.scss";
 export const PLACEHOLDER = "Пустой заказ";
 
 const useDurations = () => {
-    const durations = orderModel.duration.useOrderDurations();
+    const durations = orderModel.cart.useOrderDurations();
 
     const durationsSorted = Object.values(durations).sort((a, b) => a - b);
 
@@ -29,7 +29,7 @@ const useDurations = () => {
     return `На ${from}-${to} дн.`;
 };
 export const Form = () => {
-    const order = orderModel.useOrder();
+    const order = orderModel.cart.useOrder();
     const totalDuration = useDurations();
 
     return (
@@ -72,7 +72,7 @@ export const Card = ({ children }: Props) => {
 };
 
 export const CartMini = () => {
-    const order = orderModel.useOrder();
+    const order = orderModel.cart.useOrder();
 
     return (
         <article className={cn(styles.root, styles.cartContainer)}>

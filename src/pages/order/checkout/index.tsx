@@ -28,7 +28,7 @@ import styles from "./styles.module.scss";
 // TODO: Add skeletons loader
 
 const useCheckoutValidation = () => {
-    const { price } = orderModel.useOrder();
+    const { price } = orderModel.cart.useOrder();
     const { wallet } = viewerModel.useViewerWallet();
     const isEnoughMoney = wallet >= price;
     const message = isEnoughMoney ? "" : "Недостаточно средств для оплаты";
@@ -184,7 +184,7 @@ const DeliveryForm = () => {
 
 const Sidebar = () => {
     const viewer = viewerModel.useViewerWallet();
-    const order = orderModel.useOrder();
+    const order = orderModel.cart.useOrder();
     const validation = useCheckoutValidation();
     const history = useHistory();
 
@@ -199,7 +199,7 @@ const Sidebar = () => {
                     title={validation.message}
                     onClick={() =>
                         viewer.payment.applyTransaction(-order.price).then(() => {
-                            orderModel.events.submitOrder();
+                            orderModel.cart.events.submitOrder();
                             history.push("/order/result");
                         })
                     }
