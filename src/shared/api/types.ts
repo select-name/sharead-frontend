@@ -11,6 +11,7 @@ export type User = {
     closedOrders: number[];
     openedOrders: number[];
     reservations: AbstractBook[];
+    favABooks: number[];
     email: string;
     emailVerified: boolean;
     firstName: string;

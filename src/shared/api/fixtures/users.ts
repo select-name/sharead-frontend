@@ -48,6 +48,7 @@ const createUser = (userId: number): User => {
         closedOrders: [],
         openedOrders: [],
         reservations: [],
+        favABooks: [],
         roles: [roles.USER],
         statusBan: false,
     };
@@ -65,6 +66,7 @@ export const JOHN_DOE: User = {
     closedOrders: [],
     openedOrders: [],
     reservations: [],
+    favABooks: [],
     roles: [roles.USER],
     statusBan: false,
 };
@@ -79,6 +81,7 @@ export const JULY_DOE: User = {
     closedOrders: [],
     openedOrders: [],
     reservations: [],
+    favABooks: [],
     roles: [roles.USER],
     statusBan: false,
 };
@@ -93,6 +96,7 @@ export const JANE_DOE: User = {
     closedOrders: [],
     openedOrders: [],
     reservations: [],
+    favABooks: [],
     roles: [roles.USER],
     statusBan: false,
 };
@@ -108,6 +112,7 @@ export const __VIEWER: User = {
     // FIXME: hardcoded
     openedOrders: [1, 2, 3],
     reservations: books.getByIds([18]),
+    favABooks: [25],
     roles: [roles.USER],
     statusBan: false,
     wallet: {
