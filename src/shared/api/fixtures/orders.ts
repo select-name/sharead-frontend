@@ -79,7 +79,7 @@ export const VI_ORDER_4: Order = createOrder({
 
 export const YA_ORDER_1: Order = createOrder({
     id: 5,
-    bookId: 4,
+    bookId: 13,
     costs: 100,
     status: "CLOSED",
     userId: 2,
@@ -87,7 +87,7 @@ export const YA_ORDER_1: Order = createOrder({
 
 export const YA_ORDER_2: Order = createOrder({
     id: 6,
-    bookId: 4,
+    bookId: 13,
     costs: 400,
     status: "RENTED",
     userId: 3,
@@ -95,7 +95,7 @@ export const YA_ORDER_2: Order = createOrder({
 
 export const YA_ORDER_3: Order = createOrder({
     id: 7,
-    bookId: 16,
+    bookId: 14,
     costs: 150,
     status: "CLOSED",
     userId: 1,
@@ -103,7 +103,7 @@ export const YA_ORDER_3: Order = createOrder({
 
 export const YA_ORDER_4: Order = createOrder({
     id: 8,
-    bookId: 32,
+    bookId: 16,
     costs: 300,
     status: "CLOSED",
     userId: 5,
