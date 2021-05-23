@@ -185,6 +185,7 @@ const DeliveryForm = () => {
 const Sidebar = () => {
     const viewer = viewerModel.useViewerWallet();
     const order = orderModel.cart.useOrder();
+    const { isEmptyCart } = orderModel.cart.useOrderValidation();
     const validation = useCheckoutValidation();
     const history = useHistory();
 
@@ -195,7 +196,7 @@ const Sidebar = () => {
                     block
                     type="primary"
                     style={{ height: 50 }}
-                    disabled={!validation.isEnoughMoney}
+                    disabled={!validation.isEnoughMoney || isEmptyCart}
                     title={validation.message}
                     onClick={() =>
                         viewer.payment.applyTransaction(-order.price).then(() => {
@@ -208,7 +209,7 @@ const Sidebar = () => {
                     Оплатить заказ
                 </Button>
             </Cart.TotalInfo.Card>
-            <Cart.TotalInfo.CartMini />
+            {!isEmptyCart && <Cart.TotalInfo.CartMini />}
         </Layout.Sider>
     );
 };

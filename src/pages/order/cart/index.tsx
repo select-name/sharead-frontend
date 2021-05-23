@@ -108,11 +108,13 @@ const RecommendationsSection = () => {
 };
 
 const Sidebar = () => {
+    const { isEmptyCart } = orderModel.cart.useOrderValidation();
+
     return (
         <Layout.Sider className={styles.sidebarContainer} width={400}>
             <Cart.TotalInfo.Card>
                 <Link to="/order/checkout">
-                    <Button block type="primary" style={{ height: 50 }}>
+                    <Button block type="primary" style={{ height: 50 }} disabled={isEmptyCart}>
                         Перейти к оформлению
                     </Button>
                 </Link>

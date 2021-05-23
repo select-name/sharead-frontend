@@ -64,3 +64,10 @@ export const useOrder = () => {
 
     return { books, price };
 };
+
+export const useOrderValidation = () => {
+    const bookIds = useStore($books);
+    const isEmptyCart = bookIds.length === 0;
+
+    return { isEmptyCart };
+};
