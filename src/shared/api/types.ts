@@ -78,6 +78,7 @@ export type Book = {
     abstractBook: AbstractBook;
     costPerDay: number;
     owner: User;
+    availableBefore: string;
 };
 
 export type Category = {

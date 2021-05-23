@@ -1,8 +1,7 @@
 import faker from "faker";
-import type { User } from "../types";
+import type { User, Book } from "../types";
 import * as roles from "./roles";
 import * as books from "./books";
-import * as orders from "./orders";
 
 export const userBooksMap: Record<number, number[]> = {
     0: [],
@@ -11,11 +10,12 @@ export const userBooksMap: Record<number, number[]> = {
     3: [3, 8, 31, 2],
     4: [25, 16, 4, 22, 28, 24, 32],
     5: [2, 6, 7],
-    6: [1, 2, 3, 4, 5],
+    6: [1, 2, 30, 4, 5],
     7: [6, 7, 8, 9, 10],
     8: [11, 12, 13, 14, 15],
     9: [16, 17, 18, 19, 20],
     10: [21, 22, 23, 24, 25],
+    11: [26, 27, 28, 29, 30],
 };
 
 const createUser = (userId: number): User => {
@@ -89,8 +89,8 @@ export const BRAD_DOE: User = {
     lastName: "Doe",
     books: books.getByIds(userBooksMap[4]),
     closedOrders: [],
-    openedOrders: orders.getOrderBooks(),
-    reservations: [books.BRAVE_NEW_WORLD_2017],
+    openedOrders: books.orders.getOrderBooks(),
+    reservations: books.getByIds([26]),
     roles: [roles.USER],
     statusBan: false,
     wallet: {
@@ -102,9 +102,66 @@ export const OWNER_5 = createUser(5);
 export const OWNER_6 = createUser(6);
 export const OWNER_7 = createUser(7);
 export const OWNER_8 = createUser(8);
-export const OWNER_0 = createUser(9);
+export const OWNER_9 = createUser(9);
 export const OWNER_10 = createUser(10);
+
+export const OWNER_11 = createUser(11);
 
 export const __VIEWER = BRAD_DOE;
 
-export const getAll = () => [JOHN_DOE, JULY_DOE, JANE_DOE, BRAD_DOE];
+export const getAll = () => [
+    SIMPLE_USER,
+    JOHN_DOE,
+    JULY_DOE,
+    JANE_DOE,
+    BRAD_DOE,
+    OWNER_5,
+    OWNER_6,
+    OWNER_7,
+    OWNER_8,
+    OWNER_9,
+    OWNER_10,
+    OWNER_11,
+];
+
+export const getAllWithBook = (bookId: number) => {
+    return getAll().filter((u) => u.books.some((b) => b.id === bookId));
+};
+
+// === booksUnits
+//
+// FIXME: @hardcoded @temp @lowCoupling
+let size = 0;
+// const PRICE_OFFSET = 50;
+//
+// const prices = [
+//     price - PRICE_OFFSET * 1.5,
+//     price - PRICE_OFFSET,
+//     price,
+//     price + PRICE_OFFSET,
+//     price + PRICE_OFFSET * 1.5,
+// ];
+
+// FIXME: @hardcoded @temp @lowCoupling
+const createBookUnits = (abstractBookId: number): Book[] => {
+    const abstract = books.getBookById(abstractBookId);
+    if (!abstract) return [];
+
+    const price = books.getPseudoPrice(abstract);
+
+    const owners = getAllWithBook(abstractBookId);
+
+    return owners.map((owner) => ({
+        id: ++size,
+        abstractBook: abstract,
+        // !!! FIXME: temp
+        costPerDay: price,
+        owner,
+        availableBefore: faker.date.future(0.5).toISOString(),
+    }));
+};
+
+// FIXME: @hardcoded
+export const booksUnits = new Array(books.getAll().length + 1)
+    .fill(0)
+    .map((_, idx) => createBookUnits(idx));
