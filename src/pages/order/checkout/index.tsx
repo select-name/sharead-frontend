@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 // !!! FIXME: temp!;
 import moment from "moment";
 
-import { Header, Footer, Wallet, Order } from "features";
+import { Header, Footer, Wallet, Cart } from "features";
 import { orderModel } from "entities/order";
 import { viewerModel } from "entities/viewer";
 import { fakeApi } from "shared/api";
@@ -46,7 +46,7 @@ const CheckoutPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                <Order.Steps.View current={1} className={styles.rootSteps} />
+                <Cart.Steps.View current={1} className={styles.rootSteps} />
                 <Layout>
                     <Content />
                     <Sidebar />
@@ -190,7 +190,7 @@ const Sidebar = () => {
 
     return (
         <Layout.Sider className={styles.sidebar} width={400}>
-            <Order.TotalInfo.Card>
+            <Cart.TotalInfo.Card>
                 <Button
                     block
                     type="primary"
@@ -207,8 +207,8 @@ const Sidebar = () => {
                 >
                     Оплатить заказ
                 </Button>
-            </Order.TotalInfo.Card>
-            <Order.TotalInfo.CartMini />
+            </Cart.TotalInfo.Card>
+            <Cart.TotalInfo.CartMini />
         </Layout.Sider>
     );
 };

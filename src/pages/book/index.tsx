@@ -3,7 +3,7 @@ import { HistoryOutlined, InboxOutlined } from "@ant-design/icons";
 import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
-import { Header, Footer, Order, Fav } from "features";
+import { Header, Footer, Cart, Fav } from "features";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import type { AbstractBook } from "shared/api";
@@ -145,7 +145,7 @@ const Checkout = ({ book }: BookProps) => {
                 </div>
                 <div className={styles.checkoutActions}>
                     <Fav.Actions.AddBook bookId={book.id} />
-                    <Order.Actions.AddBook bookId={book.id} />
+                    <Cart.Actions.AddBook bookId={book.id} />
                     <TariffRadio onChange={alert.info} withTitle={false} disabled />
                     <BooksModal bookId={book.id} />
                 </div>

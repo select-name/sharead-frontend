@@ -11,8 +11,7 @@ import type { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import cn from "classnames";
 
-import { Fav } from "features/fav";
-import { Order } from "features/order";
+import { Fav, Cart } from "features";
 import { viewerModel, viewerLib } from "entities/viewer";
 import { BookCard } from "entities/book";
 import type { Book, AbstractBook } from "shared/api";
@@ -102,7 +101,7 @@ export const Content = () => {
                 renderBookActions={(b, idx) => {
                     const reserve = viewerLib.getReservationInfo(viewerNrml.reserved[idx]);
                     return [
-                        <Order.Actions.AddBookMini
+                        <Cart.Actions.AddBookMini
                             key="cart"
                             bookId={b.id}
                             disabled={!reserve.isAvailable}

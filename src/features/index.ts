@@ -1,5 +1,5 @@
 export * from "./header";
 export * from "./footer";
 export * from "./wallet";
-export * from "./order";
+export * from "./cart";
 export * from "./fav";

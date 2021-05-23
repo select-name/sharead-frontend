@@ -1,7 +1,7 @@
 import { Badge, Empty, Layout, Row, Col, Radio } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
-import { headerParams, Order, Fav } from "features";
+import { headerParams, Cart, Fav } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { fakeApi } from "shared/api";
 import * as catalogParams from "../params";
@@ -74,7 +74,7 @@ const CatalogContent = () => {
                                             actions={[
                                                 <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
                                                 // prettier-ignore
-                                                <Order.Actions.AddBookMini key="order" bookId={b.id} />,
+                                                <Cart.Actions.AddBookMini key="order" bookId={b.id} />,
                                             ]}
                                         />
                                     )}
@@ -85,7 +85,7 @@ const CatalogContent = () => {
                                             actions={
                                                 <>
                                                     <Fav.Actions.AddBook bookId={b.id} />
-                                                    <Order.Actions.AddBook bookId={b.id} />
+                                                    <Cart.Actions.AddBook bookId={b.id} />
                                                 </>
                                             }
                                         />

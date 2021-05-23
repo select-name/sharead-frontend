@@ -1,7 +1,7 @@
 import { Typography, Layout, Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
 
-import { Header, Footer, Order, Fav } from "features";
+import { Header, Footer, Cart, Fav } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { orderModel } from "entities/order";
 import { TariffRadio } from "entities/tariff";
@@ -19,7 +19,7 @@ const CartPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                <Order.Steps.View current={0} className={styles.rootSteps} />
+                <Cart.Steps.View current={0} className={styles.rootSteps} />
                 <Layout>
                     <Content />
                     <Sidebar />
@@ -52,7 +52,7 @@ const Content = () => {
                                 size="large"
                                 actions={
                                     <>
-                                        <Order.Actions.DeleteBook bookId={book.id} />
+                                        <Cart.Actions.DeleteBook bookId={book.id} />
                                         <TariffRadio
                                             onChange={(value) =>
                                                 orderModel.events.setBookDuration({
@@ -96,7 +96,7 @@ const RecommendationsSection = () => {
                             className={styles.recommendsFeedItem}
                             actions={[
                                 <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
-                                <Order.Actions.AddBookMini key="order" bookId={b.id} />,
+                                <Cart.Actions.AddBookMini key="order" bookId={b.id} />,
                             ]}
                             withDescription
                         />
@@ -110,13 +110,13 @@ const RecommendationsSection = () => {
 const Sidebar = () => {
     return (
         <Layout.Sider className={styles.sidebarContainer} width={400}>
-            <Order.TotalInfo.Card>
+            <Cart.TotalInfo.Card>
                 <Link to="/order/checkout">
                     <Button block type="primary" style={{ height: 50 }}>
                         Перейти к оформлению
                     </Button>
                 </Link>
-            </Order.TotalInfo.Card>
+            </Cart.TotalInfo.Card>
         </Layout.Sider>
     );
 };

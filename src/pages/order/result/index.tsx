@@ -1,7 +1,7 @@
 import { Layout, Button, Result } from "antd";
 import { Link } from "react-router-dom";
 
-import { Header, Footer, Order } from "features";
+import { Header, Footer, Cart } from "features";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 
@@ -19,7 +19,7 @@ const ResultPage = () => {
         <Layout className={styles.root}>
             <Header />
             <Layout.Content>
-                <Order.Steps.View current={2} className={styles.rootSteps} />
+                <Cart.Steps.View current={2} className={styles.rootSteps} />
                 <Layout>
                     <Result
                         status="success"
