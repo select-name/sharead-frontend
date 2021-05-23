@@ -7,7 +7,8 @@ import {
     FolderOpenOutlined,
     MenuOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+// https://stackoverflow.com/questions/48223566/using-anchor-tags-in-react-router-4
+import { HashLink } from "react-router-hash-link";
 
 // !!! FIXME:
 import { Wallet } from "features/wallet";
@@ -92,10 +93,10 @@ const Header = (props: Props) => {
         <>
             <LocationAlert />
             <Layout.Header className={cn(styles.root, className)}>
-                <Link className={styles.logo} to="/">
+                <HashLink className={styles.logo} to="/">
                     <Logo width={24} />
                     <h1 className={styles.logoTitle}>sharead</h1>
-                </Link>
+                </HashLink>
                 <div className={styles.search}>
                     <Search />
                 </div>
@@ -103,7 +104,7 @@ const Header = (props: Props) => {
                     <Wallet.AddFunds.Popover className={styles.toolbarWallet} />
                     {/* TODO: add amount-label later */}
                     {actions.map(({ id, label, Icon, url, disabled }) => (
-                        <Link
+                        <HashLink
                             key={label}
                             to={url}
                             className={cn(styles.toolbarAction, {
@@ -118,7 +119,7 @@ const Header = (props: Props) => {
                                 </Badge>
                             </span>
                             <span>{label}</span>
-                        </Link>
+                        </HashLink>
                     ))}
                 </div>
             </Layout.Header>
