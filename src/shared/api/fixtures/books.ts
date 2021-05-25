@@ -363,6 +363,13 @@ export const getShortname = (entity: AbstractBook) => {
     return `${author} — ${book}`;
 };
 
+const SORTING_TYPE = {
+    1: "POPULARITY" as const,
+    2: "PRICE" as const,
+    3: "TIME" as const,
+    4: "NOVELTY" as const,
+};
+
 type GetListParams = {
     filters: {
         search?: string;
@@ -383,15 +390,17 @@ type GetListParams = {
             status: "OUT_STOCK" | "RENTABLE" | "RESERVABLE" | "OWN";
         };
     };
+    orderby?: number;
 };
 
 // FIXME: move to shared/api later
+// eslint-disable-next-line max-lines-per-function
 export const getList = (params: GetListParams) => {
-    const { filters } = params;
+    const { filters, orderby } = params;
     const books = getAll();
     // FIXME: refine search
     // FIXME: simplify format
-    return books
+    const filtered = books
         .filter((book) => {
             if (!filters.search) return true;
             return new RegExp(filters.search, "i").test(toString(book));
@@ -427,6 +436,27 @@ export const getList = (params: GetListParams) => {
     //     if (!filters.exclude) return true;
     //     return !filters.exclude.includes(book.id);
     // });
+
+    if (!orderby) return filtered;
+
+    const sorting = SORTING_TYPE[orderby as keyof typeof SORTING_TYPE];
+
+    switch (sorting) {
+        case "NOVELTY":
+            return filtered.sort((a, b) => a.id - b.id);
+        case "POPULARITY":
+            return filtered.sort((a, b) => getPopularity(a) - getPopularity(b));
+        case "PRICE":
+            return filtered.sort((a, b) => getPrice(a) - getPrice(b));
+        case "TIME":
+            if (filters.getRentInfoBy === undefined) return filtered;
+
+            return filtered.sort(
+                (a, b) => filters.getRentInfoBy!(a).duration - filters.getRentInfoBy!(b).duration,
+            );
+        default:
+            return filtered;
+    }
 };
 
 export const getPrice = (book: AbstractBook) => {
@@ -435,6 +465,13 @@ export const getPrice = (book: AbstractBook) => {
     const factor = pseudoFactor + 2;
 
     return factor * 50;
+};
+
+export const getPopularity = (book: AbstractBook) => {
+    if (isPopular(book)) return 5;
+    const fullTitle = toString(book);
+    const pseudoFactor = fullTitle.length % 5;
+    return pseudoFactor;
 };
 
 // export const getExtraPrice = (book: AbstractBook) => {
