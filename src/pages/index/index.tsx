@@ -1,12 +1,17 @@
 import { Carousel, Typography, Layout, Row, Col } from "antd";
-import { BookFilled, UserOutlined } from "@ant-design/icons";
+import { BookFilled } from "@ant-design/icons";
 
 import { Header, Footer } from "features";
 import { useHistory } from "react-router-dom";
 import { BookCard } from "entities/book";
 import { fakeApi } from "shared/api";
-// eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
+import imgOrwell from "./orwell.jpg";
+import imgPalanick from "./palanick.jpg";
+import imgTaleb from "./taleb.jpg";
+import imgTolstoy from "./tolstoy.jpg";
+import imgIlyahov from "./ilyahov.jpg";
+// eslint-disable-next-line no-restricted-imports
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -93,6 +98,13 @@ const Categories = () => {
     );
 };
 
+const srcMap: Record<number, string> = {
+    7: imgIlyahov,
+    2: imgPalanick,
+    3: imgTaleb,
+    10: imgOrwell,
+    1: imgTolstoy,
+};
 const Authors = () => {
     const authorsQuery = fakeApi.authors.getPopular();
     const history = useHistory();
@@ -109,11 +121,12 @@ const Authors = () => {
                     title="Перейти к книгам автора"
                 >
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
-                    <Typography.Title level={4}>
+                    <Typography.Title level={4} className={styles.authorsItemTitle}>
                         {fakeApi.authors.getShortname(au)}
                     </Typography.Title>
                     <div className={styles.authorsItemCover}>
-                        <UserOutlined {...au.avatar} />
+                        {/* <UserOutlined {...au.avatar} /> */}
+                        <img src={srcMap[au.id]} alt="Logo" width={200} />
                     </div>
                 </Col>
             ))}

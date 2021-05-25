@@ -1,5 +1,5 @@
-@mixin box-shadow-bottom() {
-    box-shadow: 0 2px 8px #cdcece;
+@mixin box-shadow-bottom($rad: 8px) {
+    box-shadow: 0 2px $rad #cdcece;
 }
 
 @mixin box-shadow-bottom-inset() {
