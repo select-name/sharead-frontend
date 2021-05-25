@@ -379,8 +379,9 @@ type GetListParams = {
         book: AbstractBook,
     ) => {
         duration: number;
-        status: "OUT_STOCK" | "RENTABLE" | "RESERVABLE";
+        status: "OUT_STOCK" | "RENTABLE" | "RESERVABLE" | "OWN";
     };
+    // exclude?: number[];
 };
 
 // FIXME: move to shared/api later
@@ -418,8 +419,12 @@ export const getList = (params: GetListParams) => {
         .filter((book) => {
             if (!params.existsOnly || !params.getRentInfoBy) return true;
             const { status } = params.getRentInfoBy(book);
-            return status === "RENTABLE";
+            return status === "RENTABLE" || status === "OWN";
         });
+    // .filter((book) => {
+    //     if (!params.exclude) return true;
+    //     return !params.exclude.includes(book.id);
+    // });
 };
 
 export const getPrice = (book: AbstractBook) => {

@@ -6,6 +6,7 @@ import { headerParams, Cart, Fav, Reserve } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import { orderLib } from "entities/order";
+// import { viewerModel } from "entities/viewer";
 import { fakeApi } from "shared/api";
 import type { AbstractBook } from "shared/api";
 import * as catalogParams from "../params";
@@ -30,6 +31,8 @@ const useFilters = () => {
         existsOnly,
         // !!! FIXME: simplify!!!
         getRentInfoBy: (b: AbstractBook) => orderLib.getRentInfo(b.id),
+        // exclude: viewerABooksIds,
+        // exclude: [],
     };
 };
 
@@ -96,12 +99,31 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
     const vtParam = catalogParams.useViewType();
     const popular = fakeApi.books.isPopular(data);
     const rent = orderLib.getRentInfo(data.id);
+    // const viewerNrml = viewerModel.useViewerNormalized();
+    // Скрываем собственные книги пользователя
+    // const viewerABooksIds = viewerNrml.ownBooks.map((b) => b.abstractBook.id);
 
-    if (rent.status === "OUT_STOCK") return null;
+    // const hasUserBook = viewerABooksIds.includes(data.id);
+
+    // // Скрываем книги не в наличии
+    // if (rent.status === "OUT_STOCK") return null;
 
     const ribbonText =
-        rent.status === "RESERVABLE" ? "Можно забронировать" : popular ? "Популярное" : "";
-    const ribbonColor = rent.status === "RESERVABLE" ? "gray" : popular ? "magenta" : "";
+        rent.status === "OWN"
+            ? "Ваш экземпляр"
+            : rent.status === "RESERVABLE" || rent.status === "OUT_STOCK"
+            ? "Можно забронировать"
+            : popular
+            ? "Популярное"
+            : "";
+    const ribbonColor =
+        rent.status === "OWN"
+            ? "blue"
+            : rent.status === "RESERVABLE"
+            ? "gray"
+            : popular
+            ? "magenta"
+            : "";
     const ribbonStyle = { display: ribbonText ? "block" : "none" };
     const span = vtParam.isGrid ? 8 : 24;
 

@@ -128,8 +128,7 @@ const Card = ({ book }: BookProps) => {
 // eslint-disable-next-line max-lines-per-function
 const Checkout = ({ book }: BookProps) => {
     const rent = orderLib.getRentInfo(book.id);
-    const style =
-        rent.status === "OUT_STOCK" || rent.status === "RESERVABLE" ? { opacity: 0.5 } : {};
+    const style = rent.status !== "RENTABLE" ? { opacity: 0.5 } : {};
     const price = `${fakeApi.books.getPrice(book)} р`;
     // console.debug("BOOK RENT", book.id, rent);
 
@@ -138,6 +137,7 @@ const Checkout = ({ book }: BookProps) => {
             <article className={styles.checkout}>
                 <div>
                     <h3 className={styles.checkoutPrice}>
+                        {rent.status === "OWN" && "Ваш экземпляр"}
                         {rent.status === "RENTABLE" && price}
                         {rent.status === "RESERVABLE" && "Можно забронировать"}
                         {rent.status === "OUT_STOCK" && "Нет в наличии"}
@@ -159,6 +159,19 @@ const Checkout = ({ book }: BookProps) => {
                                     )}
                                 </li>
                             </ul>
+                        )}
+                        {rent.status === "OWN" && (
+                            <>
+                                <p>
+                                    Эта книга относится к одному из экземпляров, которые вы
+                                    загрузили на сервис
+                                </p>
+                                <p>
+                                    В целях антифрода, для данной книги вы не сможете сделать бронь
+                                    или заказ. Но можете посмотреть аналоги для других издательств и
+                                    годов выпуска
+                                </p>
+                            </>
                         )}
                         {rent.status === "RESERVABLE" && (
                             <>

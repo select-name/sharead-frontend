@@ -35,9 +35,17 @@ export const $durations = browser
         }
         return { ...state, [bookId]: duration };
     })
-    .on(events.toggleBook, (state, payload) => {
-        const duration = state[payload] ? undefined : DEFAULT_DURATION;
-        events.setBookDuration({ bookId: payload, duration });
+    .on(events.toggleBook, (state, bookId) => {
+        // !!! FIXME
+        const duration = state[bookId] ? undefined : DEFAULT_DURATION;
+        if (duration === undefined) {
+            // console.log("before", state);
+            delete state[bookId];
+            // console.log("after", state);
+            return state;
+        }
+        return { ...state, [bookId]: duration };
+        // events.setBookDuration({ bookId: payload, duration });
     })
     .on(events.submitOrder, () => {
         // console.log("$durations SUBMIT");

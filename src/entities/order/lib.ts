@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
+import { viewerLib } from "entities/viewer";
 import { fakeApi } from "shared/api";
 import type { Book } from "shared/api";
+// !!! FIXME:
 
 // type RentStat = {
 //     book: Book;
@@ -67,6 +69,20 @@ export const getRentInfo = (aBookId: number) => {
     const reservations = fakeApi.reservations
         .getByABook(aBookId)
         .filter((r) => r.status === "PENDING");
+
+    const viewer = fakeApi.users.getViewer();
+    const viewerNrml = viewerLib.getUserNormalized(viewer);
+
+    // FIXME: Костыль
+    // CASE: Книга вьювера
+    if (viewerNrml.ownBooks.some((b) => b.abstractBook.id === aBookId)) {
+        return {
+            inStock: true,
+            status: "OWN" as const,
+            duration: maxDuration,
+            items: rentStats,
+        };
+    }
 
     // CASE: Достаточно ли экземпляров для активных броней?
     if (reservations.length < availableBooks.length) {

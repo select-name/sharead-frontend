@@ -101,6 +101,7 @@ const RecommendationsSection = () => {
                                 data={b}
                                 size="small"
                                 className={styles.recommendsFeedItem}
+                                // TODO: Добавить проверку на rent и вернуть?
                                 actions={[
                                     <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
                                     <Cart.Actions.AddBookMini key="order" bookId={b.id} />,
