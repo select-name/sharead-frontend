@@ -443,16 +443,16 @@ export const getList = (params: GetListParams) => {
 
     switch (sorting) {
         case "NOVELTY":
-            return filtered.sort((a, b) => a.id - b.id);
+            return filtered.sort((a, b) => b.id - a.id);
         case "POPULARITY":
-            return filtered.sort((a, b) => getPopularity(a) - getPopularity(b));
+            return filtered.sort((a, b) => getPopularity(b) - getPopularity(a));
         case "PRICE":
             return filtered.sort((a, b) => getPrice(a) - getPrice(b));
         case "TIME":
             if (filters.getRentInfoBy === undefined) return filtered;
 
             return filtered.sort(
-                (a, b) => filters.getRentInfoBy!(a).duration - filters.getRentInfoBy!(b).duration,
+                (a, b) => filters.getRentInfoBy!(b).duration - filters.getRentInfoBy!(a).duration,
             );
         default:
             return filtered;
