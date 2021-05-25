@@ -30,15 +30,17 @@
         width: 450px;
 
         &Item {
+            height: 640px;
+            font-size: 300px;
             text-align: center;
             user-select: none;
             // background: #364d79;
             background: var(--color-accent);
 
-            h3 {
-                line-height: 640px;
-                color: #000000;
-            }
+            // h3 {
+            //     line-height: 640px;
+            //     color: #000000;
+            // }
         }
 
         li > * {

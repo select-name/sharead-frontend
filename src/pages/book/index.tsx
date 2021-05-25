@@ -1,5 +1,5 @@
 import { Carousel, Typography, Layout, Result, Button, Descriptions, Row, Col } from "antd";
-import { HistoryOutlined, InboxOutlined } from "@ant-design/icons";
+import { HistoryOutlined, InboxOutlined, BookFilled } from "@ant-design/icons";
 import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
@@ -87,10 +87,13 @@ const Card = ({ book }: BookProps) => {
             <div className={styles.cardMain}>
                 <div className={styles.cardGallery}>
                     <Carousel>
-                        <div className={styles.cardGalleryItem}>
-                            <Typography.Title level={3}>IMG-1</Typography.Title>
+                        <div className={styles.cardGalleryItem} >
+                            <BookFilled style={{ marginTop: 150 }} />
                         </div>
-                        <div className={styles.cardGalleryItem}>
+                        <div className={styles.cardGalleryItem} >
+                            <BookFilled style={{ marginTop: 150, color: "darkslategray" }} />
+                        </div>
+                        {/* <div className={styles.cardGalleryItem}>
                             <Typography.Title level={3}>IMG-2</Typography.Title>
                         </div>
                         <div className={styles.cardGalleryItem}>
@@ -98,7 +101,7 @@ const Card = ({ book }: BookProps) => {
                         </div>
                         <div className={styles.cardGalleryItem}>
                             <Typography.Title level={3}>IMG-4</Typography.Title>
-                        </div>
+                        </div> */}
                     </Carousel>
                 </div>
                 <div className={styles.cardInfo}>
