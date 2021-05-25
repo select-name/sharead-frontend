@@ -12,7 +12,7 @@ const Routing = () => {
         <Switch>
             <Route exact path={`${match.path}`} component={CartPage} />
             <Route exact path={`${match.path}/checkout`} component={CheckoutPage} />
-            <Route exact path={`${match.path}/result`} component={ResultPage} />
+            <Route exact path={`${match.path}/result/:hash`} component={ResultPage} />
             <Redirect to={`${match.path}`} />
         </Switch>
     );

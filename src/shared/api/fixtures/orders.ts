@@ -4,8 +4,10 @@ import type { Order } from "../types";
 // FIXME: hardcoded! dry!
 const VIEWER_ID = 4;
 
-const createOrder = (params: {
-    id: number;
+let __size = 0;
+
+export const createOrder = (params: {
+    id?: number;
     bookId: number;
     userId: number;
     costs: number;
@@ -15,7 +17,7 @@ const createOrder = (params: {
     status: Order["status"];
 }) => {
     return {
-        id: params.id,
+        id: params.id || ++__size,
         bookId: params.bookId,
         costs: params.costs / 1.25,
         deliveredAt: dayjs()
@@ -33,7 +35,6 @@ const createOrder = (params: {
 };
 
 export const VI_ORDER_1: Order = createOrder({
-    id: 1,
     bookId: 45,
     costs: 400,
     deliveredDelta: 3,
@@ -44,7 +45,6 @@ export const VI_ORDER_1: Order = createOrder({
 });
 
 export const VI_ORDER_2: Order = createOrder({
-    id: 2,
     bookId: 38,
     costs: 100,
     deliveredDelta: 2,
@@ -55,7 +55,6 @@ export const VI_ORDER_2: Order = createOrder({
 });
 
 export const VI_ORDER_3: Order = createOrder({
-    id: 3,
     bookId: 9,
     costs: 200,
     deliveredDelta: -2,
@@ -66,7 +65,6 @@ export const VI_ORDER_3: Order = createOrder({
 });
 
 export const VI_ORDER_4: Order = createOrder({
-    id: 4,
     bookId: 31,
     costs: 100,
     deliveredDelta: -14,
@@ -77,7 +75,6 @@ export const VI_ORDER_4: Order = createOrder({
 });
 
 export const YA_ORDER_1: Order = createOrder({
-    id: 5,
     bookId: 13,
     costs: 100,
     status: "CLOSED",
@@ -85,7 +82,6 @@ export const YA_ORDER_1: Order = createOrder({
 });
 
 export const YA_ORDER_2: Order = createOrder({
-    id: 6,
     bookId: 13,
     costs: 400,
     status: "RENTED",
@@ -93,7 +89,6 @@ export const YA_ORDER_2: Order = createOrder({
 });
 
 export const YA_ORDER_3: Order = createOrder({
-    id: 7,
     bookId: 14,
     costs: 150,
     status: "CLOSED",
@@ -101,14 +96,13 @@ export const YA_ORDER_3: Order = createOrder({
 });
 
 export const YA_ORDER_4: Order = createOrder({
-    id: 8,
     bookId: 16,
     costs: 300,
     status: "CLOSED",
     userId: 5,
 });
 
-export const getAll = () => [
+const LIST = [
     VI_ORDER_1,
     VI_ORDER_2,
     VI_ORDER_3,
@@ -119,9 +113,16 @@ export const getAll = () => [
     YA_ORDER_4,
 ];
 
-export const getById = (orderId: number) => getAll().find((o) => o.id === orderId);
+export const getAll = () => LIST;
 
-export const getByUserId = (userId: number) => getAll().filter((o) => o.userId === userId);
-export const getByIds = (orderIds: number[]) => orderIds.map((id) => getById(id)!);
+export const pushTo = (...orders: Order[]) => LIST.push(...orders);
 
-export const getByBookId = (bookId: number) => getAll().filter((o) => o.bookId === bookId);
+export const getById = (orderId: number) => LIST.find((o) => o.id === orderId);
+
+export const getByUserId = (userId: number) => LIST.filter((o) => o.userId === userId);
+export const getByIds = (orderIds: number[]) => {
+    // console.log("LIST", LIST);
+    return orderIds.map((id) => getById(id)!);
+};
+
+export const getByBookId = (bookId: number) => LIST.filter((o) => o.bookId === bookId);

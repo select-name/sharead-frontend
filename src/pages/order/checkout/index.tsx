@@ -10,7 +10,7 @@ import {
     Select,
     Checkbox,
 } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { YMaps, Map } from "react-yandex-maps";
 import { useState } from "react";
 import dayjs from "dayjs";
@@ -21,7 +21,7 @@ import { Header, Footer, Wallet, Cart } from "features";
 import { orderModel } from "entities/order";
 import { viewerModel } from "entities/viewer";
 import { fakeApi } from "shared/api";
-import { dom, hooks } from "shared/lib";
+import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -187,8 +187,8 @@ const Sidebar = () => {
     const order = orderModel.cart.useOrder();
     const { isEmptyCart } = orderModel.cart.useOrderValidation();
     const validation = useCheckoutValidation();
-    const history = useHistory();
-    hooks.useRedirectOn(isEmptyCart, "/order");
+    // const history = useHistory();
+    // hooks.useRedirectOn(isEmptyCart, "/order");
 
     return (
         <Layout.Sider className={styles.sidebar} width={400}>
@@ -202,7 +202,6 @@ const Sidebar = () => {
                     onClick={() =>
                         viewer.payment.applyTransaction(-order.price).then(() => {
                             orderModel.cart.events.submitOrder();
-                            history.push("/order/result");
                         })
                     }
                     loading={viewer.payment.isPending}

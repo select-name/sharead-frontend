@@ -257,3 +257,9 @@ export const getUserBooksByIds = (userBookIds: number[]) => {
 export const getUserBooksByABook = (aBookId: number) => {
     return userBooks.filter((ub) => ub.abstractBook.id === aBookId);
 };
+
+export const shuffleByABook = (aBookId: number) => {
+    const userBooks = getUserBooksByABook(aBookId);
+    const idx = Math.floor(Math.random() * userBooks.length);
+    return userBooks[idx];
+};

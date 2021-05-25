@@ -71,3 +71,7 @@ export const useOrderValidation = () => {
 
     return { isEmptyCart };
 };
+
+// export const useCartStore = () => {
+//     return useStore($cart);
+// };

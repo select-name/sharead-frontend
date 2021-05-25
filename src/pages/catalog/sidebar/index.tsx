@@ -141,9 +141,9 @@ const TimeSection = () => {
                 // range
                 // FIXME: hardcoded
                 marks={{
-                    [TARIFFS.T7]: `${TARIFFS.T7} дн`,
-                    [TARIFFS.T14]: `${TARIFFS.T14} дн`,
-                    [TARIFFS.T30]: `${TARIFFS.T30} дн`,
+                    [TARIFFS.T7]: `${TARIFFS.T7}+ дн`,
+                    [TARIFFS.T14]: `${TARIFFS.T14}+ дн`,
+                    [TARIFFS.T30]: `${TARIFFS.T30}+ дн`,
                 }}
                 defaultValue={params.tariff}
                 onChange={(value: number) => params.setTariff(value)}
