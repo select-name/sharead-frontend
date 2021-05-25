@@ -217,7 +217,7 @@ const Checkout = ({ book }: BookProps) => {
 // !!! FIXME: Скроллить наверх при переходе к книге
 const Recommendations = ({ book }: BookProps) => {
     const booksQuery = fakeApi.books
-        .getList({ authors: book.authors.map((a) => a.id) })
+        .getList({ filters: { authors: book.authors.map((a) => a.id) } })
         .filter((b) => b.id !== book.id);
 
     if (!booksQuery.length) return null;

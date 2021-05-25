@@ -364,66 +364,68 @@ export const getShortname = (entity: AbstractBook) => {
 };
 
 type GetListParams = {
-    search?: string;
-    authors?: number[];
-    publishers?: number[];
-    categories?: number[];
-    prices?: {
-        from: number;
-        to: number;
+    filters: {
+        search?: string;
+        authors?: number[];
+        publishers?: number[];
+        categories?: number[];
+        prices?: {
+            from: number;
+            to: number;
+        };
+        tariff?: number;
+        existsOnly?: boolean;
+        // !!! FIXME: Ужаснейший код! Никогда не показывайте это бекендерам!
+        getRentInfoBy?: (
+            book: AbstractBook,
+        ) => {
+            duration: number;
+            status: "OUT_STOCK" | "RENTABLE" | "RESERVABLE" | "OWN";
+        };
     };
-    tariff?: number;
-    existsOnly?: boolean;
-    // !!! FIXME: Ужаснейший код! Никогда не показывайте это бекендерам!
-    getRentInfoBy?: (
-        book: AbstractBook,
-    ) => {
-        duration: number;
-        status: "OUT_STOCK" | "RENTABLE" | "RESERVABLE" | "OWN";
-    };
-    // exclude?: number[];
 };
 
 // FIXME: move to shared/api later
 export const getList = (params: GetListParams) => {
+    const { filters } = params;
     const books = getAll();
     // FIXME: refine search
     // FIXME: simplify format
     return books
         .filter((book) => {
-            if (!params.search) return true;
-            return new RegExp(params.search, "i").test(toString(book));
+            if (!filters.search) return true;
+            return new RegExp(filters.search, "i").test(toString(book));
         })
         .filter((book) => {
-            if (!params.publishers?.length) return true;
-            return params.publishers.includes(book.publishingHouse.id);
+            if (!filters.publishers?.length) return true;
+            return filters.publishers.includes(book.publishingHouse.id);
         })
         .filter((book) => {
-            if (!params.authors?.length) return true;
-            return book.authors.some((a) => params.authors?.includes(a.id));
+            if (!filters.authors?.length) return true;
+            return book.authors.some((a) => filters.authors?.includes(a.id));
         })
         .filter((book) => {
-            if (!params.categories?.length) return true;
-            return params.categories?.includes(book.category.id);
+            if (!filters.categories?.length) return true;
+            return filters.categories?.includes(book.category.id);
         })
         .filter((book) => {
             const price = getPrice(book);
-            if (!params.prices) return true;
-            return params.prices.from <= price && price <= params.prices.to;
+            if (!filters.prices) return true;
+            return filters.prices.from <= price && price <= filters.prices.to;
         })
         .filter((book) => {
-            if (!params.tariff || !params.getRentInfoBy) return true;
-            const { duration } = params.getRentInfoBy(book);
-            return params.tariff <= duration;
+            if (!filters.tariff || !filters.getRentInfoBy) return true;
+            const { duration } = filters.getRentInfoBy(book);
+            return filters.tariff <= duration;
         })
         .filter((book) => {
-            if (!params.existsOnly || !params.getRentInfoBy) return true;
-            const { status } = params.getRentInfoBy(book);
+            if (!filters.existsOnly || !filters.getRentInfoBy) return true;
+            const { status } = filters.getRentInfoBy(book);
             return status === "RENTABLE" || status === "OWN";
         });
     // .filter((book) => {
-    //     if (!params.exclude) return true;
-    //     return !params.exclude.includes(book.id);
+    //     if (!filters.exclude) return true;
+    //     return !filters.exclude.includes(book.id);
     // });
 };
 

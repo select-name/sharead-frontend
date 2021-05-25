@@ -42,7 +42,7 @@ const useSearch = () => {
         // FIXME: hardcoded
         if (isNotEnoughLength) return setQuery(initialQuery);
 
-        const booksQuery = fakeApi.books.getList({ search });
+        const booksQuery = fakeApi.books.getList({ filters: { search } });
         setQuery(booksQuery);
     };
 

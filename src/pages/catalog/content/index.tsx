@@ -43,7 +43,7 @@ const viewTypes = [
 // eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const filters = useFilters();
-    const booksQuery = fakeApi.books.getList(filters);
+    const booksQuery = fakeApi.books.getList({ filters });
     const vtParam = catalogParams.useViewType();
 
     // FIXME: add later ListView
