@@ -1,11 +1,14 @@
 import { Carousel, Typography, Layout, Row, Col } from "antd";
-import { BookFilled } from "@ant-design/icons";
+// import { BookFilled } from "@ant-design/icons";
 
 import { Header, Footer } from "features";
 import { useHistory } from "react-router-dom";
 import { BookCard } from "entities/book";
 import { fakeApi } from "shared/api";
 import { useTitle } from "shared/lib/dom";
+import imgCat1 from "./1.png";
+import imgCat2 from "./2.png";
+import imgCat3 from "./3.png";
 import imgOrwell from "./orwell.jpg";
 import imgPalanick from "./palanick.jpg";
 import imgTaleb from "./taleb.jpg";
@@ -71,6 +74,13 @@ const Banner = () => (
     </Carousel>
 );
 
+// FIXME: Озон прости, это временно...
+const srcCatMap: Record<number, string> = {
+    1: imgCat3,
+    2: imgCat2,
+    3: imgCat1,
+};
+
 const Categories = () => {
     const categoriesQuery = fakeApi.categories.getAll();
     const history = useHistory();
@@ -87,10 +97,15 @@ const Categories = () => {
                     title="Переход к книгам по категории"
                 >
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
-                    <Typography.Title level={3}>{cat.name}</Typography.Title>
-                    <Typography.Text>{cat.description}</Typography.Text>
+                    <div className={styles.categoriesItemText}>
+                        <Typography.Title level={3} className={styles.text}>
+                            {cat.name}
+                        </Typography.Title>
+                        <Typography.Text className={styles.text}>{cat.description}</Typography.Text>
+                    </div>
                     <div className={styles.categoriesItemCover}>
-                        <BookFilled {...cat.cover} />
+                        <img src={srcCatMap[cat.id]} alt="logo" />
+                        {/* <BookFilled {...cat.cover} /> */}
                     </div>
                 </Col>
             ))}
