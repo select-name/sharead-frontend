@@ -38,6 +38,6 @@ export const topics = [
     TOPIC_MY,
     TOPIC_OPENED,
     TOPIC_RESERVED,
-    TOPIC_CLOSED,
     TOPIC_FAV,
+    TOPIC_CLOSED,
 ];

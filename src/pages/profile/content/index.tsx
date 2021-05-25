@@ -110,14 +110,6 @@ export const Content = () => {
                 }}
             />
             <Section
-                id={TOPIC_CLOSED.id}
-                title={TOPIC_CLOSED.fullTitle}
-                description={TOPIC_CLOSED.description}
-                books={viewerNrml.closedBooks}
-                Icon={CheckCircleOutlined}
-                active={TOPIC_CLOSED.id === currentAnchor}
-            />
-            <Section
                 id={TOPIC_FAV.id}
                 title={TOPIC_FAV.fullTitle}
                 description={TOPIC_FAV.description}
@@ -125,6 +117,14 @@ export const Content = () => {
                 Icon={HeartOutlined}
                 active={TOPIC_FAV.id === currentAnchor}
                 renderBookActions={(b) => [<Fav.Actions.AddBookMini key="fav" bookId={b.id} />]}
+            />
+            <Section
+                id={TOPIC_CLOSED.id}
+                title={TOPIC_CLOSED.fullTitle}
+                description={TOPIC_CLOSED.description}
+                books={viewerNrml.closedBooks}
+                Icon={CheckCircleOutlined}
+                active={TOPIC_CLOSED.id === currentAnchor}
             />
         </Layout>
     );
