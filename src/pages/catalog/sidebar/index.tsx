@@ -23,6 +23,7 @@ const CatalogSidebar = () => {
     );
 };
 
+// FIXME: Скрывать авторов, если нет в наличии книг по ним
 const AuthorSection = () => {
     const params = catalogParams.useFilterByAuthor();
     // Some options could be disabled

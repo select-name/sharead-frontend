@@ -82,6 +82,8 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
     const popular = fakeApi.books.isPopular(data);
     const rent = orderLib.getRentInfo(data.id);
 
+    if (rent.status === "OUT_STOCK") return null;
+
     const ribbonText =
         rent.status === "RESERVABLE" ? "Можно забронировать" : popular ? "Популярное" : "";
     const ribbonColor = rent.status === "RESERVABLE" ? "gray" : popular ? "magenta" : "";

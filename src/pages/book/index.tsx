@@ -4,6 +4,7 @@ import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
 import { Header, Footer, Cart, Fav, Reserve } from "features";
+import pluralize from "plural-ru";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import { orderLib } from "entities/order";
@@ -124,6 +125,7 @@ const Card = ({ book }: BookProps) => {
     );
 };
 
+// eslint-disable-next-line max-lines-per-function
 const Checkout = ({ book }: BookProps) => {
     const rent = orderLib.getRentInfo(book.id);
     const style =
@@ -139,19 +141,46 @@ const Checkout = ({ book }: BookProps) => {
                         {rent.status === "RESERVABLE" && "Можно забронировать"}
                         {rent.status === "OUT_STOCK" && "Нет в наличии"}
                     </h3>
-                    {/* FIXME: Добавить динамику */}
-                    <ul className={styles.checkoutDetails}>
-                        <li className={styles.checkoutDetailsItem}>
-                            <InboxOutlined /> Доставка курьерской службой до 2 дней
-                        </li>
-                        <li className={styles.checkoutDetailsItem}>
-                            <HistoryOutlined /> В аренду от 2 дней
-                        </li>
-                    </ul>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem magnam
-                        fugiat et vel aspernatur temporibus!
-                    </p>
+                    <Row style={{ marginTop: 20 }}>
+                        {rent.status === "RENTABLE" && (
+                            <ul className={styles.checkoutDetails}>
+                                <li className={styles.checkoutDetailsItem}>
+                                    <InboxOutlined /> Доставка курьерской службой до 2 дней
+                                </li>
+                                <li className={styles.checkoutDetailsItem}>
+                                    <HistoryOutlined /> В аренду до{" "}
+                                    {/* FIXME: hardcoded, use entities/tariffs */}
+                                    {pluralize(
+                                        Math.min(30, rent.duration),
+                                        "%d дня",
+                                        "%d дней",
+                                        "%d дней",
+                                    )}
+                                </li>
+                            </ul>
+                        )}
+                        {rent.status === "RESERVABLE" && (
+                            <>
+                                <p>На данный момент все экземпляры этой книги заняты</p>
+                                <p>
+                                    Вы можете оставить свою бронь на нее, чтобы арендовать, как она
+                                    освободится и подойдет ваша очередь
+                                </p>
+                            </>
+                        )}
+                        {rent.status === "OUT_STOCK" && (
+                            <>
+                                <p>
+                                    На данный момент в сервисе нет экземпляров этой книги от
+                                    пользователей
+                                </p>
+                                <p>
+                                    Вы можете добавить в ее избранное, чтобы не потерять и вернуться
+                                    позднее. А также - присмотреться к похожим
+                                </p>
+                            </>
+                        )}
+                    </Row>
                 </div>
                 <div className={styles.checkoutActions}>
                     <Fav.Actions.AddBook bookId={book.id} />
@@ -161,7 +190,6 @@ const Checkout = ({ book }: BookProps) => {
                         <Reserve.Actions.ReserveBook bookId={book.id} />
                     )}
                     {false && <TariffRadio onChange={alert.info} withTitle={false} disabled />}
-                    {/* FIXME: @temp */}
                     {false && <BooksModal bookId={book.id} />}
                 </div>
             </article>

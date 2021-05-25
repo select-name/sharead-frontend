@@ -294,6 +294,15 @@ export const GOT__STORM_OF_SWORDS_2018: AbstractBook = {
     category: categories.IMAGINATIVE,
 };
 
+export const GOT__FEAST_FOR_CROWS_2012: AbstractBook = {
+    id: 33,
+    name: "Игра Престолов: Пир стервятников",
+    authors: [authors.GEORGE_MARTIN],
+    publicationYear: 2012,
+    publishingHouse: publishers.AST,
+    category: categories.IMAGINATIVE,
+};
+
 export const getAll = () =>
     [
         FIGHT_CLUB_2014,
@@ -328,6 +337,8 @@ export const getAll = () =>
         WITCHER__LAST_WISH_2016,
         GOT__DANCE_OF_DRAGONS_2019,
         GOT__STORM_OF_SWORDS_2018,
+        // Книга, для которой нет владельца и экземпляров
+        GOT__FEAST_FOR_CROWS_2012,
     ].sort((a, b) => a.id - b.id);
 
 export const getById = (bookId: number) => {
