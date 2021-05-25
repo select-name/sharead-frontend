@@ -94,7 +94,7 @@ const RecommendationsSection = () => {
             </Typography.Text>
             <Row className={styles.recommendsFeed} wrap={false} gutter={[20, 0]}>
                 {recommended.books
-                    .filter((b) => orderLib.getRentInfo(b.id).isAvailable)
+                    .filter((b) => orderLib.getRentInfo(b.id).couldBeRent)
                     .map((b) => (
                         <Col key={b.id} span={8}>
                             <BookCard

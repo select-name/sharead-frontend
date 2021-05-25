@@ -64,7 +64,7 @@ const CatalogContent = () => {
                     {booksQuery.map((b) => {
                         const popular = fakeApi.books.isPopular(b);
                         const rentInfo = orderLib.getRentInfo(b.id);
-                        const isBusy = !rentInfo.isAvailable;
+                        const isBusy = !rentInfo.couldBeRent;
 
                         const ribbonText = isBusy ? "Нет в наличии" : popular ? "Популярное" : "";
                         const ribbonColor = isBusy ? "gray" : popular ? "magenta" : "";

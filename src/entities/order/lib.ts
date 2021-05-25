@@ -5,7 +5,7 @@ import { fakeApi } from "shared/api";
 // type RentStat = {
 //     book: Book;
 //     maxDuration: number;
-//     isAvailable: boolean;
+//     couldBeRent: boolean;
 // };
 
 /**
@@ -26,7 +26,7 @@ export const getRentInfo = (aBookId: number) => {
     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
     // Нет экземпляров
     if (!userBooks.length) {
-        return { duration: -1, isAvailable: false, items: [] };
+        return { duration: -1, couldBeRent: false, items: [] };
     }
 
     // Статусы по книгам
@@ -36,16 +36,16 @@ export const getRentInfo = (aBookId: number) => {
         const orders = fakeApi.orders.getByBookId(ub.id).sort((a, b) => a.id - b.id);
         const lastStatus = orders.slice(-1)[0]?.status;
 
-        const isAvailable = !orders.length || lastStatus === "CLOSED";
+        const couldBeRent = !orders.length || lastStatus === "CLOSED";
 
         return {
             book: ub,
             maxDuration,
-            isAvailable,
+            couldBeRent,
         };
     });
 
-    const availableBooks = rentStats.filter((rs) => rs.isAvailable);
+    const availableBooks = rentStats.filter((rs) => rs.couldBeRent);
 
     const reservations = fakeApi.reservations
         .getByABook(aBookId)
@@ -54,12 +54,12 @@ export const getRentInfo = (aBookId: number) => {
     const isEnoughBooksForReservations = reservations.length < availableBooks.length;
 
     if (!isEnoughBooksForReservations) {
-        return { duration: -1, isAvailable: false, items: rentStats };
+        return { duration: -1, couldBeRent: false, items: rentStats };
     }
 
     return {
         duration: Math.max(...availableBooks.map((rs) => rs.maxDuration)),
-        isAvailable: availableBooks.filter((b) => b.maxDuration >= 7).length > 0,
+        couldBeRent: availableBooks.filter((b) => b.maxDuration >= 7).length > 0,
         items: rentStats,
     };
 };
@@ -84,7 +84,7 @@ export const getRentInfo = (aBookId: number) => {
 // export const getReserveInfo = (aBookId: number) => {
 //     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
 //     // Нет экземпляров
-//     // if (!userBooks.length) return { duration: -1, isAvailable: false, items: [] };
+//     // if (!userBooks.length) return { duration: -1, couldBeRent: false, items: [] };
 
 //     const reservations = fakeApi.reservations.getByABook(aBookId);
 

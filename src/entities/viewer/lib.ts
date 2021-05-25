@@ -89,7 +89,7 @@ export const getUserStat = (user: User) => {
 export const getReservationInfo = (reservation: Reservation) => {
     const queryIdx = fakeApi.reservations.getUserIdx(reservation.userId, reservation.aBookId);
     const awaitTime = queryIdx * 7;
-    const isAvailable = queryIdx === 0;
+    const couldBeRent = queryIdx === 0;
 
-    return { queryIdx, awaitTime, isAvailable };
+    return { queryIdx, awaitTime, couldBeRent };
 };

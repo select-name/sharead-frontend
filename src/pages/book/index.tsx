@@ -126,7 +126,7 @@ const Card = ({ book }: BookProps) => {
 
 const Checkout = ({ book }: BookProps) => {
     const rentInfo = orderLib.getRentInfo(book.id);
-    const isBusy = !rentInfo.isAvailable;
+    const isBusy = !rentInfo.couldBeRent;
     const style = isBusy ? { opacity: 0.5 } : {};
     const price = `${fakeApi.books.getPseudoPrice(book)} р`;
 

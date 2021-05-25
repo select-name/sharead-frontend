@@ -77,7 +77,7 @@ export const Content = () => {
                 getRibbonProps={(_, idx) => {
                     const reserve = viewerLib.getReservationInfo(viewerNrml.reserved[idx]);
 
-                    if (reserve.isAvailable) {
+                    if (reserve.couldBeRent) {
                         return { color: "orange", text: "Подошла ваша очередь!" };
                     }
                     return {
@@ -88,7 +88,7 @@ export const Content = () => {
                 renderBookDetails={(_, idx) => {
                     const reserve = viewerLib.getReservationInfo(viewerNrml.reserved[idx]);
 
-                    if (reserve.isAvailable) {
+                    if (reserve.couldBeRent) {
                         return (
                             <p>
                                 Сделайте заказ в течение двух дней, чтобы не потерять свою очередь
@@ -107,7 +107,7 @@ export const Content = () => {
                         <Cart.Actions.AddBookMini
                             key="cart"
                             bookId={b.id}
-                            disabled={!reserve.isAvailable}
+                            disabled={!reserve.couldBeRent}
                         />,
                     ];
                 }}
