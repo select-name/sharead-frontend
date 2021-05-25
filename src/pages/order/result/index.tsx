@@ -1,5 +1,5 @@
 import { Layout, Button, Result } from "antd";
-import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 
 import { Header, Footer, Cart } from "features";
 import { orderModel } from "entities/order";
@@ -29,7 +29,7 @@ const ResultPage = () => {
                         title="Заказ успешно оплачен и оформлен!"
                         subTitle="Ожидайте доставки в течение указанного в заказе времени"
                         extra={[
-                            <Link to="/profile" key="order">
+                            <Link to="/profile#opened" key="order">
                                 <Button type="primary">Перейти к заказу</Button>
                             </Link>,
                             <Link to="/catalog" key="catalog">
