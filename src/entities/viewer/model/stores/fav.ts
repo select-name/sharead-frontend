@@ -5,7 +5,7 @@ import * as events from "../events";
 
 // FIXME: fetch later by API
 // export const initialState = fakeApi.viewer.getFavourite().map((it) => it.id);
-export const initialState: number[] = fakeApi.users.__VIEWER.favABooks;
+export const initialState: number[] = fakeApi.users.getViewer().favABooks;
 
 export const $store = browser
     .createPersistStore(initialState, { name: "entities/viewer/fav" })

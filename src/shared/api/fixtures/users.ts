@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import faker from "faker";
+
+import { browser } from "shared/lib";
 import type { User, Book } from "../types";
 import * as roles from "./roles";
 import * as books from "./books";
@@ -106,7 +108,7 @@ export const JANE_DOE: User = {
     registeredAt: "2021-05-12T00:00:00.354Z",
 };
 
-export const __VIEWER: User = {
+const __VIEWER: User = {
     id: 4,
     email: "vasiliy.oblomov@gmail.com",
     emailVerified: false,
@@ -138,7 +140,7 @@ export const OWNER_10 = createUser(10);
 
 export const OWNER_11 = createUser(11);
 
-export const getAll = () => [
+const LIST = [
     SIMPLE_USER,
     JOHN_DOE,
     JULY_DOE,
@@ -153,8 +155,27 @@ export const getAll = () => [
     OWNER_11,
 ];
 
+const usersLS = browser.initLSItem("api/users", LIST);
+
+export const getAll = () => usersLS.value;
+
 export const getById = (userId: number) => {
     return getAll().find((u) => u.id === userId);
+};
+
+// FIXME Для синхронизации
+export const getViewer = () => {
+    return getById(__VIEWER.id)!;
+};
+
+export const __updateUser = (user: User) => {
+    const prevList = getAll();
+    const userIdx = prevList.findIndex((u) => u.id === user.id);
+    const nextList = [...prevList];
+    nextList[userIdx] = user;
+
+    LIST[userIdx] = user;
+    usersLS.setValue(nextList);
 };
 
 export const getByIds = (userIds: number[]) => {

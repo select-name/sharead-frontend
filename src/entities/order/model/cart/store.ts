@@ -48,8 +48,9 @@ export const $durations = browser
 export const $cart = combine($books, $durations, (books, durations) => {
     return { books, durations };
 }).on(events.submitOrder, (state) => {
-    const viewer = fakeApi.users.__VIEWER;
-    const newOrders: Order[] = state.books.map((aBookId) => {
+    // FIXME: hardcoded!
+    const viewer = fakeApi.users.getViewer();
+    const newOrders: Order[] = state.books.map((aBookId, i) => {
         return fakeApi.orders.createOrder({
             bookId: fakeApi.users.shuffleByABook(aBookId).id,
             userId: viewer.id,
@@ -63,7 +64,8 @@ export const $cart = combine($books, $durations, (books, durations) => {
 
     viewer.openedOrders.push(...newOrders.map((no) => no.id));
 
-    fakeApi.orders.pushTo(...newOrders);
+    fakeApi.orders.__pushTo(...newOrders);
+    fakeApi.users.__updateUser(viewer);
 
     // FIXME: hardcoded!
     setTimeout(() => {

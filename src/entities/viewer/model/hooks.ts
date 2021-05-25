@@ -24,7 +24,7 @@ export const useBookFavStatus = (bookId: number) => {
 };
 
 export const useViewer = () => {
-    return fakeApi.users.__VIEWER;
+    return fakeApi.users.getViewer();
 };
 
 export const useViewerNormalized = () => {

@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+
+import { browser } from "shared/lib";
 import type { Order } from "../types";
 
 // FIXME: hardcoded! dry!
@@ -113,16 +115,24 @@ const LIST = [
     YA_ORDER_4,
 ];
 
-export const getAll = () => LIST;
+const ordersLS = browser.initLSItem("api/orders", LIST);
 
-export const pushTo = (...orders: Order[]) => LIST.push(...orders);
+__size = ordersLS.value.length;
 
-export const getById = (orderId: number) => LIST.find((o) => o.id === orderId);
+export const getAll = (): Order[] => ordersLS.value;
 
-export const getByUserId = (userId: number) => LIST.filter((o) => o.userId === userId);
+export const __pushTo = (...orders: Order[]) => {
+    const nextList = getAll();
+    nextList.push(...orders);
+    ordersLS.setValue(nextList);
+};
+
+export const getById = (orderId: number) => getAll().find((o) => o.id === orderId);
+
+export const getByUserId = (userId: number) => getAll().filter((o) => o.userId === userId);
 export const getByIds = (orderIds: number[]) => {
     // console.log("LIST", LIST);
     return orderIds.map((id) => getById(id)!);
 };
 
-export const getByBookId = (bookId: number) => LIST.filter((o) => o.bookId === bookId);
+export const getByBookId = (bookId: number) => getAll().filter((o) => o.bookId === bookId);

@@ -131,6 +131,7 @@ const Checkout = ({ book }: BookProps) => {
     const style =
         rent.status === "OUT_STOCK" || rent.status === "RESERVABLE" ? { opacity: 0.5 } : {};
     const price = `${fakeApi.books.getPrice(book)} р`;
+    // console.debug("BOOK RENT", book.id, rent);
 
     return (
         <Col span={7} offset={1} className={styles.checkoutContainer} style={style}>

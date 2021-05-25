@@ -63,7 +63,7 @@ export const getRentInfo = (aBookId: number) => {
     // - Возвращать владельцу не раньше недели
     const availableBooks = rentStats.filter((rs) => rs.couldBeRent && rs.maxDuration >= 7);
     // FIXME: refine later
-    const maxDuration = Math.max(...availableBooks.map((rs) => rs.maxDuration));
+    const maxDuration = Math.max(...rentStats.map((rs) => rs.maxDuration), 0);
     const reservations = fakeApi.reservations
         .getByABook(aBookId)
         .filter((r) => r.status === "PENDING");

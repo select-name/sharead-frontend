@@ -42,6 +42,8 @@ export const getUserNormalized = (user: User) => {
     const own: Order[] = ownBooks.map((ob) => fakeApi.orders.getByBookId(ob.id)).flat();
 
     const opened: Order[] = fakeApi.orders.getByIds(user.openedOrders);
+
+    // console.log({ orders: fakeApi.orders.getAll(), user, opened });
     const openedBooks: Book[] = fakeApi.users.getUserBooksByIds(opened.map((o) => o.bookId));
 
     const closed: Order[] = fakeApi.orders.getByIds(user.closedOrders);
