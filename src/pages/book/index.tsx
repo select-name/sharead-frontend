@@ -6,6 +6,7 @@ import cn from "classnames";
 import { Header, Footer, Cart, Fav } from "features";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
+import { orderLib } from "entities/order";
 import type { AbstractBook } from "shared/api";
 import { fakeApi } from "shared/api";
 import { dom, alert } from "shared/lib";
@@ -124,11 +125,16 @@ const Card = ({ book }: BookProps) => {
 };
 
 const Checkout = ({ book }: BookProps) => {
+    const rentInfo = orderLib.getRentInfo(book.id);
+    const isBusy = !rentInfo.isAvailable;
+    const style = isBusy ? { opacity: 0.5 } : {};
+    const price = `${fakeApi.books.getPseudoPrice(book)} р`;
+
     return (
-        <Col span={7} offset={1} className={styles.checkoutContainer}>
+        <Col span={7} offset={1} className={styles.checkoutContainer} style={style}>
             <article className={styles.checkout}>
                 <div>
-                    <h3 className={styles.checkoutPrice}>{fakeApi.books.getPseudoPrice(book)} р</h3>
+                    <h3 className={styles.checkoutPrice}>{isBusy ? "Нет в наличии" : price}</h3>
                     {/* FIXME: Добавить динамику */}
                     <ul className={styles.checkoutDetails}>
                         <li className={styles.checkoutDetailsItem}>
@@ -145,7 +151,7 @@ const Checkout = ({ book }: BookProps) => {
                 </div>
                 <div className={styles.checkoutActions}>
                     <Fav.Actions.AddBook bookId={book.id} />
-                    <Cart.Actions.AddBook bookId={book.id} />
+                    <Cart.Actions.AddBook bookId={book.id} disabled={isBusy} />
                     <TariffRadio onChange={alert.info} withTitle={false} disabled />
                     {/* FIXME: @temp */}
                     {false && <BooksModal bookId={book.id} />}
