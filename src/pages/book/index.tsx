@@ -189,8 +189,8 @@ const Checkout = ({ book }: BookProps) => {
                                     пользователей
                                 </p>
                                 <p>
-                                    Вы можете добавить в ее избранное, чтобы не потерять и вернуться
-                                    позднее. А также - присмотреться к похожим
+                                    Вы можете оставить свою бронь на нее, чтобы арендовать, как она
+                                    появится и подойдет ваша очередь. Либо же добавить в избранное
                                 </p>
                             </>
                         )}
@@ -201,6 +201,9 @@ const Checkout = ({ book }: BookProps) => {
                     {rent.status === "RENTABLE" && <Cart.Actions.AddBook bookId={book.id} />}
 
                     {rent.status === "RESERVABLE" && (
+                        <Reserve.Actions.ReserveBook bookId={book.id} />
+                    )}
+                    {rent.status === "OUT_STOCK" && (
                         <Reserve.Actions.ReserveBook bookId={book.id} />
                     )}
                     {false && <TariffRadio onChange={alert.info} withTitle={false} disabled />}
