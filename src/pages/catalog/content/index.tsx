@@ -14,8 +14,9 @@ const useFilters = () => {
     const { authors } = catalogParams.useFilterByAuthor();
     const { publishers } = catalogParams.useFilterByPublisher();
     const { categories } = catalogParams.useFilterByCategory();
+    const prices = catalogParams.usePrices();
 
-    return { authors, publishers, categories, search: params.search };
+    return { authors, publishers, categories, prices, search: params.search };
 };
 
 const viewTypes = [

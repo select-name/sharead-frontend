@@ -368,6 +368,10 @@ type GetListParams = {
     authors?: number[];
     publishers?: number[];
     categories?: number[];
+    prices?: {
+        from: number;
+        to: number;
+    };
 };
 
 // FIXME: move to shared/api later
@@ -376,18 +380,27 @@ export const getList = (params: GetListParams) => {
     // FIXME: refine search
     // FIXME: simplify format
     return books
-        .filter((book) => !params.search || new RegExp(params.search, "i").test(toString(book)))
-        .filter(
-            // prettier-ignore
-            (book) => !params.publishers?.length || params.publishers.includes(book.publishingHouse.id),
-        )
-        .filter(
-            // prettier-ignore
-            (book) => !params.authors?.length || book.authors.some((a) => params.authors?.includes(a.id)),
-        )
-        .filter(
-            (book) => !params.categories?.length || params.categories?.includes(book.category.id),
-        );
+        .filter((book) => {
+            if (!params.search) return true;
+            return new RegExp(params.search, "i").test(toString(book));
+        })
+        .filter((book) => {
+            if (!params.publishers?.length) return true;
+            return params.publishers.includes(book.publishingHouse.id);
+        })
+        .filter((book) => {
+            if (!params.authors?.length) return true;
+            return book.authors.some((a) => params.authors?.includes(a.id));
+        })
+        .filter((book) => {
+            if (!params.categories?.length) return true;
+            return params.categories?.includes(book.category.id);
+        })
+        .filter((book) => {
+            const price = getPseudoPrice(book);
+            if (!params.prices) return true;
+            return params.prices.from <= price && price <= params.prices.to;
+        });
 };
 
 export const getPseudoPrice = (book: AbstractBook) => {

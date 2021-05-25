@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import {
     DelimitedNumericArrayParam,
     StringParam,
+    NumberParam,
     useQueryParam,
     withDefault,
 } from "use-query-params";
@@ -77,4 +79,25 @@ export const useViewType = () => {
     const isList = viewType === "list";
 
     return { viewType: viewType as ViewTypeValue, setViewType, isGrid, isList };
+};
+
+export const MIN_PRICE = 50;
+export const MAX_PRICE = 1000;
+
+export const usePrices = () => {
+    const [from, setFrom] = useQueryParam("pf", withDefault(NumberParam, MIN_PRICE));
+    const [to, setTo] = useQueryParam("pt", withDefault(NumberParam, MAX_PRICE));
+    // FIXME: type
+    const timerRef = useRef<any>();
+
+    // Обновляем не сразу, а с задержкой
+    const setPrice = (from: number, to: number) => {
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => {
+            setFrom(from);
+            setTo(to);
+        }, 300);
+    };
+
+    return { from, to, setPrice };
 };

@@ -86,20 +86,24 @@ const CategorySection = () => {
     );
 };
 
-const PriceSection = () => (
-    <section className={styles.section}>
-        <Divider plain>Цена аренды</Divider>
-        <Slider
-            range
-            marks={{ 50: "50 р", 1000: "1000 р" }}
-            defaultValue={[50, 1000]}
-            step={50}
-            min={50}
-            max={1000}
-            disabled
-        />
-    </section>
-);
+const PriceSection = () => {
+    const params = catalogParams.usePrices();
+
+    return (
+        <section className={styles.section}>
+            <Divider plain>Цена аренды</Divider>
+            <Slider
+                range
+                marks={{ 50: "50 р", 1000: "1000 р" }}
+                defaultValue={[params.from, params.to]}
+                step={50}
+                min={catalogParams.MIN_PRICE}
+                max={catalogParams.MAX_PRICE}
+                onChange={([from, to]) => params.setPrice(from, to)}
+            />
+        </section>
+    );
+};
 /* FIXME: replace to datepicker later */
 const TimeSection = () => (
     <section className={styles.section}>
@@ -114,11 +118,12 @@ const TimeSection = () => (
         />
     </section>
 );
-const OwnerSection = () => (
-    <section className={styles.section}>
-        <Divider plain>Рейтинг владельца</Divider>
-        <Slider range marks={{ 1: "1", 5: "5" }} defaultValue={[1, 5]} min={1} max={5} disabled />
-    </section>
-);
+
+// const OwnerSection = () => (
+//     <section className={styles.section}>
+//         <Divider plain>Рейтинг владельца</Divider>
+//         <Slider range marks={{ 1: "1", 5: "5" }} defaultValue={[1, 5]} min={1} max={5} disabled />
+//     </section>
+// );
 
 export default CatalogSidebar;
