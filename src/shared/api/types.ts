@@ -89,6 +89,7 @@ export type AbstractBook = {
     id: number;
     name: string;
     authors: Author[];
+    description: string;
     publicationYear: number;
     publishingHouse: Publisher;
     category: Category;

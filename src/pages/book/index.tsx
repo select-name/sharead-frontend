@@ -78,9 +78,6 @@ type BookProps = {
 };
 
 // prettier-ignore
-// eslint-disable-next-line max-len
-const MOCK_DESCRIPTION = "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa repellendus odio tempore tempora corrupti rerum odit eligendi quisquam dolore cum accusantium quia voluptate, quaerat natus harum doloremque fugit alias aut praesentium molestias iusto veniam laudantium, magni aperiam. Minus dolorem asperiores alias, perspiciatis, ut tempore officia ad ea dolorum ipsum voluptas iste eveniet dicta maiores fuga consequuntur quae voluptatibus porro nihil quas enim earum. Corrupti quo voluptas, quae esse consequatur reiciendis voluptates a odio inventore laudantium dolores perspiciatis itaque rerum sunt omnis consequuntur nesciunt sequi ducimus nemo veniam at! Ad ullam quasi deserunt veritatis amet recusandae nemo veniam perferendis sequi! Earum quis modi repellendus fugit ratione, sunt nobis deserunt rem exercitationem provident officiis quasi nihil nesciunt repellat blanditiis, sed quia voluptatem.";
-
 const Card = ({ book }: BookProps) => {
     const { authors, publicationYear, publishingHouse } = book;
     const author = authors.map(fakeApi.authors.getShortname).join(", ");
@@ -118,7 +115,7 @@ const Card = ({ book }: BookProps) => {
                             {publishingHouse.name} ({publishingHouse.city})
                         </Descriptions.Item>
                     </Descriptions>
-                    <p className={styles.cardInfoDescription}>{MOCK_DESCRIPTION}</p>
+                    <p className={styles.cardInfoDescription}>{book.description}</p>
                 </div>
             </div>
         </Col>
