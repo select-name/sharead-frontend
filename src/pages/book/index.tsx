@@ -125,16 +125,20 @@ const Card = ({ book }: BookProps) => {
 };
 
 const Checkout = ({ book }: BookProps) => {
-    const rentInfo = orderLib.getRentInfo(book.id);
-    const isBusy = !rentInfo.couldBeRent;
-    const style = isBusy ? { opacity: 0.5 } : {};
+    const rent = orderLib.getRentInfo(book.id);
+    const style =
+        rent.status === "OUT_STOCK" || rent.status === "RESERVABLE" ? { opacity: 0.5 } : {};
     const price = `${fakeApi.books.getPseudoPrice(book)} р`;
 
     return (
         <Col span={7} offset={1} className={styles.checkoutContainer} style={style}>
             <article className={styles.checkout}>
                 <div>
-                    <h3 className={styles.checkoutPrice}>{isBusy ? "Нет в наличии" : price}</h3>
+                    <h3 className={styles.checkoutPrice}>
+                        {rent.status === "RENTABLE" && price}
+                        {rent.status === "RESERVABLE" && "Можно забронировать"}
+                        {rent.status === "OUT_STOCK" && "Нет в наличии"}
+                    </h3>
                     {/* FIXME: Добавить динамику */}
                     <ul className={styles.checkoutDetails}>
                         <li className={styles.checkoutDetailsItem}>
@@ -151,8 +155,11 @@ const Checkout = ({ book }: BookProps) => {
                 </div>
                 <div className={styles.checkoutActions}>
                     <Fav.Actions.AddBook bookId={book.id} />
-                    {!isBusy && <Cart.Actions.AddBook bookId={book.id} />}
-                    {isBusy && <Reserve.Actions.ReserveBook bookId={book.id} />}
+                    {rent.status === "RENTABLE" && <Cart.Actions.AddBook bookId={book.id} />}
+
+                    {rent.status === "RESERVABLE" && (
+                        <Reserve.Actions.ReserveBook bookId={book.id} />
+                    )}
                     {false && <TariffRadio onChange={alert.info} withTitle={false} disabled />}
                     {/* FIXME: @temp */}
                     {false && <BooksModal bookId={book.id} />}

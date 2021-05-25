@@ -1,10 +1,11 @@
 import { Badge, Empty, Layout, Row, Col, Radio } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
-import { headerParams, Cart, Fav } from "features";
+import { headerParams, Cart, Fav, Reserve } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { orderLib } from "entities/order";
 import { fakeApi } from "shared/api";
+import type { AbstractBook } from "shared/api";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
 
@@ -21,7 +22,6 @@ const viewTypes = [
     { key: "grid", Icon: AppstoreOutlined },
     { key: "list", Icon: BarsOutlined },
 ];
-
 // eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const filters = useFilters();
@@ -61,52 +61,9 @@ const CatalogContent = () => {
             </section>
             <section className={styles.catalog}>
                 <Row justify="start" gutter={[20, 20]}>
-                    {booksQuery.map((b) => {
-                        const popular = fakeApi.books.isPopular(b);
-                        const rentInfo = orderLib.getRentInfo(b.id);
-                        const isBusy = !rentInfo.couldBeRent;
-
-                        const ribbonText = isBusy ? "Нет в наличии" : popular ? "Популярное" : "";
-                        const ribbonColor = isBusy ? "gray" : popular ? "magenta" : "";
-                        const ribbonStyle = { display: ribbonText ? "block" : "none" };
-                        const span = vtParam.isGrid ? 8 : 24;
-
-                        return (
-                            <Col key={b.id} span={span}>
-                                <Badge.Ribbon
-                                    text={ribbonText}
-                                    style={ribbonStyle}
-                                    color={ribbonColor}
-                                >
-                                    {vtParam.isGrid && (
-                                        <BookCard
-                                            data={b}
-                                            asSecondary={isBusy}
-                                            actions={[
-                                                <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
-                                                // prettier-ignore
-                                                <Cart.Actions.AddBookMini key="order" bookId={b.id} disabled={isBusy} />, // eslint-disable-line max-len
-                                            ]}
-                                        />
-                                    )}
-                                    {vtParam.isList && (
-                                        <BookRowCard
-                                            data={b}
-                                            asSecondary={isBusy}
-                                            size="large"
-                                            actions={
-                                                <>
-                                                    <Fav.Actions.AddBook bookId={b.id} />
-                                                    {/* prettier-ignore */}
-                                                    <Cart.Actions.AddBook bookId={b.id} disabled={isBusy} />
-                                                </>
-                                            }
-                                        />
-                                    )}
-                                </Badge.Ribbon>
-                            </Col>
-                        );
-                    })}
+                    {booksQuery.map((b) => (
+                        <BookItem key={b.id} data={b} />
+                    ))}
                 </Row>
                 {!booksQuery.length && (
                     <Empty
@@ -116,6 +73,58 @@ const CatalogContent = () => {
                 )}
             </section>
         </Layout>
+    );
+};
+
+// eslint-disable-next-line max-lines-per-function
+const BookItem = ({ data }: { data: AbstractBook }) => {
+    const vtParam = catalogParams.useViewType();
+    const popular = fakeApi.books.isPopular(data);
+    const rent = orderLib.getRentInfo(data.id);
+
+    const ribbonText =
+        rent.status === "RESERVABLE" ? "Можно забронировать" : popular ? "Популярное" : "";
+    const ribbonColor = rent.status === "RESERVABLE" ? "gray" : popular ? "magenta" : "";
+    const ribbonStyle = { display: ribbonText ? "block" : "none" };
+    const span = vtParam.isGrid ? 8 : 24;
+    return (
+        <Col span={span}>
+            <Badge.Ribbon text={ribbonText} style={ribbonStyle} color={ribbonColor}>
+                {vtParam.isGrid && (
+                    <BookCard
+                        data={data}
+                        asSecondary={rent.status === "RESERVABLE"}
+                        actions={[
+                            <Fav.Actions.AddBookMini key="fav" bookId={data.id} />,
+                            rent.status === "RENTABLE" && (
+                                <Cart.Actions.AddBookMini key="order" bookId={data.id} />
+                            ),
+                            rent.status === "RESERVABLE" && (
+                                <Reserve.Actions.ReserveBookMini key="reserve" bookId={data.id} />
+                            ),
+                        ].filter(Boolean)}
+                    />
+                )}
+                {vtParam.isList && (
+                    <BookRowCard
+                        data={data}
+                        asSecondary={rent.status === "RESERVABLE"}
+                        size="large"
+                        actions={
+                            <>
+                                <Fav.Actions.AddBook bookId={data.id} />
+                                {rent.status === "RENTABLE" && (
+                                    <Cart.Actions.AddBook bookId={data.id} />
+                                )}
+                                {rent.status === "RESERVABLE" && (
+                                    <Reserve.Actions.ReserveBook bookId={data.id} />
+                                )}
+                            </>
+                        }
+                    />
+                )}
+            </Badge.Ribbon>
+        </Col>
     );
 };
 

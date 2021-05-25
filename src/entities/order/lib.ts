@@ -39,11 +39,19 @@ const getRentStats = (userBooks: Book[]) => {
  *
  * Если же экземпляров нет вообще - то и забронировать также не удастся
  */
+// eslint-disable-next-line max-lines-per-function
 export const getRentInfo = (aBookId: number) => {
     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
     // CASE: Нет экземпляров
     if (!userBooks.length) {
-        return { couldBeRent: false, couldBeReserve: false, duration: 0, items: [] };
+        return {
+            // couldBeRent: false,
+            // couldBeReserve: false,
+            inStock: false,
+            status: "OUT_STOCK" as const,
+            duration: 0,
+            items: [],
+        };
     }
 
     // Статусы по книгам
@@ -63,8 +71,10 @@ export const getRentInfo = (aBookId: number) => {
     // CASE: Достаточно ли экземпляров для активных броней?
     if (reservations.length < availableBooks.length) {
         return {
-            couldBeRent: true,
-            couldBeReserve: false,
+            // couldBeRent: true,
+            // couldBeReserve: false,
+            inStock: true,
+            status: "RENTABLE" as const,
             duration: maxDuration,
             items: rentStats,
         };
@@ -72,8 +82,10 @@ export const getRentInfo = (aBookId: number) => {
 
     // CASE: Броней слишком много, можно только встать в очередь на книгу
     return {
-        couldBeRent: false,
-        couldBeReserve: true,
+        // couldBeRent: false,
+        // couldBeReserve: true,
+        inStock: true,
+        status: "RESERVABLE" as const,
         duration: maxDuration,
         items: rentStats,
     };
