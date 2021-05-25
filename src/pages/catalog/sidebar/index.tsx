@@ -14,7 +14,6 @@ const CatalogSidebar = () => {
 
                 <PriceSection />
                 <TimeSection />
-                <OwnerSection />
                 <CategorySection />
                 <AuthorSection />
                 <PublisherSection />
