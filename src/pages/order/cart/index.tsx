@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Header, Footer, Cart, Fav } from "features";
 import { BookCard, BookRowCard } from "entities/book";
-import { orderModel } from "entities/order";
+import { orderModel, orderLib } from "entities/order";
 import { TariffRadio } from "entities/tariff";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
@@ -93,20 +93,22 @@ const RecommendationsSection = () => {
                 Подборка рекомендованых книг, на основе вашего заказа
             </Typography.Text>
             <Row className={styles.recommendsFeed} wrap={false} gutter={[20, 0]}>
-                {recommended.books.map((b) => (
-                    <Col key={b.id} span={8}>
-                        <BookCard
-                            data={b}
-                            size="small"
-                            className={styles.recommendsFeedItem}
-                            actions={[
-                                <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
-                                <Cart.Actions.AddBookMini key="order" bookId={b.id} />,
-                            ]}
-                            withDescription
-                        />
-                    </Col>
-                ))}
+                {recommended.books
+                    .filter((b) => orderLib.getRentInfo(b.id).isAvailable)
+                    .map((b) => (
+                        <Col key={b.id} span={8}>
+                            <BookCard
+                                data={b}
+                                size="small"
+                                className={styles.recommendsFeedItem}
+                                actions={[
+                                    <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
+                                    <Cart.Actions.AddBookMini key="order" bookId={b.id} />,
+                                ]}
+                                withDescription
+                            />
+                        </Col>
+                    ))}
             </Row>
         </>
     );
