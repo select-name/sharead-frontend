@@ -406,7 +406,7 @@ export const getList = (params: GetListParams) => {
             return params.categories?.includes(book.category.id);
         })
         .filter((book) => {
-            const price = getPseudoPrice(book);
+            const price = getPurePrice(book);
             if (!params.prices) return true;
             return params.prices.from <= price && price <= params.prices.to;
         })
@@ -422,7 +422,7 @@ export const getList = (params: GetListParams) => {
         });
 };
 
-export const getPseudoPrice = (book: AbstractBook) => {
+export const getPurePrice = (book: AbstractBook) => {
     const fullTitle = toString(book);
     const pseudoFactor = fullTitle.length % 3;
     const factor = pseudoFactor + 2;

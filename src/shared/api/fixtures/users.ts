@@ -213,7 +213,7 @@ export const userBooksMap = Object.entries(USER_ABOOKS).map(([key, abookIds]) =>
     const userBooks: Book[] = abookIds.map((aId, idx) => {
         const abstract = books.getById(aId);
         if (!abstract) throw new Error(`Unknown Abstractbook with id=${aId}`);
-        const price = books.getPseudoPrice(abstract);
+        const price = books.getPurePrice(abstract);
 
         return {
             id: USERS_UBOOKS[userId][idx],
@@ -231,7 +231,7 @@ export const userBooksMap = Object.entries(USER_ABOOKS).map(([key, abookIds]) =>
 //
 //     if (!abstract) return [];
 
-//     const price = books.getPseudoPrice(abstract);
+//     const price = books.getPurePrice(abstract);
 
 //     const owners = getBookOwners(abstractBookId);
 

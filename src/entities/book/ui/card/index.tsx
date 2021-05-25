@@ -81,7 +81,7 @@ const BookCard = (props: Props) => {
                     <div className={styles.header}>
                         {withPrice && (
                             <span className={styles.price}>
-                                от {fakeApi.books.getPseudoPrice(b)} ₽
+                                от {fakeApi.books.getPurePrice(b)} ₽
                             </span>
                         )}
                         <Link to={`/book/${b.id}`} title={title} className={styles.title}>
