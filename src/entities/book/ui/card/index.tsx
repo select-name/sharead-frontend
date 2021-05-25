@@ -19,6 +19,7 @@ type Props = {
     actions?: ReactNode[];
     withDescription?: boolean;
     withPrice?: boolean;
+    asSecondary?: boolean;
 };
 
 const bodyStyle: Record<Size, CSSProperties> = {
@@ -45,7 +46,8 @@ const imgStyle: Record<Size, CSSProperties> = {
 // FIXME:
 // eslint-disable-next-line max-lines-per-function
 const BookCard = (props: Props) => {
-    const { data: b, className, size = "default", children, actions, withPrice = true } = props;
+    // prettier-ignore
+    const { data: b, className, size = "default", children, actions, withPrice = true, asSecondary } = props;
     const author = b.authors.map(fakeApi.authors.getShortname).join(", ");
     const publisher = `${b.publishingHouse.name}`;
     const title = `${author} — ${b.name}`;
@@ -64,7 +66,12 @@ const BookCard = (props: Props) => {
             // headStyle={{ background: "grey" }}
             bodyStyle={bodyStyle[size]}
             cover={<BookFilled style={imgStyle[size]} />}
-            className={cn(styles.root, styles[`bookCard${string.capitalize(size)}`], className)}
+            className={cn(
+                styles.root,
+                styles[`bookCard${string.capitalize(size)}`],
+                { [styles.asSecondary]: asSecondary },
+                className,
+            )}
             actions={isMini || !actions?.length ? undefined : actions}
         >
             {/* FIXME: Поправить разметку */}

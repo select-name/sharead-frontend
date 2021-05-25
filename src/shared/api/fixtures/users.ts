@@ -249,3 +249,7 @@ export const getUserBookById = (userBookId: number) => {
 export const getUserBooksByIds = (userBookIds: number[]) => {
     return userBookIds.map((id) => getUserBookById(id)!);
 };
+
+export const getUserBooksByABook = (aBookId: number) => {
+    return userBooks.filter((ub) => ub.abstractBook.id === aBookId);
+};

@@ -23,14 +23,14 @@ import { fakeApi } from "shared/api";
 export const getRentInfo = (aBookId: number) => {
     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
     // Нет экземпляров
-    if (!userBooks.length) return { duration: -1, available: false, items: [] };
+    if (!userBooks.length) return { duration: -1, isAvailable: false, items: [] };
 
     // Статусы по книгам
     // Интервалы для аренды
     const rentStats = userBooks.map((ub) => {
         const maxDuration = dayjs(ub.availableBefore).diff(dayjs(), "day");
         const orders = fakeApi.orders.getByBookId(ub.id).sort((a, b) => a.id - b.id);
-        const lastStatus = orders.slice(-1)[0].status;
+        const lastStatus = orders.slice(-1)[0]?.status;
 
         const isAvailable = !orders.length || lastStatus === "CLOSED";
 
@@ -45,7 +45,7 @@ export const getRentInfo = (aBookId: number) => {
 
     return {
         duration: Math.max(...availableBooks.map((rs) => rs.maxDuration)),
-        available: availableBooks.length > 0,
+        isAvailable: availableBooks.filter((b) => b.maxDuration >= 7).length > 0,
         items: rentStats,
     };
 

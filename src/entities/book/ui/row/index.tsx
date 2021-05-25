@@ -15,6 +15,7 @@ type Props = {
     titleAsLink?: boolean;
     size?: Size;
     actions?: ReactNode;
+    asSecondary?: boolean;
 };
 
 const spanIcon: Record<Size, number> = {
@@ -55,7 +56,7 @@ const MAX_SPAN = 24;
 // FIXME:
 // eslint-disable-next-line max-lines-per-function
 const BookRow = (props: Props) => {
-    const { data, className, size = "default", titleAsLink = true, actions } = props;
+    const { data, className, size = "default", titleAsLink = true, actions, asSecondary } = props;
 
     const title = fakeApi.books.getShortname(data);
     const price = fakeApi.books.getPseudoPrice(data);
@@ -63,7 +64,10 @@ const BookRow = (props: Props) => {
     const spanDetails = MAX_SPAN - spanIcon[size] - spanActions - 1;
 
     return (
-        <Row align="middle" className={cn(styles.root, className)}>
+        <Row
+            align="middle"
+            className={cn(styles.root, className, { [styles.asSecondary]: asSecondary })}
+        >
             <Col span={spanIcon[size]}>
                 <BookFilled className={styles.icon} style={styleIcon[size]} />
             </Col>

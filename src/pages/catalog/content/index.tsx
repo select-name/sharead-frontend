@@ -3,6 +3,7 @@ import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
 import { headerParams, Cart, Fav } from "features";
 import { BookCard, BookRowCard } from "entities/book";
+import { orderLib } from "entities/order";
 import { fakeApi } from "shared/api";
 import * as catalogParams from "../params";
 import styles from "./styles.module.scss";
@@ -62,30 +63,42 @@ const CatalogContent = () => {
                 <Row justify="start" gutter={[20, 20]}>
                     {booksQuery.map((b) => {
                         const popular = fakeApi.books.isPopular(b);
-                        const style = { display: popular ? "block" : "none" };
+                        const rentInfo = orderLib.getRentInfo(b.id);
+                        const isBusy = !rentInfo.isAvailable;
+
+                        const ribbonText = isBusy ? "Нет в наличии" : popular ? "Популярное" : "";
+                        const ribbonColor = isBusy ? "gray" : popular ? "magenta" : "";
+                        const ribbonStyle = { display: ribbonText ? "block" : "none" };
                         const span = vtParam.isGrid ? 8 : 24;
 
                         return (
                             <Col key={b.id} span={span}>
-                                <Badge.Ribbon text="Популярное" style={style} color="magenta">
+                                <Badge.Ribbon
+                                    text={ribbonText}
+                                    style={ribbonStyle}
+                                    color={ribbonColor}
+                                >
                                     {vtParam.isGrid && (
                                         <BookCard
                                             data={b}
+                                            asSecondary={isBusy}
                                             actions={[
                                                 <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
                                                 // prettier-ignore
-                                                <Cart.Actions.AddBookMini key="order" bookId={b.id} />,
+                                                <Cart.Actions.AddBookMini key="order" bookId={b.id} disabled={isBusy} />,
                                             ]}
                                         />
                                     )}
                                     {vtParam.isList && (
                                         <BookRowCard
                                             data={b}
+                                            asSecondary={isBusy}
                                             size="large"
                                             actions={
                                                 <>
                                                     <Fav.Actions.AddBook bookId={b.id} />
-                                                    <Cart.Actions.AddBook bookId={b.id} />
+                                                    {/* prettier-ignore */}
+                                                    <Cart.Actions.AddBook bookId={b.id} disabled={isBusy} />
                                                 </>
                                             }
                                         />

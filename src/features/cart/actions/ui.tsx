@@ -41,7 +41,7 @@ export const AddBookMini = (props: Props) => {
 
     const Icon = isBookInCart ? ShoppingFilled : ShoppingOutlined;
     const disabledStyles: import("react").CSSProperties = disabled
-        ? { color: "red", opacity: 0.5, cursor: "not-allowed" }
+        ? { opacity: 0.25, cursor: "not-allowed" }
         : {};
 
     return (
