@@ -86,6 +86,10 @@ const CategorySection = () => {
     );
 };
 
+const { PRICES } = catalogParams;
+
+// FIXME: Лучше не сбрасывать фильтр через страницу каталога - пусть будет как defaultValue
+// UseEffect + useState тож не спасет
 const PriceSection = () => {
     const params = catalogParams.usePrices();
 
@@ -94,11 +98,14 @@ const PriceSection = () => {
             <Divider plain>Цена аренды</Divider>
             <Slider
                 range
-                marks={{ 50: "50 р", 1000: "1000 р" }}
+                marks={{
+                    [PRICES.MIN]: `${PRICES.MIN} р`,
+                    [PRICES.MAX]: `${PRICES.MAX} р`,
+                }}
                 defaultValue={[params.from, params.to]}
                 step={50}
-                min={catalogParams.MIN_PRICE}
-                max={catalogParams.MAX_PRICE}
+                min={catalogParams.PRICES.MIN}
+                max={catalogParams.PRICES.MAX}
                 onChange={([from, to]) => params.setPrice(from, to)}
             />
         </section>

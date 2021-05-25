@@ -81,12 +81,14 @@ export const useViewType = () => {
     return { viewType: viewType as ViewTypeValue, setViewType, isGrid, isList };
 };
 
-export const MIN_PRICE = 50;
-export const MAX_PRICE = 1000;
+export const PRICES = {
+    MIN: 50,
+    MAX: 1000,
+};
 
 export const usePrices = () => {
-    const [from, setFrom] = useQueryParam("pf", withDefault(NumberParam, MIN_PRICE));
-    const [to, setTo] = useQueryParam("pt", withDefault(NumberParam, MAX_PRICE));
+    const [from, setFrom] = useQueryParam("pf", withDefault(NumberParam, PRICES.MIN));
+    const [to, setTo] = useQueryParam("pt", withDefault(NumberParam, PRICES.MAX));
     // FIXME: type
     const timerRef = useRef<any>();
 
