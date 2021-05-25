@@ -1,0 +1,39 @@
+.root {
+    padding: 40px;
+    margin-bottom: 40px;
+    border: 1px solid var(--color-accent);
+    border-radius: 25px;
+    transition: 0.25s;
+}
+
+.active {
+    border-color: var(--color-primary);
+}
+
+.description {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.list {
+    padding-bottom: 20px;
+    overflow: auto;
+}
+
+.title {
+    a {
+        margin-right: 4px;
+        margin-left: -20px;
+        opacity: 0;
+        transition: 0.25s;
+    }
+
+    &:hover a {
+        opacity: 1;
+    }
+}
+
+.placeholder {
+    margin: 20px 0;
+    color: var(--color-gray);
+}

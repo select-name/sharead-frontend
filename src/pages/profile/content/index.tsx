@@ -1,4 +1,4 @@
-import { Typography, Layout, Row, Col, Empty, Button, Badge } from "antd";
+import { Layout, Button } from "antd";
 import {
     CheckCircleOutlined,
     ClockCircleOutlined,
@@ -7,16 +7,13 @@ import {
     PlusOutlined,
     HeartOutlined,
 } from "@ant-design/icons";
-import type { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
-import cn from "classnames";
 
 import { Fav, Cart } from "features";
 import { viewerModel, viewerLib } from "entities/viewer";
-import { BookCard } from "entities/book";
-import type { Book, AbstractBook } from "shared/api";
 import * as lib from "../lib";
 import { TOPIC_CLOSED, TOPIC_MY, TOPIC_OPENED, TOPIC_RESERVED, TOPIC_FAV } from "../config";
+import { Section } from "./section";
 import styles from "./styles.module.scss";
 
 // eslint-disable-next-line max-lines-per-function
@@ -132,67 +129,3 @@ export const Content = () => {
         </Layout>
     );
 };
-
-type SectionProps<T> = {
-    id: string;
-    title: ReactNode;
-    titleAfter?: ReactNode;
-    description: ReactNode;
-    renderBookDetails?: (book: T, idx: number) => ReactNode;
-    renderBookActions?: (book: T, idx: number) => ReactNode[];
-    getRibbonProps?: (
-        book: T,
-        idx: number,
-    ) => {
-        text: ReactNode;
-        color: import("react").CSSProperties["color"];
-    };
-    // FIXME: specify later
-    Icon: typeof CheckCircleOutlined;
-    books: T[];
-    active?: boolean;
-};
-
-function Section<T extends Book | AbstractBook>(props: SectionProps<T>) {
-    const { title, description, books, Icon, id, titleAfter, active } = props;
-
-    return (
-        <section className={cn(styles.section, { [styles.sectionActive]: active })} id={id}>
-            <Row justify="space-between">
-                <Typography.Title level={3} className={styles.sectionTitle}>
-                    <a href={`#${id}`}>#</a>
-                    {title} <Icon style={{ color: "gray", fontSize: 20 }} />
-                </Typography.Title>
-                {titleAfter}
-            </Row>
-            <Typography.Text className={styles.sectionDescription} type="secondary">
-                {description}
-            </Typography.Text>
-            <Row gutter={[10, 10]} wrap={false} className={styles.sectionList}>
-                {/* FIXME: Позднее - здесь должны отбражаться все книги, которые "доставлены" */}
-                {books.map((book, idx) => (
-                    <Col key={book.id} span={8}>
-                        <Badge.Ribbon
-                            {...props.getRibbonProps?.(book, idx)}
-                            style={{
-                                right: "-5px",
-                                opacity: Number(props.getRibbonProps !== undefined),
-                            }}
-                        >
-                            <BookCard
-                                // @ts-ignore
-                                data={book.abstractBook || book}
-                                size="small"
-                                withPrice={false}
-                                actions={props.renderBookActions?.(book, idx)}
-                            >
-                                {props.renderBookDetails?.(book, idx)}
-                            </BookCard>
-                        </Badge.Ribbon>
-                    </Col>
-                ))}
-            </Row>
-            {!books.length && <Empty className={styles.sectionPlaceholder} description="Пусто" />}
-        </section>
-    );
-}
