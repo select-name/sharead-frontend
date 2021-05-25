@@ -2,7 +2,7 @@ import { useStore, useStoreMap } from "effector-react";
 
 import { bookModel } from "entities/book";
 import { fakeApi } from "shared/api";
-import { $books, $durations, DEFAULT_DURATION } from "./store";
+import { $books, $durations, DEFAULT_DURATION, $delivery } from "./store";
 
 export const useOrderDurations = () => useStore($durations);
 
@@ -75,3 +75,7 @@ export const useOrderValidation = () => {
 // export const useCartStore = () => {
 //     return useStore($cart);
 // };
+
+export const useDeliveryStore = () => {
+    return useStore($delivery);
+};

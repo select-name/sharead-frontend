@@ -29,10 +29,17 @@ import styles from "./styles.module.scss";
 
 const useCheckoutValidation = () => {
     const { price } = orderModel.cart.useOrder();
+    const delivery = orderModel.cart.useDeliveryStore();
     const { wallet } = viewerModel.useViewerWallet();
+    const { isEmptyCart } = orderModel.cart.useOrderValidation();
+
     const isEnoughMoney = wallet >= price;
     const message = isEnoughMoney ? "" : "Недостаточно средств для оплаты";
-    return { isEnoughMoney, message };
+    const isDeliveryAssigned = !!delivery.date && !!delivery.address;
+
+    const isTotallyAllowed = isEnoughMoney && isDeliveryAssigned && !isEmptyCart;
+
+    return { isEnoughMoney, message, isDeliveryAssigned, isEmptyCart, isTotallyAllowed };
 };
 
 /**
@@ -104,9 +111,7 @@ const WalletForm = () => {
 // eslint-disable-next-line max-lines-per-function
 const DeliveryForm = () => {
     const [mode, setMode] = useState<"MANUAL" | "COFFESHOP">("MANUAL");
-    const [address, setAddress] = useState<string | undefined>();
-    const [date, setDate] = useState<string | undefined>();
-
+    const { date, address } = orderModel.cart.useDeliveryStore();
     const shopsQuery = fakeApi.coffeeshops.getAll();
     const shopsOptions = shopsQuery.map((cs) => ({
         value: String(cs.id),
@@ -127,8 +132,7 @@ const DeliveryForm = () => {
                 <Typography.Title level={4}>Выберите способ доставки</Typography.Title>
                 <Checkbox
                     onChange={(e) => {
-                        setAddress(undefined);
-                        setDate(undefined);
+                        orderModel.cart.events.setDelivery({ address: "", date: "" });
                         setMode(e.target.checked ? "COFFESHOP" : "MANUAL");
                     }}
                     checked={mode === "COFFESHOP"}
@@ -142,13 +146,17 @@ const DeliveryForm = () => {
                             key={mode}
                             placeholder="Выбрать адрес доставки..."
                             defaultValue={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            onChange={(e) =>
+                                orderModel.cart.events.setDelivery({ address: e.target.value })
+                            }
                         />
                         <DatePicker
                             placeholder="Выбрать время доставки..."
                             style={{ width: "100%", marginTop: 20 }}
                             value={date ? moment(date) : undefined}
-                            onChange={(value) => setDate(value?.toISOString())}
+                            onChange={(value) =>
+                                orderModel.cart.events.setDelivery({ date: value?.toISOString() })
+                            }
                         />
                     </>
                 )}
@@ -161,8 +169,10 @@ const DeliveryForm = () => {
                             onSelect={(value) => {
                                 const shop = shopsQuery.find((cs) => String(cs.id) === value);
                                 if (!shop) return;
-                                setAddress(shop.address);
-                                setDate(shop.deliveryAt);
+                                orderModel.cart.events.setDelivery({
+                                    address: shop.address,
+                                    date: shop.deliveryAt,
+                                });
                             }}
                         />
                     </>
@@ -185,7 +195,6 @@ const DeliveryForm = () => {
 const Sidebar = () => {
     const viewer = viewerModel.useViewerWallet();
     const order = orderModel.cart.useOrder();
-    const { isEmptyCart } = orderModel.cart.useOrderValidation();
     const validation = useCheckoutValidation();
     // const history = useHistory();
     // hooks.useRedirectOn(isEmptyCart, "/order");
@@ -197,7 +206,7 @@ const Sidebar = () => {
                     block
                     type="primary"
                     style={{ height: 50 }}
-                    disabled={!validation.isEnoughMoney || isEmptyCart}
+                    disabled={!validation.isTotallyAllowed}
                     title={validation.message}
                     onClick={() =>
                         viewer.payment.applyTransaction(-order.price).then(() => {
@@ -209,7 +218,7 @@ const Sidebar = () => {
                     Оплатить заказ
                 </Button>
             </Cart.TotalInfo.Card>
-            {!isEmptyCart && <Cart.TotalInfo.CartMini />}
+            {!validation.isEmptyCart && <Cart.TotalInfo.CartMini />}
         </Layout.Sider>
     );
 };

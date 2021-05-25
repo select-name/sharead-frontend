@@ -44,6 +44,20 @@ export const $durations = browser
         return {};
     });
 // .reset(events.submitOrder);
+const initialDelivery = {
+    date: "",
+    address: "",
+};
+export const $delivery = browser
+    .createPersistStore(initialDelivery, {
+        name: "entities/order/cart--delivery",
+    })
+    .on(events.setDelivery, (state, payload) => {
+        return {
+            date: payload.date ?? state.date,
+            address: payload.address ?? state.address,
+        };
+    });
 
 export const $cart = combine($books, $durations, (books, durations) => {
     return { books, durations };
