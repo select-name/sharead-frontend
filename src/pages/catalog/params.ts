@@ -81,11 +81,11 @@ export const useViewType = () => {
     return { viewType: viewType as ViewTypeValue, setViewType, isGrid, isList };
 };
 
+// FIXME: move to entities / config / constants?
 export const PRICES = {
     MIN: 50,
     MAX: 1000,
 };
-
 export const usePrices = () => {
     const [from, setFrom] = useQueryParam("pf", withDefault(NumberParam, PRICES.MIN));
     const [to, setTo] = useQueryParam("pt", withDefault(NumberParam, PRICES.MAX));
@@ -102,4 +102,26 @@ export const usePrices = () => {
     };
 
     return { from, to, setPrice };
+};
+
+export const TARIFFS = {
+    T7: 7,
+    T14: 14,
+    T30: 30,
+};
+
+export const useTariff = () => {
+    const [tariff, setParam] = useQueryParam("td", withDefault(NumberParam, PRICES.MIN));
+    // FIXME: type
+    const timerRef = useRef<any>();
+
+    // Обновляем не сразу, а с задержкой
+    const setTariff = (tariff: number) => {
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => {
+            setParam(tariff);
+        }, 300);
+    };
+
+    return { tariff, setTariff };
 };

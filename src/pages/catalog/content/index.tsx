@@ -15,8 +15,20 @@ const useFilters = () => {
     const { publishers } = catalogParams.useFilterByPublisher();
     const { categories } = catalogParams.useFilterByCategory();
     const prices = catalogParams.usePrices();
+    const tariffDays = catalogParams.useTariff().tariff;
 
-    return { authors, publishers, categories, prices, search: params.search };
+    return {
+        authors,
+        publishers,
+        categories,
+        prices,
+        search: params.search,
+        // !!! FIXME: simplify!!!
+        tariff: {
+            days: tariffDays,
+            getBookDuration: (b: AbstractBook) => orderLib.getRentInfo(b.id).duration,
+        },
+    };
 };
 
 const viewTypes = [

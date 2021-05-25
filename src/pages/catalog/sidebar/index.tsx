@@ -86,7 +86,7 @@ const CategorySection = () => {
     );
 };
 
-const { PRICES } = catalogParams;
+const { PRICES, TARIFFS } = catalogParams;
 
 // FIXME: Лучше не сбрасывать фильтр через страницу каталога - пусть будет как defaultValue
 // UseEffect + useState тож не спасет
@@ -112,19 +112,31 @@ const PriceSection = () => {
     );
 };
 /* FIXME: replace to datepicker later */
-const TimeSection = () => (
-    <section className={styles.section}>
-        <Divider plain>Срок аренды</Divider>
-        <Slider
-            range
-            marks={{ 1: "1 дн", 60: "60 дн" }}
-            defaultValue={[1, 60]}
-            min={1}
-            max={60}
-            disabled
-        />
-    </section>
-);
+// FIXME: hardcode by query-params?
+const TimeSection = () => {
+    const params = catalogParams.useTariff();
+
+    return (
+        <section className={styles.section}>
+            <Divider plain>Срок аренды</Divider>
+            <Slider
+                // range
+                // FIXME: hardcoded
+                marks={{
+                    [TARIFFS.T7]: `${TARIFFS.T7} дн`,
+                    [TARIFFS.T14]: `${TARIFFS.T14} дн`,
+                    [TARIFFS.T30]: `${TARIFFS.T30} дн`,
+                }}
+                defaultValue={params.tariff}
+                onChange={(value: number) => params.setTariff(value)}
+                min={TARIFFS.T7}
+                max={TARIFFS.T30}
+                step={null}
+                // tipFormatter={(value) => value && Object.values(TARIFFS)[value - 1]}
+            />
+        </section>
+    );
+};
 
 // const OwnerSection = () => (
 //     <section className={styles.section}>

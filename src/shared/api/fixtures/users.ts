@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import faker from "faker";
 import type { User, Book } from "../types";
 import * as roles from "./roles";
@@ -183,9 +184,12 @@ export const getBookOwners = (bookId: number) => {
 
 // prettier-ignore
 const dates = [
-    "2021-06-10T00:24:35.354Z",
-    "2021-07-17T00:24:35.354Z",
-    "2021-08-28T00:24:35.354Z",
+    dayjs().add(14, "days").toISOString(),
+    dayjs().add(28, "days").toISOString(),
+    dayjs().add(52, "days").toISOString(),
+    // "2021-06-10T00:24:35.354Z",
+    // "2021-07-17T00:24:35.354Z",
+    // "2021-08-28T00:24:35.354Z",
 ];
 
 /**

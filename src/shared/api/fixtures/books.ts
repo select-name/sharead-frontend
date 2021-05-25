@@ -372,6 +372,11 @@ type GetListParams = {
         from: number;
         to: number;
     };
+    tariff?: {
+        days: number;
+        // !!! FIXME: Ужаснейший код! Никогда не показывайте это бекендерам!
+        getBookDuration: (book: AbstractBook) => number;
+    };
 };
 
 // FIXME: move to shared/api later
@@ -400,6 +405,11 @@ export const getList = (params: GetListParams) => {
             const price = getPseudoPrice(book);
             if (!params.prices) return true;
             return params.prices.from <= price && price <= params.prices.to;
+        })
+        .filter((book) => {
+            if (!params.tariff) return true;
+            const duration = params.tariff.getBookDuration(book);
+            return params.tariff.days <= duration;
         });
 };
 
