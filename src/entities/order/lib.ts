@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { fakeApi } from "shared/api";
-// import type { Book } from "shared/api";
+import type { Book } from "shared/api";
 
 // type RentStat = {
 //     book: Book;
@@ -8,6 +8,21 @@ import { fakeApi } from "shared/api";
 //     couldBeRent: boolean;
 // };
 
+const getRentStats = (userBooks: Book[]) => {
+    return userBooks.map((ub) => {
+        const maxDuration = dayjs(ub.availableBefore).diff(dayjs(), "day");
+        const orders = fakeApi.orders.getByBookId(ub.id).sort((a, b) => a.id - b.id);
+        const lastStatus = orders.slice(-1)[0]?.status;
+
+        const couldBeRent = !orders.length || lastStatus === "CLOSED";
+
+        return {
+            book: ub,
+            maxDuration,
+            couldBeRent,
+        };
+    });
+};
 /**
  * Общий эндпоинт для получения информации для аренды книги
  *
@@ -21,45 +36,45 @@ import { fakeApi } from "shared/api";
  * - Должно соблюдаться равенство: `diff(now, book.availableBefore) >= duration`
  *
  * !! При этом если на книгу уже есть бронь и экземпляров недостаточно - то книга доступна только для бронирования
+ *
+ * Если же экземпляров нет вообще - то и забронировать также не удастся
  */
 export const getRentInfo = (aBookId: number) => {
     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
-    // Нет экземпляров
+    // CASE: Нет экземпляров
     if (!userBooks.length) {
-        return { duration: -1, couldBeRent: false, items: [] };
+        return { couldBeRent: false, couldBeReserve: false, duration: 0, items: [] };
     }
 
     // Статусы по книгам
     // Интервалы для аренды
-    const rentStats = userBooks.map((ub) => {
-        const maxDuration = dayjs(ub.availableBefore).diff(dayjs(), "day");
-        const orders = fakeApi.orders.getByBookId(ub.id).sort((a, b) => a.id - b.id);
-        const lastStatus = orders.slice(-1)[0]?.status;
+    const rentStats = getRentStats(userBooks);
 
-        const couldBeRent = !orders.length || lastStatus === "CLOSED";
-
-        return {
-            book: ub,
-            maxDuration,
-            couldBeRent,
-        };
-    });
-
-    const availableBooks = rentStats.filter((rs) => rs.couldBeRent);
-
+    // Только доступные книги:
+    // - Не арендуются сейчас
+    // - Возвращать владельцу не раньше недели
+    const availableBooks = rentStats.filter((rs) => rs.couldBeRent && rs.maxDuration >= 7);
+    // FIXME: refine later
+    const maxDuration = Math.max(...availableBooks.map((rs) => rs.maxDuration));
     const reservations = fakeApi.reservations
         .getByABook(aBookId)
         .filter((r) => r.status === "PENDING");
 
-    const isEnoughBooksForReservations = reservations.length < availableBooks.length;
-
-    if (!isEnoughBooksForReservations) {
-        return { duration: -1, couldBeRent: false, items: rentStats };
+    // CASE: Достаточно ли экземпляров для активных броней?
+    if (reservations.length < availableBooks.length) {
+        return {
+            couldBeRent: true,
+            couldBeReserve: false,
+            duration: maxDuration,
+            items: rentStats,
+        };
     }
 
+    // CASE: Броней слишком много, можно только встать в очередь на книгу
     return {
-        duration: Math.max(...availableBooks.map((rs) => rs.maxDuration)),
-        couldBeRent: availableBooks.filter((b) => b.maxDuration >= 7).length > 0,
+        couldBeRent: false,
+        couldBeReserve: true,
+        duration: maxDuration,
         items: rentStats,
     };
 };
