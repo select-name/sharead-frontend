@@ -140,3 +140,21 @@ export const useExistsOnly = () => {
     };
     return { existsOnly, setExistsOnly };
 };
+
+const DEFAULT_SORTING = 4;
+export const SORTINGS = {
+    1: "по популярности",
+    2: "по цене аренды",
+    3: "по сроку аренды",
+    4: "по новизне",
+};
+export const useSorting = () => {
+    const [sorting, setParam] = useQueryParam("ob", withDefault(NumberParam, DEFAULT_SORTING));
+
+    // Обновляем не сразу, а с задержкой
+    const setSorting = (value: number) => {
+        setParam(value === DEFAULT_SORTING ? undefined : value);
+    };
+
+    return { sorting, setSorting };
+};

@@ -36,6 +36,8 @@ const useFilters = () => {
     };
 };
 
+const { SORTINGS } = catalogParams;
+
 const viewTypes = [
     { key: "grid", Icon: AppstoreOutlined },
     { key: "list", Icon: BarsOutlined },
@@ -45,6 +47,7 @@ const CatalogContent = () => {
     const filters = useFilters();
     const booksQuery = fakeApi.books.getList({ filters });
     const vtParam = catalogParams.useViewType();
+    const obParam = catalogParams.useSorting();
 
     // FIXME: add later ListView
     // FIXME: Layout.Content?
@@ -54,10 +57,20 @@ const CatalogContent = () => {
                 <Row className={styles.toolbarSort}>
                     <b className={styles.toolbarSortLabel}>Сортировать по:</b>
                     <ul className={styles.toolbarSortList}>
-                        <li className={styles.toolbarSortListItem}>по популярности</li>
-                        <li className={styles.toolbarSortListItem}>по цене аренды</li>
-                        <li className={styles.toolbarSortListItem}>по сроку аренды</li>
-                        <li className={styles.toolbarSortListItem}>по новизне</li>
+                        {Object.entries(SORTINGS).map(([sId, sName]) => (
+                            <li
+                                key={sId}
+                                className={styles.toolbarSortListItem}
+                                onClick={() => obParam.setSorting(Number(sId))}
+                                style={
+                                    obParam.sorting === Number(sId)
+                                        ? { color: "var(--color-primary)" }
+                                        : {}
+                                }
+                            >
+                                {sName}
+                            </li>
+                        ))}
                     </ul>
                 </Row>
                 <Radio.Group
