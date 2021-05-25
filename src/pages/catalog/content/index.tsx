@@ -1,8 +1,9 @@
-import { Badge, Empty, Layout, Row, Col, Radio } from "antd";
+import { Badge, Empty, Layout, Row, Col, Radio, Typography } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 
 import { headerParams, Cart, Fav, Reserve } from "features";
 import { BookCard, BookRowCard } from "entities/book";
+import { TariffRadio, tariffLib } from "entities/tariff";
 import { orderLib } from "entities/order";
 import { fakeApi } from "shared/api";
 import type { AbstractBook } from "shared/api";
@@ -102,6 +103,9 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
     const ribbonColor = rent.status === "RESERVABLE" ? "gray" : popular ? "magenta" : "";
     const ribbonStyle = { display: ribbonText ? "block" : "none" };
     const span = vtParam.isGrid ? 8 : 24;
+
+    const duration = orderLib.getRentInfo(data.id).duration;
+
     return (
         <Col span={span}>
             <Badge.Ribbon text={ribbonText} style={ribbonStyle} color={ribbonColor}>
@@ -118,7 +122,12 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
                                 <Reserve.Actions.ReserveBookMini key="reserve" bookId={data.id} />
                             ),
                         ].filter(Boolean)}
-                    />
+                    >
+                        <br />
+                        <Typography.Text type="secondary">
+                            В аренду до {tariffLib.getTariffBy(duration)} дней
+                        </Typography.Text>
+                    </BookCard>
                 )}
                 {vtParam.isList && (
                     <BookRowCard
@@ -134,6 +143,7 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
                                 {rent.status === "RESERVABLE" && (
                                     <Reserve.Actions.ReserveBook bookId={data.id} />
                                 )}
+                                <TariffRadio __byDuration={duration} />
                             </>
                         }
                     />

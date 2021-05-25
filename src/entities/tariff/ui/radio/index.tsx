@@ -1,17 +1,23 @@
 import { Radio } from "antd";
-
-const tariffs = [7, 14, 30];
-const DEFAULT = 14;
+import { DEFAULT, TARIFFS } from "../../lib";
 
 type Props = {
     onChange?: (value: number) => void;
     withTitle?: boolean;
     value?: number;
     disabled?: boolean;
+    __byDuration?: number;
 };
 
 const TariffRadio = (props: Props) => {
-    const { onChange, value = DEFAULT, disabled } = props;
+    const { onChange, value = DEFAULT, disabled, __byDuration } = props;
+
+    // !!! FIXME: Жесткий костыль!!!
+    const getTValue = (t: number) => {
+        if (!__byDuration) return t;
+        return t <= __byDuration ? value : -1;
+    };
+
     return (
         <div style={{ textAlign: "center" }}>
             {/* {withTitle && <h4>Срок аренды</h4>} */}
@@ -20,10 +26,10 @@ const TariffRadio = (props: Props) => {
                 buttonStyle="solid"
                 onChange={(e) => onChange?.(e.target.value)}
                 style={{ marginTop: 12 }}
-                disabled={disabled}
+                disabled={disabled || Boolean(__byDuration)}
             >
-                {tariffs.map((t) => (
-                    <Radio.Button key={t} value={t}>
+                {TARIFFS.map((t) => (
+                    <Radio.Button key={t} value={getTValue(t)}>
                         {t} д.
                     </Radio.Button>
                 ))}
