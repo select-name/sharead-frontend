@@ -85,7 +85,7 @@ const CatalogContent = () => {
                                             actions={[
                                                 <Fav.Actions.AddBookMini key="fav" bookId={b.id} />,
                                                 // prettier-ignore
-                                                <Cart.Actions.AddBookMini key="order" bookId={b.id} disabled={isBusy} />,
+                                                <Cart.Actions.AddBookMini key="order" bookId={b.id} disabled={isBusy} />, // eslint-disable-line max-len
                                             ]}
                                         />
                                     )}

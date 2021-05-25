@@ -8,7 +8,11 @@ let __size = 0;
 
 // const INITIAL_DATE = "2021-06-01T00:00:00.354Z";
 
-const createReservation = (params: { aBookId: number; userId: number }): Reservation => {
+const createReservation = (params: {
+    aBookId: number;
+    userId: number;
+    status?: Reservation["status"];
+}): Reservation => {
     const id = ++__size;
     return {
         id,
@@ -17,8 +21,18 @@ const createReservation = (params: { aBookId: number; userId: number }): Reserva
         reservedAt: dayjs()
             .add(id + 7, "days")
             .toISOString(),
+        status: params.status || "PENDING",
     };
 };
+
+// FIXME: Пофиксить, чтобы брались потом
+// Только последние резервации для пользователя
+
+export const YA_RES_0 = createReservation({
+    aBookId: 23,
+    userId: 10,
+    status: "REJECTED",
+});
 
 export const VI_RES = createReservation({
     aBookId: 23,
@@ -35,20 +49,40 @@ export const YA_RES_2 = createReservation({
     userId: 8,
 });
 
+export const YA_RES_3 = createReservation({
+    aBookId: 2,
+    userId: 1,
+});
+
+export const YA_RES_4 = createReservation({
+    aBookId: 2,
+    userId: 3,
+});
+
+export const YA_RES_5 = createReservation({
+    aBookId: 2,
+    userId: VIEWER_ID,
+});
+
 // prettier-ignore
 export const getAll = () => [
+    YA_RES_0,
     VI_RES,
     YA_RES_1,
     YA_RES_2,
+    YA_RES_3,
+    YA_RES_4,
+    YA_RES_5,
 ];
 
 export const getAllSorted = () => getAll().sort((a, b) => a.id - b.id);
 
-export const getBookQuery = (aBookId: number) =>
-    getAllSorted().filter((r) => r.aBookId === aBookId);
+export const getByABook = (aBookId: number) => getAllSorted().filter((r) => r.aBookId === aBookId);
 
 export const getUserIdx = (userId: number, aBookId: number) => {
-    return getBookQuery(aBookId).findIndex((r) => r.userId === userId);
+    return getByABook(aBookId)
+        .filter((r) => r.status === "PENDING")
+        .findIndex((r) => r.userId === userId);
 };
 
 export const getById = (resId: number) => getAll().find((o) => o.id === resId);

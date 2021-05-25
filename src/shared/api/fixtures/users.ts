@@ -117,7 +117,7 @@ export const __VIEWER: User = {
     // FIXME: hardcoded
     openedOrders: [1, 2, 3],
     // FIXME: hardcoded
-    reservations: [1],
+    reservations: [2, 7],
     // FIXME: hardcoded
     favABooks: [25],
     roles: [roles.USER],

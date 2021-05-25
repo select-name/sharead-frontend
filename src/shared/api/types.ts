@@ -47,6 +47,7 @@ export type Reservation = {
     // + 1-2 дня на выбор, но не можем заранее закладываться на 7 или 30 дней человек выбирает
     // Ставим по сути "в очередь" на книгу, без особой конкретики
     reservedAt: string;
+    status: "PENDING" | "REJECTED" | "RESOLVED";
 };
 
 export type Wallet = {

@@ -80,7 +80,10 @@ export const Content = () => {
                     if (reserve.isAvailable) {
                         return { color: "orange", text: "Подошла ваша очередь!" };
                     }
-                    return { color: "lightslategray", text: `В очереди: ${reserve.queryIdx + 1}` };
+                    return {
+                        color: "lightslategray",
+                        text: `Номер в очереди: ${reserve.queryIdx + 1}`,
+                    };
                 }}
                 renderBookDetails={(_, idx) => {
                     const reserve = viewerLib.getReservationInfo(viewerNrml.reserved[idx]);
