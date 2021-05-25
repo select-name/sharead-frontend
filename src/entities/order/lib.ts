@@ -1,14 +1,12 @@
 import dayjs from "dayjs";
 import { fakeApi } from "shared/api";
-
 // import type { Book } from "shared/api";
+
 // type RentStat = {
 //     book: Book;
 //     maxDuration: number;
 //     isAvailable: boolean;
 // };
-
-const EMPTY_RENT_RESULT = { duration: -1, isAvailable: false, items: [] };
 
 /**
  * Общий эндпоинт для получения информации для аренды книги
@@ -27,7 +25,9 @@ const EMPTY_RENT_RESULT = { duration: -1, isAvailable: false, items: [] };
 export const getRentInfo = (aBookId: number) => {
     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
     // Нет экземпляров
-    if (!userBooks.length) return EMPTY_RENT_RESULT;
+    if (!userBooks.length) {
+        return { duration: -1, isAvailable: false, items: [] };
+    }
 
     // Статусы по книгам
     // Интервалы для аренды
@@ -53,7 +53,9 @@ export const getRentInfo = (aBookId: number) => {
 
     const isEnoughBooksForReservations = reservations.length < availableBooks.length;
 
-    if (!isEnoughBooksForReservations) return EMPTY_RENT_RESULT;
+    if (!isEnoughBooksForReservations) {
+        return { duration: -1, isAvailable: false, items: rentStats };
+    }
 
     return {
         duration: Math.max(...availableBooks.map((rs) => rs.maxDuration)),

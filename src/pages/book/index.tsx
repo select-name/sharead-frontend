@@ -3,7 +3,7 @@ import { HistoryOutlined, InboxOutlined } from "@ant-design/icons";
 import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
-import { Header, Footer, Cart, Fav } from "features";
+import { Header, Footer, Cart, Fav, Reserve } from "features";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import { orderLib } from "entities/order";
@@ -151,7 +151,8 @@ const Checkout = ({ book }: BookProps) => {
                 </div>
                 <div className={styles.checkoutActions}>
                     <Fav.Actions.AddBook bookId={book.id} />
-                    <Cart.Actions.AddBook bookId={book.id} disabled={isBusy} />
+                    {!isBusy && <Cart.Actions.AddBook bookId={book.id} />}
+                    {isBusy && <Reserve.Actions.ReserveBook bookId={book.id} />}
                     {false && <TariffRadio onChange={alert.info} withTitle={false} disabled />}
                     {/* FIXME: @temp */}
                     {false && <BooksModal bookId={book.id} />}
