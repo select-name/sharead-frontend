@@ -1,9 +1,10 @@
 import { Badge, Empty, Layout, Row, Col, Radio, Typography } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
+import pluralize from "plural-ru";
 
 import { headerParams, Cart, Fav, Reserve } from "features";
 import { BookCard, BookRowCard } from "entities/book";
-import { TariffRadio, tariffLib } from "entities/tariff";
+import { TariffRadio } from "entities/tariff";
 import { orderLib } from "entities/order";
 import { fakeApi } from "shared/api";
 import type { AbstractBook } from "shared/api";
@@ -104,8 +105,6 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
     const ribbonStyle = { display: ribbonText ? "block" : "none" };
     const span = vtParam.isGrid ? 8 : 24;
 
-    const duration = orderLib.getRentInfo(data.id).duration;
-
     return (
         <Col span={span}>
             <Badge.Ribbon text={ribbonText} style={ribbonStyle} color={ribbonColor}>
@@ -125,7 +124,18 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
                     >
                         <br />
                         <Typography.Text type="secondary">
-                            В аренду до {tariffLib.getTariffBy(duration)} дней
+                            {/* В аренду до {tariffLib.getTariffBy(duration)} дней */}
+                            {rent.status === "RENTABLE" && (
+                                <span>
+                                    В аренду до{" "}
+                                    {pluralize(
+                                        Math.min(30, rent.duration),
+                                        "%d дня",
+                                        "%d дней",
+                                        "%d дней",
+                                    )}
+                                </span>
+                            )}
                         </Typography.Text>
                     </BookCard>
                 )}
@@ -143,7 +153,7 @@ const BookItem = ({ data }: { data: AbstractBook }) => {
                                 {rent.status === "RESERVABLE" && (
                                     <Reserve.Actions.ReserveBook bookId={data.id} />
                                 )}
-                                <TariffRadio __byDuration={duration} />
+                                <TariffRadio __byDuration={rent.duration} />
                             </>
                         }
                     />
