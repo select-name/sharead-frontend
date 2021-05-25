@@ -17,7 +17,7 @@ const useToggleBook = ({ bookId, disabled }: Props) => {
     const handleToggle = () => {
         if (disabled) return;
         const action = isBookInCart ? "Удалено из заказа" : "Добавлено в заказ";
-        alert.info(`${book?.name}`, action, <ShoppingOutlined />);
+        alert.info(`${book?.name}`, <a href="/order">{action}</a>, <ShoppingOutlined />);
         orderModel.cart.events.toggleBook(bookId);
     };
 

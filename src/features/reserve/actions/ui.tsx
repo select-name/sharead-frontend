@@ -19,7 +19,11 @@ const useToggleBook = (bookId: number) => {
         const action = isBookReserved
             ? "Вы удалены из очереди на книгу"
             : "Вы добавлены в очередь на книгу";
-        alert.info(`${book?.name}`, action, <ClockCircleOutlined />);
+        alert.info(
+            `${book?.name}`,
+            <a href="/profile#reserved">{action}</a>,
+            <ClockCircleOutlined />,
+        );
         // TODO: viewerModel.events.toggleBook(bookId);
     };
 

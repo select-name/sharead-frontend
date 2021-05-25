@@ -15,7 +15,7 @@ const useToggleBook = (bookId: number) => {
 
     const handleToggle = () => {
         const action = isBookFav ? "Удалено из избранного" : "Добавлено в избранное";
-        alert.info(`${book?.name}`, action, <HeartOutlined />);
+        alert.info(`${book?.name}`, <a href="/profile#fav">{action}</a>, <HeartOutlined />);
         viewerModel.events.toggleBook(bookId);
     };
 
