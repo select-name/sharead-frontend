@@ -17,7 +17,7 @@ const createOrder = (params: {
     return {
         id: params.id,
         bookId: params.bookId,
-        costs: params.costs,
+        costs: params.costs / 1.25,
         deliveredAt: dayjs()
             .add(params.deliveredDelta || -2, "days")
             .toISOString(),

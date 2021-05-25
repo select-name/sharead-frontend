@@ -67,8 +67,8 @@ export const getUserNormalized = (user: User) => {
 export const getUserStat = (user: User) => {
     const un = getUserNormalized(user);
 
-    // Если учитывать, что цена на книгу уменьшается в среднем в 6 раз по сравнению с оригиналом
-    const saved = un.closedPrices.reduce((a, b) => a + b, 0) * (6 - 1);
+    // Если учитывать, что цена на книгу уменьшается в среднем в 4 раза по сравнению с оригиналом
+    const saved = un.closedPrices.reduce((a, b) => a + b, 0) * (4 - 1);
     const earned = un.ownBooks
         .map(getMyBookInfo)
         .map((st) => st.earned)

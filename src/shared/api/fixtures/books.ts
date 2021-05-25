@@ -422,15 +422,12 @@ export const getList = (params: GetListParams) => {
         });
 };
 
-// Формально тут должен быть коэффициент, но по сути как есть
-const COEFF = 1;
-
 export const getPrice = (book: AbstractBook) => {
     const fullTitle = toString(book);
     const pseudoFactor = fullTitle.length % 3;
     const factor = pseudoFactor + 2;
 
-    return Math.floor(factor * 50 * COEFF);
+    return factor * 50;
 };
 
 // export const getExtraPrice = (book: AbstractBook) => {
