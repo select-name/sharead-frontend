@@ -213,13 +213,13 @@ export const userBooksMap = Object.entries(USER_ABOOKS).map(([key, abookIds]) =>
     const userBooks: Book[] = abookIds.map((aId, idx) => {
         const abstract = books.getById(aId);
         if (!abstract) throw new Error(`Unknown Abstractbook with id=${aId}`);
-        const price = books.getPurePrice(abstract);
+        // const price = books.getPrice(abstract);
 
         return {
             id: USERS_UBOOKS[userId][idx],
             abstractBook: abstract,
             // !!! FIXME: temp
-            costPerDay: price,
+            // costPerDay: price,
             owner,
             availableBefore: dates[idx % dates.length],
         };
@@ -231,7 +231,7 @@ export const userBooksMap = Object.entries(USER_ABOOKS).map(([key, abookIds]) =>
 //
 //     if (!abstract) return [];
 
-//     const price = books.getPurePrice(abstract);
+//     const price = books.getPrice(abstract);
 
 //     const owners = getBookOwners(abstractBookId);
 

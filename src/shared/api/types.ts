@@ -97,7 +97,7 @@ export type AbstractBook = {
 export type Book = {
     id: number;
     abstractBook: AbstractBook;
-    costPerDay: number;
+    // costPerDay: number;
     owner: User;
     availableBefore: string;
 };

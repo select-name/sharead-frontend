@@ -406,7 +406,7 @@ export const getList = (params: GetListParams) => {
             return params.categories?.includes(book.category.id);
         })
         .filter((book) => {
-            const price = getPurePrice(book);
+            const price = getPrice(book);
             if (!params.prices) return true;
             return params.prices.from <= price && price <= params.prices.to;
         })
@@ -422,13 +422,20 @@ export const getList = (params: GetListParams) => {
         });
 };
 
-export const getPurePrice = (book: AbstractBook) => {
+// Формально тут должен быть коэффициент, но по сути как есть
+const COEFF = 1;
+
+export const getPrice = (book: AbstractBook) => {
     const fullTitle = toString(book);
     const pseudoFactor = fullTitle.length % 3;
     const factor = pseudoFactor + 2;
 
-    return factor * 50;
+    return Math.floor(factor * 50 * COEFF);
 };
+
+// export const getExtraPrice = (book: AbstractBook) => {
+//     return getPrice(book) * COEFF;
+// };
 
 export const getPopular = () => [BLACK_SWAN_2021, N1984_2013, RISKING_SKIN_2021, WRITE_CUT_2020];
 

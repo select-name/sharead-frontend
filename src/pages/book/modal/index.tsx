@@ -22,32 +22,10 @@ export const Content = ({ bookId }: BaseProps) => {
                         <Descriptions.Item label="Доступно до">
                             {dayjs(bu.availableBefore).format("DD.MM.YYYY")}
                         </Descriptions.Item>
-                        <Descriptions.Item label="Цена в день">{bu.costPerDay}</Descriptions.Item>
+                        {/* <Descriptions.Item label="Цена в день">{bu.costPerDay}</Descriptions.Item> */}
                     </Descriptions>
                 </Card>
             ))}
-            {/* {userBooks.map((bu) => (
-                <Col key={bu.id} span={24}>
-                    <Card
-                        type="inner"
-                        title={
-                            <Descriptions>
-                                <Descriptions.Item label="Доступно до">
-                                    {dayjs(bu.availableBefore).format("DD.MM.YYYY")}
-                                </Descriptions.Item>
-                                <Descriptions.Item label="Цена в день">
-                                    {bu.costPerDay}
-                                </Descriptions.Item>
-                                <Descriptions.Item label="Владелец">
-                                    {bu.owner.firstName} {bu.owner.lastName}
-                                </Descriptions.Item>
-                            </Descriptions>
-                        }
-                    >
-                        <BookRow data={bu.abstractBook} size="small" />
-                    </Card>
-                </Col>
-            ))} */}
         </Row>
     );
 };

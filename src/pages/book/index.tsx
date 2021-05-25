@@ -130,7 +130,7 @@ const Checkout = ({ book }: BookProps) => {
     const rent = orderLib.getRentInfo(book.id);
     const style =
         rent.status === "OUT_STOCK" || rent.status === "RESERVABLE" ? { opacity: 0.5 } : {};
-    const price = `${fakeApi.books.getPurePrice(book)} р`;
+    const price = `${fakeApi.books.getPrice(book)} р`;
 
     return (
         <Col span={7} offset={1} className={styles.checkoutContainer} style={style}>

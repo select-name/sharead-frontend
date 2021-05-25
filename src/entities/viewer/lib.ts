@@ -46,9 +46,7 @@ export const getUserNormalized = (user: User) => {
 
     const closed: Order[] = fakeApi.orders.getByIds(user.closedOrders);
     const closedBooks: Book[] = fakeApi.users.getUserBooksByIds(closed.map((o) => o.bookId));
-    const closedPrices: number[] = closedBooks.map((cb) =>
-        fakeApi.books.getPurePrice(cb.abstractBook),
-    );
+    const closedPrices: number[] = closedBooks.map((cb) => fakeApi.books.getPrice(cb.abstractBook));
 
     const reserved: Reservation[] = fakeApi.reservations.getByIds(user.reservations);
     const reservedBooks: AbstractBook[] = fakeApi.books.getByIds(reserved.map((o) => o.aBookId));

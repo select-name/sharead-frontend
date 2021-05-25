@@ -56,7 +56,7 @@ export const useOrder = () => {
 
     const price = books
         .map((b) => {
-            const price = fakeApi.books.getPurePrice(b);
+            const price = fakeApi.books.getPrice(b);
             const coeff = durations[b.id] / DEFAULT_DURATION;
             return Math.floor(price * coeff);
         })

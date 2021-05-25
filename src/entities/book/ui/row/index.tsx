@@ -59,7 +59,7 @@ const BookRow = (props: Props) => {
     const { data, className, size = "default", titleAsLink = true, actions, asSecondary } = props;
 
     const title = fakeApi.books.getShortname(data);
-    const price = fakeApi.books.getPurePrice(data);
+    const price = fakeApi.books.getPrice(data);
     const isSmall = size === "small";
     const spanDetails = MAX_SPAN - spanIcon[size] - spanActions - 1;
 
