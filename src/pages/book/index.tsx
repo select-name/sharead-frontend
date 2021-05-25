@@ -152,7 +152,7 @@ const Checkout = ({ book }: BookProps) => {
                 <div className={styles.checkoutActions}>
                     <Fav.Actions.AddBook bookId={book.id} />
                     <Cart.Actions.AddBook bookId={book.id} disabled={isBusy} />
-                    <TariffRadio onChange={alert.info} withTitle={false} disabled />
+                    {false && <TariffRadio onChange={alert.info} withTitle={false} disabled />}
                     {/* FIXME: @temp */}
                     {false && <BooksModal bookId={book.id} />}
                 </div>

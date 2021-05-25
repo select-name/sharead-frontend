@@ -9,7 +9,7 @@ type BaseProps = {
 };
 
 export const Content = ({ bookId }: BaseProps) => {
-    const userBooks = fakeApi.users.userBooksMap[bookId];
+    const userBooks = fakeApi.users.getUserBooksByABook(bookId);
 
     return (
         <Row gutter={[0, 20]}>

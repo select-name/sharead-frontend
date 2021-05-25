@@ -8,6 +8,8 @@ import { fakeApi } from "shared/api";
 //     isAvailable: boolean;
 // };
 
+const EMPTY_RENT_RESULT = { duration: -1, isAvailable: false, items: [] };
+
 /**
  * Общий эндпоинт для получения информации для аренды книги
  *
@@ -20,12 +22,12 @@ import { fakeApi } from "shared/api";
  * - На данный момент не должна фигурировать в каком либо заказе со статусами RENTED | WAITING_TRANSFER
  * - Должно соблюдаться равенство: `diff(now, book.availableBefore) >= duration`
  *
- * При этом если на книгу уже есть бронь - то книга доступна только для бронирования
+ * !! При этом если на книгу уже есть бронь и экземпляров недостаточно - то книга доступна только для бронирования
  */
 export const getRentInfo = (aBookId: number) => {
     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
     // Нет экземпляров
-    if (!userBooks.length) return { duration: -1, isAvailable: false, items: [] };
+    if (!userBooks.length) return EMPTY_RENT_RESULT;
 
     // Статусы по книгам
     // Интервалы для аренды
@@ -44,6 +46,14 @@ export const getRentInfo = (aBookId: number) => {
     });
 
     const availableBooks = rentStats.filter((rs) => rs.isAvailable);
+
+    const reservations = fakeApi.reservations
+        .getByABook(aBookId)
+        .filter((r) => r.status === "PENDING");
+
+    const isEnoughBooksForReservations = reservations.length < availableBooks.length;
+
+    if (!isEnoughBooksForReservations) return EMPTY_RENT_RESULT;
 
     return {
         duration: Math.max(...availableBooks.map((rs) => rs.maxDuration)),

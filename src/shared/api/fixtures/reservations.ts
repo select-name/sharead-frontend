@@ -64,6 +64,11 @@ export const YA_RES_5 = createReservation({
     userId: VIEWER_ID,
 });
 
+export const YA_RES_6 = createReservation({
+    aBookId: 1,
+    userId: 9,
+});
+
 // prettier-ignore
 export const getAll = () => [
     YA_RES_0,
@@ -73,6 +78,7 @@ export const getAll = () => [
     YA_RES_3,
     YA_RES_4,
     YA_RES_5,
+    YA_RES_6,
 ];
 
 export const getAllSorted = () => getAll().sort((a, b) => a.id - b.id);
