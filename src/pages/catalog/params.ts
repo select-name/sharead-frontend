@@ -111,7 +111,7 @@ export const TARIFFS = {
 };
 
 export const useTariff = () => {
-    const [tariff, setParam] = useQueryParam("td", withDefault(NumberParam, PRICES.MIN));
+    const [tariff, setParam] = useQueryParam("td", withDefault(NumberParam, TARIFFS.T7));
     // FIXME: type
     const timerRef = useRef<any>();
 
