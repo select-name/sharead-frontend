@@ -50,7 +50,7 @@ export const Content = () => {
                 id={TOPIC_OPENED.id}
                 title={TOPIC_OPENED.fullTitle}
                 description={TOPIC_OPENED.description}
-                books={viewerNrml.openedBooks}
+                books={viewerNrml.openedBooks.slice().reverse()}
                 Icon={ShoppingOutlined}
                 active={TOPIC_OPENED.id === currentAnchor}
                 renderBookDetails={(_, idx) => {
