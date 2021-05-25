@@ -17,7 +17,8 @@ const useFilters = () => {
     const { publishers } = catalogParams.useFilterByPublisher();
     const { categories } = catalogParams.useFilterByCategory();
     const prices = catalogParams.usePrices();
-    const tariffDays = catalogParams.useTariff().tariff;
+    const { tariff } = catalogParams.useTariff();
+    const { existsOnly } = catalogParams.useExistsOnly();
 
     return {
         authors,
@@ -25,11 +26,10 @@ const useFilters = () => {
         categories,
         prices,
         search: params.search,
+        tariff,
+        existsOnly,
         // !!! FIXME: simplify!!!
-        tariff: {
-            days: tariffDays,
-            getBookDuration: (b: AbstractBook) => orderLib.getRentInfo(b.id).duration,
-        },
+        getRentInfoBy: (b: AbstractBook) => orderLib.getRentInfo(b.id),
     };
 };
 

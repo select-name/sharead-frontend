@@ -12,6 +12,7 @@ const CatalogSidebar = () => {
                     Фильтры
                 </Typography.Title>
 
+                <ExistsOnlySection />
                 <PriceSection />
                 <TimeSection />
                 <CategorySection />
@@ -19,6 +20,23 @@ const CatalogSidebar = () => {
                 <PublisherSection />
             </div>
         </Layout.Sider>
+    );
+};
+
+const ExistsOnlySection = () => {
+    const params = catalogParams.useExistsOnly();
+
+    return (
+        <section className={styles.section}>
+            <Divider plain>Общее</Divider>
+            <Checkbox
+                defaultChecked={params.existsOnly}
+                // @ts-ignore
+                onChange={(e) => params.setExistsOnly(e.target.checked)}
+            >
+                Только в наличии
+            </Checkbox>
+        </section>
     );
 };
 

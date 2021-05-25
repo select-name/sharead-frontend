@@ -5,6 +5,7 @@ import {
     NumberParam,
     useQueryParam,
     withDefault,
+    BooleanParam,
 } from "use-query-params";
 
 // FIXME: fix delimiters
@@ -124,4 +125,18 @@ export const useTariff = () => {
     };
 
     return { tariff, setTariff };
+};
+
+const DEFAULT_EXISTS_ONLY = false;
+
+export const useExistsOnly = () => {
+    const [existsOnly, setParam] = useQueryParam(
+        "eo",
+        withDefault(BooleanParam, DEFAULT_EXISTS_ONLY),
+    );
+
+    const setExistsOnly: typeof setParam = (value) => {
+        setParam(value || DEFAULT_EXISTS_ONLY);
+    };
+    return { existsOnly, setExistsOnly };
 };

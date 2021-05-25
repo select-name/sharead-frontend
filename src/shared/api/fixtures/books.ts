@@ -372,10 +372,14 @@ type GetListParams = {
         from: number;
         to: number;
     };
-    tariff?: {
-        days: number;
-        // !!! FIXME: Ужаснейший код! Никогда не показывайте это бекендерам!
-        getBookDuration: (book: AbstractBook) => number;
+    tariff?: number;
+    existsOnly?: boolean;
+    // !!! FIXME: Ужаснейший код! Никогда не показывайте это бекендерам!
+    getRentInfoBy?: (
+        book: AbstractBook,
+    ) => {
+        duration: number;
+        status: "OUT_STOCK" | "RENTABLE" | "RESERVABLE";
     };
 };
 
@@ -407,9 +411,14 @@ export const getList = (params: GetListParams) => {
             return params.prices.from <= price && price <= params.prices.to;
         })
         .filter((book) => {
-            if (!params.tariff) return true;
-            const duration = params.tariff.getBookDuration(book);
-            return params.tariff.days <= duration;
+            if (!params.tariff || !params.getRentInfoBy) return true;
+            const { duration } = params.getRentInfoBy(book);
+            return params.tariff <= duration;
+        })
+        .filter((book) => {
+            if (!params.existsOnly || !params.getRentInfoBy) return true;
+            const { status } = params.getRentInfoBy(book);
+            return status === "RENTABLE";
         });
 };
 
