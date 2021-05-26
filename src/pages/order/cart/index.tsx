@@ -60,7 +60,7 @@ const Content = () => {
                                                     duration: value,
                                                 })
                                             }
-                                            value={durations[book.id]}
+                                            value={durations[book.id] || 14}
                                         />
                                     </>
                                 }

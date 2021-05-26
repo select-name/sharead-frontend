@@ -57,7 +57,9 @@ export const useOrder = () => {
     const price = books
         .map((b) => {
             const price = fakeApi.books.getPrice(b);
-            const coeff = durations[b.id] / DEFAULT_DURATION;
+            // FIXME: @hardcoded (возвращается почему-то undefined, надо разобраться)
+            const duration = durations[b.id] || DEFAULT_DURATION;
+            const coeff = duration / DEFAULT_DURATION;
             return Math.floor(price * coeff);
         })
         .reduce((a, b) => a + b, 0);

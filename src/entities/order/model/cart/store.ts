@@ -79,7 +79,7 @@ export const $cart = combine($books, $durations, (books, durations) => {
             status: "WAITING_TRANSFER",
             startDelta: 0,
             deliveredDelta: 2,
-            endDelta: state.durations[aBookId],
+            endDelta: state.durations[aBookId] || 14,
             costs: fakeApi.books.getPrice(fakeApi.books.getById(aBookId)!),
         });
     });
