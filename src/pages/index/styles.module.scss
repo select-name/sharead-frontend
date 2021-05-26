@@ -14,13 +14,18 @@
 
 .banner {
     &Item {
+        position: relative;
         height: 320px;
         text-align: center;
-        background: #364d79;
+        // background: #364d79;
 
-        h3 {
-            line-height: 320px;
-            color: #ffffff;
+        &Text {
+            position: absolute;
+            z-index: 10;
+            // line-height: 320px;
+            color: #ffffff !important;
+
+            @include align-center-absolute();
         }
     }
 }

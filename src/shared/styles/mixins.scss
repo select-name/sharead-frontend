@@ -5,3 +5,9 @@
 @mixin box-shadow-bottom-inset() {
     box-shadow: inset 0 2px 8px #cdcece;
 }
+
+@mixin align-center-absolute() {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,14 +1,18 @@
 import { Carousel, Typography, Layout, Row, Col } from "antd";
-// import { BookFilled } from "@ant-design/icons";
+// import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 
 import { Header, Footer } from "features";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { BookCard } from "entities/book";
 import { fakeApi } from "shared/api";
 import { useTitle } from "shared/lib/dom";
-import imgCat1 from "./1.png";
-import imgCat2 from "./2.png";
-import imgCat3 from "./3.png";
+import imgBanner1 from "./b1.jpg";
+import imgBanner2 from "./b2.jpg";
+import imgBanner3 from "./b3.jpg";
+import imgCat1 from "./c1.png";
+import imgCat2 from "./c2.png";
+import imgCat3 from "./c3.png";
 import imgOrwell from "./orwell.jpg";
 import imgPalanick from "./palanick.jpg";
 import imgTaleb from "./taleb.jpg";
@@ -58,24 +62,48 @@ const IndexPage = () => {
 };
 
 const Banner = () => (
-    <Carousel autoplay>
+    <Carousel
+        autoplay
+        autoplaySpeed={7000}
+        // arrows
+        // nextArrow={<ArrowRightOutlined />}
+        // prevArrow={<ArrowLeftOutlined />}
+    >
         <div className={styles.bannerItem}>
-            <Typography.Title level={3}>BANNER-1</Typography.Title>
+            <Typography.Text className={styles.bannerItemText}>
+                <h3 style={{ color: "#fff" }}>Книжный митап #4</h3>
+                <p>Coffeeshop Company (Венская кофейня)</p>
+                <p>ул. Баумана, д.38/17, {dayjs().add(7, "days").format("DD.MM.YYYY")}</p>
+                <i>Там вы можете получить последние заказанные книги!</i>
+            </Typography.Text>
+            <img src={imgBanner1} alt="img-banner-1" width="100%" />
         </div>
         <div className={styles.bannerItem}>
-            <Typography.Title level={3}>BANNER-2</Typography.Title>
+            <Typography.Text className={styles.bannerItemText}>
+                <h3 style={{ color: "#fff" }}>Каталог</h3>
+                <p>Гибкий поиск по фильтрам и с подходящей сортировкой</p>
+                <p>С адаптацией под ваши финансовые ожидания и время аренды</p>
+                <Link to="/catalog">Перейти</Link>
+            </Typography.Text>
+            <img src={imgBanner2} alt="img-banner-2" width="100%" />
         </div>
         <div className={styles.bannerItem}>
-            <Typography.Title level={3}>BANNER-3</Typography.Title>
-        </div>
-        <div className={styles.bannerItem}>
-            <Typography.Title level={3}>BANNER-4</Typography.Title>
+            <Typography.Text className={styles.bannerItemText}>
+                <h3 style={{ color: "#fff" }}>Личный кабинет</h3>
+                <p>
+                    В личном кабинете вы можете увидеть информацию о ваших личных книгах, книгах на
+                    руках, забронированных, избранных, а также в целом - об истории аренды
+                </p>
+                <p>Там же вы найдете и остальные, интересующие вас моменты</p>
+                <Link to="/profile">Перейти</Link>
+            </Typography.Text>
+            <img src={imgBanner3} alt="img-banner-3" width="100%" />
         </div>
     </Carousel>
 );
 
 // FIXME: Озон прости, это временно...
-const srcCatMap: Record<number, string> = {
+const srcCategoriesMap: Record<number, string> = {
     1: imgCat3,
     2: imgCat2,
     3: imgCat1,
@@ -104,7 +132,7 @@ const Categories = () => {
                         <Typography.Text className={styles.text}>{cat.description}</Typography.Text>
                     </div>
                     <div className={styles.categoriesItemCover}>
-                        <img src={srcCatMap[cat.id]} alt="logo" />
+                        <img src={srcCategoriesMap[cat.id]} alt="logo" />
                         {/* <BookFilled {...cat.cover} /> */}
                     </div>
                 </Col>
@@ -113,7 +141,7 @@ const Categories = () => {
     );
 };
 
-const srcMap: Record<number, string> = {
+const srcAuthorsMap: Record<number, string> = {
     7: imgIlyahov,
     2: imgPalanick,
     3: imgTaleb,
@@ -141,7 +169,7 @@ const Authors = () => {
                     </Typography.Title>
                     <div className={styles.authorsItemCover}>
                         {/* <UserOutlined {...au.avatar} /> */}
-                        <img src={srcMap[au.id]} alt="Logo" width={200} />
+                        <img src={srcAuthorsMap[au.id]} alt="Logo" width={200} />
                     </div>
                 </Col>
             ))}
