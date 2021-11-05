@@ -43,6 +43,25 @@ const viewTypes = [
     { key: "grid", Icon: AppstoreOutlined },
     { key: "list", Icon: BarsOutlined },
 ];
+
+const ribbonPropsTypes = {
+    RESERVABLE: {
+        text: "Можно забронировать",
+        color: "gray",
+        isVisible: true,
+    },
+    OUT_STOCK: {
+        text: "Популярное",
+        color: "magenta",
+        isVisible: true,
+    },
+    RENTABLE: {
+        text: "",
+        color: "",
+        isVisible: false,
+    },
+};
+
 // eslint-disable-next-line max-lines-per-function
 const CatalogContent = () => {
     const filters = useFilters();
@@ -112,39 +131,22 @@ const CatalogContent = () => {
 // eslint-disable-next-line max-lines-per-function
 const BookItem = ({ data }: { data: AbstractBook }) => {
     const vtParam = catalogParams.useViewType();
-    const popular = fakeApi.books.isPopular(data);
     const rent = orderLib.getRentInfo(data.id);
     // const viewerNrml = viewerModel.useViewerNormalized();
-    // Скрываем собственные книги пользователя
-    // const viewerABooksIds = viewerNrml.ownBooks.map((b) => b.abstractBook.id);
-
     // const hasUserBook = viewerABooksIds.includes(data.id);
-
     // // Скрываем книги не в наличии
     // if (rent.status === "OUT_STOCK") return null;
 
-    const ribbonText =
-        rent.status === "OWN"
-            ? "Ваш экземпляр"
-            : rent.status === "RESERVABLE" || rent.status === "OUT_STOCK"
-            ? "Можно забронировать"
-            : popular
-            ? "Популярное"
-            : "";
-    const ribbonColor =
-        rent.status === "OWN"
-            ? "blue"
-            : rent.status === "RESERVABLE"
-            ? "gray"
-            : popular
-            ? "magenta"
-            : "";
-    const ribbonStyle = { display: ribbonText ? "block" : "none" };
+    const ribbon = ribbonPropsTypes[rent.status];
     const span = vtParam.isGrid ? 8 : 24;
 
     return (
         <Col span={span}>
-            <Badge.Ribbon text={ribbonText} style={ribbonStyle} color={ribbonColor}>
+            <Badge.Ribbon
+                text={ribbon.text}
+                color={ribbon.color}
+                style={ribbon.isVisible ? undefined : { display: "none" }}
+            >
                 {vtParam.isGrid && (
                     <BookCard
                         data={data}
