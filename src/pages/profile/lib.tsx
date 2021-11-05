@@ -1,5 +1,3 @@
-import { Typography } from "antd";
-
 import { viewerLib } from "entities/viewer";
 import type { User } from "shared/api";
 
