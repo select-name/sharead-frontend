@@ -29,21 +29,16 @@ export const getMyBookInfo = (book: Book) => {
     const bookOrders = fakeApi.orders.getByBookId(book.id);
     const bookOrdersStatuses = bookOrders.map((bo) => bo.status);
 
-    const earned = bookOrders.map((bo) => bo.costs).reduce((a, b) => a + b, 0);
     const isSomeRented = bookOrdersStatuses.includes("RENTED");
     const isSomeWaitingTransfer = bookOrdersStatuses.includes("WAITING_TRANSFER");
     const status = isSomeRented || isSomeWaitingTransfer ? ("BUSY" as const) : ("FREE" as const);
-    return { earned, status };
+    return { status };
 };
 
 // Страх и ужас, не показывайте такое детям
 export const getUserNormalized = (user: User) => {
-    const ownBooks: Book[] = fakeApi.users.getUserBooksByIds(user.books);
-    const own: Order[] = ownBooks.map((ob) => fakeApi.orders.getByBookId(ob.id)).flat();
-
     const opened: Order[] = fakeApi.orders.getByIds(user.openedOrders);
 
-    // console.log({ orders: fakeApi.orders.getAll(), user, opened });
     const openedBooks: Book[] = fakeApi.users.getUserBooksByIds(opened.map((o) => o.bookId));
 
     const closed: Order[] = fakeApi.orders.getByIds(user.closedOrders);
@@ -54,8 +49,6 @@ export const getUserNormalized = (user: User) => {
     const reservedBooks: AbstractBook[] = fakeApi.books.getByIds(reserved.map((o) => o.aBookId));
 
     return {
-        own,
-        ownBooks,
         opened,
         openedBooks,
         closed,

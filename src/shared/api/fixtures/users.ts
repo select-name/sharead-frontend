@@ -229,8 +229,6 @@ const dates = [
  */
 export const userBooksMap = Object.entries(USER_ABOOKS).map(([key, abookIds]) => {
     const userId = Number(key);
-    const owner = getById(userId);
-    if (!owner) throw new Error(`Unknown user with userId=${userId}`);
     const userBooks: Book[] = abookIds.map((aId, idx) => {
         const abstract = books.getById(aId);
         if (!abstract) throw new Error(`Unknown Abstractbook with id=${aId}`);
@@ -241,25 +239,11 @@ export const userBooksMap = Object.entries(USER_ABOOKS).map(([key, abookIds]) =>
             abstractBook: abstract,
             // !!! FIXME: temp
             // costPerDay: price,
-            owner,
             availableBefore: dates[idx % dates.length],
         };
     });
     return userBooks;
 });
-// // FIXME: @hardcoded @temp @lowCoupling
-// const createUserBooks = (abstractBookId: number): Book[] => {
-//
-//     if (!abstract) return [];
-
-//     const price = books.getPrice(abstract);
-
-//     const owners = getBookOwners(abstractBookId);
-
-//     return owners.map((owner, idx) => ({
-
-//     }));
-// };
 
 // // FIXME: @hardcoded
 // export const userBooksMap = new Array(books.getAll().length + 1)
