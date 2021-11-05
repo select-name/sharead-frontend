@@ -1,6 +1,6 @@
 import { Typography, Layout } from "antd";
 
-import { Header, Footer } from "features";
+import { Header, Footer } from "widgets";
 import { dom } from "shared/lib";
 import Content from "./content";
 import styles from "./styles.module.scss";

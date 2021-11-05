@@ -1,7 +1,8 @@
 import { Typography, Layout, Row, Col, Button, Empty } from "antd";
 import { Link } from "react-router-dom";
 
-import { Header, Footer, Cart, Fav } from "features";
+import { Header, Footer } from "widgets";
+import { Cart, Fav } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { orderModel, orderLib } from "entities/order";
 import { TariffRadio } from "entities/tariff";

@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { Header, Footer } from "features";
+import { Header, Footer } from "widgets";
 import { dom } from "shared/lib";
 import { Aside } from "./aside";
 import { Content } from "./content";

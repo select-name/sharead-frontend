@@ -1,8 +1,9 @@
 import { Layout, Button, Result } from "antd";
 import { HashLink as Link } from "react-router-hash-link";
 
-import { Header, Footer, Cart } from "features";
 // import { orderModel } from "entities/order";
+import { Header, Footer } from "widgets";
+import { Cart } from "features";
 import { dom } from "shared/lib";
 import styles from "./styles.module.scss";
 

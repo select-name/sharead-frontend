@@ -3,8 +3,9 @@ import { HistoryOutlined, InboxOutlined, BookFilled } from "@ant-design/icons";
 import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
-import { Header, Footer, Cart, Fav, Reserve } from "features";
 import pluralize from "plural-ru";
+import { Header, Footer } from "widgets";
+import { Cart, Fav, Reserve } from "features";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import { orderLib } from "entities/order";
