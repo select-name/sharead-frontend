@@ -1,4 +1,4 @@
-# [sharead](https://dev-sharead.netlify.app/profile)
+# [sharead](https://dev-sharead.netlify.app)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a6de8db0-95f2-45c6-bfa1-03d75ad93b21/deploy-status)](https://app.netlify.com/sites/dev-sharead/deploys)
 ![GitHub top language](https://img.shields.io/github/languages/top/select-name/sharead-frontend)
