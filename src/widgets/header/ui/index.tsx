@@ -67,7 +67,7 @@ type ActionId = typeof actions[number]["id"];
 const LocationAlert = () => (
     <Alert
         className={styles.locationAlert}
-        message="На данный момент, сервис доступен только в Казани"
+        message="Это только демо-клиент сервиса. Никаких реальных транзакций и операций не производится!"
         type="info"
         closeText="Закрыть"
     />

@@ -6,7 +6,7 @@
 
 <img alt="favicon" src="https://avatars.githubusercontent.com/u/79259044?s=140&u=0f3f9724ad109ab3dde2a90b9391493062a5444a&v=4" height=120 align="right" />
 
-Sharead book service client
+Sharead book service client (demo-only!)
 
 - [Architecture design guidelines](https://feature-sliced.design/)
 - [Contributing guide](CONTRIBUTING.md)
