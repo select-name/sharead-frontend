@@ -1,28 +1,17 @@
-import { Layout, Button, Modal, DatePicker, AutoComplete, Checkbox } from "antd";
+import { Layout } from "antd";
 import {
     CheckCircleOutlined,
     ClockCircleOutlined,
     ShoppingOutlined,
-    PlusOutlined,
     HeartOutlined,
 } from "@ant-design/icons";
-import moment from "moment";
 import { useLocation } from "react-router-dom";
 
 import { Fav, Cart } from "features";
 import { viewerModel, viewerLib } from "entities/viewer";
-import { BookRow } from "entities/book";
-import { fakeApi, AbstractBook } from "shared/api";
-import { hooks, alert } from "shared/lib";
 import { TOPIC_CLOSED, TOPIC_OPENED, TOPIC_RESERVED, TOPIC_FAV } from "../config";
 import { Section } from "./section";
 import styles from "./styles.module.scss";
-
-const mapToOptions = (books: AbstractBook[]) =>
-    books.map((book) => ({
-        value: String(book.name),
-        label: <BookRow data={book} size="small" titleAsLink={false} />,
-    }));
 
 // eslint-disable-next-line max-lines-per-function
 export const Content = () => {
@@ -107,72 +96,5 @@ export const Content = () => {
                 active={TOPIC_CLOSED.id === currentAnchor}
             />
         </Layout>
-    );
-};
-
-// eslint-disable-next-line max-lines-per-function
-const AddBook = () => {
-    const addBookModal = hooks.useVisibility();
-
-    return (
-        <>
-            <Button
-                title="Добавить книгу в сервис"
-                icon={<PlusOutlined />}
-                type="primary"
-                onClick={addBookModal.open}
-            >
-                Добавить
-            </Button>
-            <Modal
-                title="Добавить книгу в сервис"
-                // style={{ top: 20 }}
-                width={800}
-                visible={addBookModal.visible}
-                okText="Отправить заявку"
-                cancelText="Отмена"
-                onOk={() => {
-                    addBookModal.close();
-                    alert.success(
-                        "Заявка отправлена",
-                        "Наши модераторы свяжутся с вами в ближайшее время после проверки заявки",
-                    );
-                }}
-                onCancel={addBookModal.close}
-                centered
-            >
-                <div>
-                    <p>
-                        Пользователи получат доступ к вашей книге, когда захотят заказать конкретное
-                        издание книги. Поэтому очень важно, чтобы была связь между вашим
-                        экземпляром, и загруженной на сервис вариацией
-                    </p>
-                    <AutoComplete
-                        style={{ width: "100%", marginBottom: 20 }}
-                        options={mapToOptions(fakeApi.books.getAll())}
-                        placeholder="Выбрать книгу из сервиса"
-                    />
-                    <Checkbox disabled>Моей книги нет в сервисе</Checkbox>
-                </div>
-                <div style={{ marginTop: 40 }}>
-                    <p>
-                        Чтобы пользователи могли арендовать вашу книгу, сервису нужно знать, до
-                        какого числа вы ее доверяете нам. При этом за неделю до истечения срока мы
-                        вас оповестим и еще раз спросим актуальную информацию по дате.
-                    </p>
-                    <p>
-                        Поэтому дату стоит выбрать одновременно такую, чтобы вы гарантированно
-                        смогли вернуть себе книгу, и при этом чтобы пользователи успели ее заказать.
-                        Обычно, лучше сдавать книгу на месяц-два
-                    </p>
-                    <DatePicker
-                        placeholder="Выберите дату возврата книги"
-                        style={{ width: "100%", marginTop: 20 }}
-                        defaultValue={moment().add(5, "days")}
-                        format={"DD.MM.YYYY"}
-                    />
-                </div>
-            </Modal>
-        </>
     );
 };
