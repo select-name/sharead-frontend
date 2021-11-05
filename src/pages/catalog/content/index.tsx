@@ -2,7 +2,7 @@ import { Badge, Empty, Layout, Row, Col, Radio, Typography } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 import pluralize from "plural-ru";
 
-import { headerParams } from "widgets";
+import { headerParams } from "widgets/header";
 import { Cart, Fav, Reserve } from "features";
 import { BookCard, BookRowCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";

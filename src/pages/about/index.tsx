@@ -1,6 +1,7 @@
 import { Button, Layout } from "antd";
 
-import { Header, Footer } from "widgets";
+import { Header } from "widgets/header";
+import { Footer } from "widgets/footer";
 // eslint-disable-next-line no-restricted-imports
 import { useTitle } from "shared/lib/dom";
 import Section from "./section";

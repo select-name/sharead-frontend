@@ -4,7 +4,8 @@ import { RouteChildrenProps, Link } from "react-router-dom";
 import cn from "classnames";
 
 import pluralize from "plural-ru";
-import { Header, Footer } from "widgets";
+import { Header } from "widgets/header";
+import { Footer } from "widgets/footer";
 import { Cart, Fav, Reserve } from "features";
 import { BookCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";

@@ -17,7 +17,8 @@ import dayjs from "dayjs";
 // !!! FIXME: temp!;
 import moment from "moment";
 
-import { Header, Footer } from "widgets";
+import { Header } from "widgets/header";
+import { Footer } from "widgets/footer";
 import { Wallet, Cart } from "features";
 import { orderModel } from "entities/order";
 import { viewerModel } from "entities/viewer";
