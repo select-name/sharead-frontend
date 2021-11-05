@@ -12,7 +12,6 @@ import { orderLib } from "entities/order";
 import type { AbstractBook } from "shared/api";
 import { fakeApi } from "shared/api";
 import { dom, alert } from "shared/lib";
-import { BooksModal } from "./modal";
 import styles from "./styles.module.scss";
 
 // !!! FIXME: split by features!
@@ -138,7 +137,6 @@ const Checkout = ({ book }: BookProps) => {
             <article className={styles.checkout}>
                 <div>
                     <h3 className={styles.checkoutPrice}>
-                        {rent.status === "OWN" && "Ваш экземпляр"}
                         {rent.status === "RENTABLE" && price}
                         {rent.status === "RESERVABLE" && "Можно забронировать"}
                         {rent.status === "OUT_STOCK" && "Нет в наличии"}
@@ -160,19 +158,6 @@ const Checkout = ({ book }: BookProps) => {
                                     )}
                                 </li>
                             </ul>
-                        )}
-                        {rent.status === "OWN" && (
-                            <>
-                                <p>
-                                    Эта книга относится к одному из экземпляров, которые вы
-                                    загрузили на сервис
-                                </p>
-                                <p>
-                                    В целях антифрода, для данной книги вы не сможете сделать бронь
-                                    или заказ. Но можете посмотреть аналоги для других издательств и
-                                    годов выпуска
-                                </p>
-                            </>
                         )}
                         {rent.status === "RESERVABLE" && (
                             <>
@@ -208,7 +193,6 @@ const Checkout = ({ book }: BookProps) => {
                         <Reserve.Actions.ReserveBook bookId={book.id} />
                     )}
                     {false && <TariffRadio onChange={alert.info} withTitle={false} disabled />}
-                    {false && <BooksModal bookId={book.id} />}
                 </div>
             </article>
         </Col>
