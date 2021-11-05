@@ -1,7 +1,7 @@
 import { Typography, Layout, Avatar, Divider } from "antd";
 import { UserOutlined, CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
-import { Wallet } from "features";
+import { Wallet } from "features/wallet";
 import { viewerModel } from "entities/viewer";
 import { Tile } from "shared/ui";
 import * as lib from "../lib";

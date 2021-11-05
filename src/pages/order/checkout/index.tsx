@@ -19,7 +19,8 @@ import moment from "moment";
 
 import { Header } from "widgets/header";
 import { Footer } from "widgets/footer";
-import { Wallet, Cart } from "features";
+import { Cart } from "features/cart";
+import { Wallet } from "features/wallet";
 import { orderModel } from "entities/order";
 import { viewerModel } from "entities/viewer";
 import { fakeApi } from "shared/api";

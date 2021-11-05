@@ -3,7 +3,9 @@ import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 import pluralize from "plural-ru";
 
 import { headerParams } from "widgets/header";
-import { Cart, Fav, Reserve } from "features";
+import { Cart } from "features/cart";
+import { Fav } from "features/fav";
+import { Reserve } from "features/reserve";
 import { BookCard, BookRowCard } from "entities/book";
 import { TariffRadio } from "entities/tariff";
 import { orderLib } from "entities/order";

@@ -7,7 +7,8 @@ import {
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 
-import { Fav, Cart } from "features";
+import { Cart } from "features/cart";
+import { Fav } from "features/fav";
 import { viewerModel, viewerLib } from "entities/viewer";
 import { TOPIC_CLOSED, TOPIC_OPENED, TOPIC_RESERVED, TOPIC_FAV } from "../config";
 import { Section } from "./section";

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 import { Header } from "widgets/header";
 import { Footer } from "widgets/footer";
-import { Cart, Fav } from "features";
+import { Cart } from "features/cart";
+import { Fav } from "features/fav";
 import { BookCard, BookRowCard } from "entities/book";
 import { orderModel, orderLib } from "entities/order";
 import { TariffRadio } from "entities/tariff";
