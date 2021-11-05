@@ -1,9 +1,9 @@
 import { Carousel, Typography, Layout, Row, Col } from "antd";
 // import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { useHistory, Link } from "react-router-dom";
 import dayjs from "dayjs";
 
 import { Header, Footer } from "widgets";
-import { useHistory, Link } from "react-router-dom";
 import { BookCard } from "entities/book";
 import { fakeApi } from "shared/api";
 import { useTitle } from "shared/lib/dom";
