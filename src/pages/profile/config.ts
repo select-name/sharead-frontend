@@ -1,10 +1,3 @@
-export const TOPIC_MY = {
-    id: "my",
-    title: "Мои книги",
-    fullTitle: "Мои книги",
-    description: "Добавленные мною в сервис",
-};
-
 export const TOPIC_OPENED = {
     id: "opened",
     title: "В аренде",
@@ -35,7 +28,6 @@ export const TOPIC_FAV = {
 
 // prettier-ignore
 export const topics = [
-    TOPIC_MY,
     TOPIC_OPENED,
     TOPIC_RESERVED,
     TOPIC_FAV,

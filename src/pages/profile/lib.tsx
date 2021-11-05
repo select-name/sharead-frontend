@@ -19,11 +19,3 @@ export const getStats = (viewer: User) => {
         },
     ];
 };
-
-export const STATUSES = {
-    BUSY: <Typography.Text type="success">Арендуется</Typography.Text>,
-    FREE: <Typography.Text style={{ color: "#108ee9" }}>Свободна</Typography.Text>,
-    WAITING_TRANSFER: <Typography.Text type="warning">Ожидает передачи</Typography.Text>,
-    RENTED: <Typography.Text type="success">На руках</Typography.Text>,
-    CLOSED: <Typography.Text type="secondary">Аренда завершена</Typography.Text>,
-};
