@@ -71,18 +71,10 @@ export const getUserStat = (user: User) => {
 
     // Если учитывать, что цена на книгу уменьшается в среднем в 4 раза по сравнению с оригиналом
     const saved = un.closedPrices.reduce((a, b) => a + b, 0) * (4 - 1);
-    const earned = un.ownBooks
-        .map(getMyBookInfo)
-        .map((st) => st.earned)
-        .reduce((a, b) => a + b, 0);
-
-    const closed = un.closed.length + un.opened.length + un.own.length;
 
     return {
         saved: `~ ${saved} ₽`,
-        earned: `${earned} ₽`,
         registered: dayjs(user.registeredAt).format("D MMM YYYY"),
-        closed: getOrdersLabel(closed),
     };
 };
 

@@ -13,19 +13,9 @@ export const getStats = (viewer: User) => {
             value: stat.registered,
         },
         {
-            key: "closed",
-            label: "Закрыто",
-            value: stat.closed,
-        },
-        {
             key: "saved",
             label: "Сэкономлено",
             value: stat.saved,
-        },
-        {
-            key: "earned",
-            label: "Заработано",
-            value: stat.earned,
         },
     ];
 };
