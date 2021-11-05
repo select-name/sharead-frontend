@@ -1,13 +1,17 @@
 import { useState } from "react";
 
+const PREFIX = "SHAREAD";
+
 // Hook
 export function useLocalStorage<T>(key: string, initialValue: T) {
+    const keyLS = `${PREFIX}:${key}`;
+
     // State to store our value
     // Pass initial state function to useState so logic is only executed once
     const [storedValue, setStoredValue] = useState<T>(() => {
         try {
             // Get from local storage by key
-            const item = window.localStorage.getItem(key);
+            const item = window.localStorage.getItem(keyLS);
             // Parse stored json or if none return initialValue
             return item ? JSON.parse(item) : initialValue;
         } catch (error) {
@@ -25,7 +29,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
             // Save state
             setStoredValue(valueToStore);
             // Save to local storage
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            window.localStorage.setItem(keyLS, JSON.stringify(valueToStore));
         } catch (error) {
             // A more advanced implementation would handle the error case
             // console.log(error);
@@ -35,10 +39,11 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 }
 
 export function initLSItem<T>(key: string, initialValue: T) {
-    const item = window.localStorage.getItem(key);
+    const keyLS = `${PREFIX}:${key}`;
+    const item = window.localStorage.getItem(keyLS);
     const value: T = item ? JSON.parse(item) : initialValue;
     const setValue = (nextValue: T) => {
-        window.localStorage.setItem(key, JSON.stringify(nextValue));
+        window.localStorage.setItem(keyLS, JSON.stringify(nextValue));
     };
 
     return { value, setValue };

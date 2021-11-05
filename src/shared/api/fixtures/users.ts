@@ -110,10 +110,10 @@ export const JANE_DOE: User = {
 
 const __VIEWER: User = {
     id: 4,
-    email: "vasiliy.oblomov@gmail.com",
+    email: "jack.doe@gmail.com",
     emailVerified: false,
-    firstName: "Василий",
-    lastName: "Обломов",
+    firstName: "Jack",
+    lastName: "Doe",
     books: USERS_UBOOKS[4],
     // FIXME: hardcoded
     closedOrders: [4],
