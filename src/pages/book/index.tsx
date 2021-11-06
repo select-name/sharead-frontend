@@ -32,7 +32,7 @@ type Props = RouterProps;
 // eslint-disable-next-line max-lines-per-function
 const BookPage = (props: Props) => {
     const bookId = Number(props.match?.params.bookId);
-    const book = fakeApi.books.getById(bookId);
+    const book = fakeApi.library.books.getById(bookId);
 
     // FIXME: Сделать позже через промиз
     dom.useTitle(`${book ? book.name : "Книга не найдена"} | Sharead`);
@@ -61,7 +61,7 @@ const BookPage = (props: Props) => {
             <Layout.Content className={styles.rootContent}>
                 <Link to="/catalog">Каталог</Link>
                 <Typography.Title className={styles.title} level={2}>
-                    {fakeApi.books.toString(book)}
+                    {fakeApi.library.books.toString(book)}
                 </Typography.Title>
                 <Row className={styles.content}>
                     <Card book={book} />
@@ -83,7 +83,7 @@ type BookProps = {
 // prettier-ignore
 const Card = ({ book }: BookProps) => {
     const { authors, publicationYear, publishingHouse } = book;
-    const author = authors.map(fakeApi.authors.getShortname).join(", ");
+    const author = authors.map(fakeApi.library.authors.getShortname).join(", ");
 
     return (
         <Col className={styles.card} span={16}>
@@ -132,7 +132,7 @@ const Card = ({ book }: BookProps) => {
 const Checkout = ({ book }: BookProps) => {
     const rent = orderLib.getRentInfo(book.id);
     const style = rent.status !== "RENTABLE" ? { opacity: 0.5 } : {};
-    const price = `${fakeApi.books.getPrice(book)} р`;
+    const price = `${fakeApi.library.books.getPrice(book)} р`;
     // console.debug("BOOK RENT", book.id, rent);
 
     return (
@@ -204,7 +204,7 @@ const Checkout = ({ book }: BookProps) => {
 
 // !!! FIXME: Скроллить наверх при переходе к книге
 const Recommendations = ({ book }: BookProps) => {
-    const booksQuery = fakeApi.books
+    const booksQuery = fakeApi.library.books
         .getList({ filters: { authors: book.authors.map((a) => a.id) } })
         .filter((b) => b.id !== book.id);
 

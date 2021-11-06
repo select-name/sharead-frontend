@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 import type { Book } from "../../types";
-import { books } from "../books";
+import { books } from "../library";
 
 // === RELATIONS: userBooks
 //

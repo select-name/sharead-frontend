@@ -111,7 +111,7 @@ const srcCategoriesMap: Record<number, string> = {
 };
 
 const Categories = () => {
-    const categoriesQuery = fakeApi.categories.getAll();
+    const categoriesQuery = fakeApi.library.categories.getAll();
     const history = useHistory();
 
     return (
@@ -150,7 +150,7 @@ const srcAuthorsMap: Record<number, string> = {
     1: imgTolstoy,
 };
 const Authors = () => {
-    const authorsQuery = fakeApi.authors.getPopular();
+    const authorsQuery = fakeApi.library.authors.getPopular();
     const history = useHistory();
 
     return (
@@ -166,7 +166,7 @@ const Authors = () => {
                 >
                     {/* TODO: Добавить позже фильрацию по категориям + ссылку на страницы */}
                     <Typography.Title level={4} className={styles.authorsItemTitle}>
-                        {fakeApi.authors.getShortname(au)}
+                        {fakeApi.library.authors.getShortname(au)}
                     </Typography.Title>
                     <div className={styles.authorsItemCover}>
                         {/* <UserOutlined {...au.avatar} /> */}
@@ -179,7 +179,7 @@ const Authors = () => {
 };
 
 const Books = () => {
-    const booksQuery = fakeApi.books.getPopular();
+    const booksQuery = fakeApi.library.books.getPopular();
 
     return (
         <Row className={styles.books} justify="space-between">

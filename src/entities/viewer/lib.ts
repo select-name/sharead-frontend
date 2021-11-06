@@ -26,7 +26,7 @@ export const getOrderInfo = (order: Order) => {
 };
 
 export const getMyBookInfo = (book: Book) => {
-    const bookOrders = fakeApi.orders.getByBookId(book.id);
+    const bookOrders = fakeApi.checkout.orders.getByBookId(book.id);
     const bookOrdersStatuses = bookOrders.map((bo) => bo.status);
 
     const isSomeRented = bookOrdersStatuses.includes("RENTED");
@@ -37,16 +37,24 @@ export const getMyBookInfo = (book: Book) => {
 
 // Страх и ужас, не показывайте такое детям
 export const getUserNormalized = (user: User) => {
-    const opened: Order[] = fakeApi.orders.getByIds(user.openedOrders);
+    const opened: Order[] = fakeApi.checkout.orders.getByIds(user.openedOrders);
 
-    const openedBooks: Book[] = fakeApi.userBooks.getUserBooksByIds(opened.map((o) => o.bookId));
+    const openedBooks: Book[] = fakeApi.users.userBooks.getUserBooksByIds(
+        opened.map((o) => o.bookId),
+    );
 
-    const closed: Order[] = fakeApi.orders.getByIds(user.closedOrders);
-    const closedBooks: Book[] = fakeApi.userBooks.getUserBooksByIds(closed.map((o) => o.bookId));
-    const closedPrices: number[] = closedBooks.map((cb) => fakeApi.books.getPrice(cb.abstractBook));
+    const closed: Order[] = fakeApi.checkout.orders.getByIds(user.closedOrders);
+    const closedBooks: Book[] = fakeApi.users.userBooks.getUserBooksByIds(
+        closed.map((o) => o.bookId),
+    );
+    const closedPrices: number[] = closedBooks.map((cb) =>
+        fakeApi.library.books.getPrice(cb.abstractBook),
+    );
 
-    const reserved: Reservation[] = fakeApi.reservations.getByIds(user.reservations);
-    const reservedBooks: AbstractBook[] = fakeApi.books.getByIds(reserved.map((o) => o.aBookId));
+    const reserved: Reservation[] = fakeApi.checkout.reservations.getByIds(user.reservations);
+    const reservedBooks: AbstractBook[] = fakeApi.library.books.getByIds(
+        reserved.map((o) => o.aBookId),
+    );
 
     return {
         opened,
@@ -72,7 +80,10 @@ export const getUserStat = (user: User) => {
 };
 
 export const getReservationInfo = (reservation: Reservation) => {
-    const queryIdx = fakeApi.reservations.getUserIdx(reservation.userId, reservation.aBookId);
+    const queryIdx = fakeApi.checkout.reservations.getUserIdx(
+        reservation.userId,
+        reservation.aBookId,
+    );
     const awaitTime = queryIdx * 7;
     const couldBeRent = queryIdx === 0;
 

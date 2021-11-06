@@ -48,7 +48,7 @@ const imgStyle: Record<Size, CSSProperties> = {
 const BookCard = (props: Props) => {
     // prettier-ignore
     const { data: b, className, size = "default", children, actions, withPrice = true, asSecondary } = props;
-    const author = b.authors.map(fakeApi.authors.getShortname).join(", ");
+    const author = b.authors.map(fakeApi.library.authors.getShortname).join(", ");
     const publisher = `${b.publishingHouse.name}`;
     const title = `${author} — ${b.name}`;
     const description = `${publisher} (${b.publicationYear})`;
@@ -80,7 +80,7 @@ const BookCard = (props: Props) => {
                 title={
                     <div className={styles.header}>
                         {withPrice && (
-                            <span className={styles.price}>от {fakeApi.books.getPrice(b)} ₽</span>
+                            <span className={styles.price}>от {fakeApi.library.books.getPrice(b)} ₽</span>
                         )}
                         <Link to={`/book/${b.id}`} title={title} className={styles.title}>
                             {string.textOverflow(title, 50)}

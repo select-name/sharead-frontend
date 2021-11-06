@@ -7,7 +7,7 @@ import type { AbstractBook } from "shared/api";
 import { fakeApi } from "shared/api";
 import { useSearchParam } from "../../params";
 
-// const initialQuery = fakeApi.books.getAll();
+// const initialQuery = fakeApi.library.books.getAll();
 const initialQuery: AbstractBook[] = [];
 
 // !!! FIXME
@@ -42,7 +42,7 @@ const useSearch = () => {
         // FIXME: hardcoded
         if (isNotEnoughLength) return setQuery(initialQuery);
 
-        const booksQuery = fakeApi.books.getList({ filters: { search } });
+        const booksQuery = fakeApi.library.books.getList({ filters: { search } });
         setQuery(booksQuery);
     };
 

@@ -12,7 +12,7 @@ import type { Book } from "shared/api";
 const getRentStats = (userBooks: Book[]) => {
     return userBooks.map((ub) => {
         const maxDuration = dayjs(ub.availableBefore).diff(dayjs(), "day");
-        const orders = fakeApi.orders.getByBookId(ub.id).sort((a, b) => a.id - b.id);
+        const orders = fakeApi.checkout.orders.getByBookId(ub.id).sort((a, b) => a.id - b.id);
         const lastStatus = orders.slice(-1)[0]?.status;
 
         const couldBeRent = !orders.length || lastStatus === "CLOSED";
@@ -42,7 +42,7 @@ const getRentStats = (userBooks: Book[]) => {
  */
 // eslint-disable-next-line max-lines-per-function
 export const getRentInfo = (aBookId: number) => {
-    const userBooks = fakeApi.userBooks.getUserBooksByABook(aBookId);
+    const userBooks = fakeApi.users.userBooks.getUserBooksByABook(aBookId);
     // CASE: Нет экземпляров
     if (!userBooks.length) {
         return {
@@ -65,7 +65,7 @@ export const getRentInfo = (aBookId: number) => {
     const availableBooks = rentStats.filter((rs) => rs.couldBeRent && rs.maxDuration >= 7);
     // FIXME: refine later
     const maxDuration = Math.max(...rentStats.map((rs) => rs.maxDuration), 0);
-    const reservations = fakeApi.reservations
+    const reservations = fakeApi.checkout.reservations
         .getByABook(aBookId)
         .filter((r) => r.status === "PENDING");
 
@@ -110,11 +110,11 @@ export const getRentInfo = (aBookId: number) => {
 // + дату предполагаемого реджекта
 // + duration?
 // export const getReserveInfo = (aBookId: number) => {
-//     const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
+//     const userBooks = fakeApi.users.users.getUserBooksByABook(aBookId);
 //     // Нет экземпляров
 //     // if (!userBooks.length) return { duration: -1, couldBeRent: false, items: [] };
 
-//     const reservations = fakeApi.reservations.getByABook(aBookId);
+//     const reservations = fakeApi.checkout.reservations.getByABook(aBookId);
 
 //     return null;
 // };

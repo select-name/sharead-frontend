@@ -71,23 +71,23 @@ export const $cart = combine($books, $durations, (books, durations) => {
     return { books, durations };
 }).on(events.submitOrder, (state) => {
     // FIXME: hardcoded!
-    const viewer = fakeApi.users.getViewer();
+    const viewer = fakeApi.users.users.getViewer();
     const newOrders: Order[] = state.books.map((aBookId, i) => {
-        return fakeApi.orders.createOrder({
-            bookId: fakeApi.userBooks.shuffleByABook(aBookId).id,
+        return fakeApi.checkout.orders.createOrder({
+            bookId: fakeApi.users.userBooks.shuffleByABook(aBookId).id,
             userId: viewer.id,
             status: "WAITING_TRANSFER",
             startDelta: 0,
             deliveredDelta: 2,
             endDelta: state.durations[aBookId] || 14,
-            costs: fakeApi.books.getPrice(fakeApi.books.getById(aBookId)!),
+            costs: fakeApi.library.books.getPrice(fakeApi.library.books.getById(aBookId)!),
         });
     });
 
     viewer.openedOrders.push(...newOrders.map((no) => no.id));
 
-    fakeApi.orders.__pushTo(...newOrders);
-    fakeApi.users.__updateUser(viewer);
+    fakeApi.checkout.orders.__pushTo(...newOrders);
+    fakeApi.users.users.__updateUser(viewer);
 
     // FIXME: hardcoded!
     setTimeout(() => {

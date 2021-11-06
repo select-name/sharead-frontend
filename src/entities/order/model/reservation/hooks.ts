@@ -7,7 +7,7 @@ export const useReservationBooks = () => {
     // const books = bookModel.useBooks();
     const resIds = useStore($reservations);
     // return books.filter((b) => resIds.includes(b.id));
-    return fakeApi.books.getByIds(resIds);
+    return fakeApi.library.books.getByIds(resIds);
 };
 
 export const useBookReservationStatus = (bookId: number) => {

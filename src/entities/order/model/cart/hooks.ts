@@ -33,7 +33,7 @@ export const useRecommended = () => {
     const booksByAuthorLimited = booksByAuthor.filter((b) => Math.random() < RECOMMEND_MAX / lenA);
     const booksByAuthorLimitedIds = booksByAuthorLimited.map((b) => b.id);
     const booksPopular = otherBooks
-        .filter(fakeApi.books.isPopular)
+        .filter(fakeApi.library.books.isPopular)
         .filter((b) => !booksByAuthorLimitedIds.includes(b.id));
     const books = [...booksByAuthorLimited, ...booksPopular];
 
@@ -56,7 +56,7 @@ export const useOrder = () => {
 
     const price = books
         .map((b) => {
-            const price = fakeApi.books.getPrice(b);
+            const price = fakeApi.library.books.getPrice(b);
             // FIXME: @hardcoded (возвращается почему-то undefined, надо разобраться)
             const duration = durations[b.id] || DEFAULT_DURATION;
             const coeff = duration / DEFAULT_DURATION;

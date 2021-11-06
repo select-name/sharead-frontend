@@ -115,7 +115,7 @@ const WalletForm = () => {
 const DeliveryForm = () => {
     const [mode, setMode] = useState<"MANUAL" | "COFFESHOP">("MANUAL");
     const { date, address } = orderModel.cart.useDeliveryStore();
-    const shopsQuery = fakeApi.coffeeshops.getAll();
+    const shopsQuery = fakeApi.checkout.coffeeshops.getAll();
     const shopsOptions = shopsQuery.map((cs) => ({
         value: String(cs.id),
         label: (

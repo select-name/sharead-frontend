@@ -69,7 +69,7 @@ const CatalogContent = () => {
     const filters = useFilters();
     const obParam = catalogParams.useSorting();
 
-    const booksQuery = fakeApi.books.getList({ filters, orderby: obParam.sorting });
+    const booksQuery = fakeApi.library.books.getList({ filters, orderby: obParam.sorting });
     const vtParam = catalogParams.useViewType();
 
     // FIXME: add later ListView

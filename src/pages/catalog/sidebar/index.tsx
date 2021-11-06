@@ -44,8 +44,8 @@ const ExistsOnlySection = () => {
 const AuthorSection = () => {
     const params = catalogParams.useFilterByAuthor();
     // Some options could be disabled
-    const options = fakeApi.authors.getAll().map((a) => ({
-        label: fakeApi.authors.getShortname(a),
+    const options = fakeApi.library.authors.getAll().map((a) => ({
+        label: fakeApi.library.authors.getShortname(a),
         value: a.id,
     }));
 
@@ -65,7 +65,7 @@ const AuthorSection = () => {
 const PublisherSection = () => {
     const params = catalogParams.useFilterByPublisher();
     // Some options could be disabled
-    const options = fakeApi.publishers.getAll().map((a) => ({
+    const options = fakeApi.library.publishers.getAll().map((a) => ({
         label: `${a.name} (${a.city})`,
         value: a.id,
     }));
@@ -86,7 +86,7 @@ const PublisherSection = () => {
 const CategorySection = () => {
     const params = catalogParams.useFilterByCategory();
     // Some options could be disabled
-    const options = fakeApi.categories.getAll().map((a) => ({
+    const options = fakeApi.library.categories.getAll().map((a) => ({
         label: a.name,
         value: a.id,
     }));

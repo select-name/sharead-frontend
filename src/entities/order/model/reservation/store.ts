@@ -6,7 +6,7 @@ import * as events from "./events";
 
 // FIXME: fetch later by API
 export const initialState: number[] = viewerLib
-    .getUserNormalized(fakeApi.users.getViewer())
+    .getUserNormalized(fakeApi.users.users.getViewer())
     .reserved.map((r) => r.aBookId);
 
 export const $reservations = browser
