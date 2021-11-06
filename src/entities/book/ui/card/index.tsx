@@ -80,7 +80,9 @@ const BookCard = (props: Props) => {
                 title={
                     <div className={styles.header}>
                         {withPrice && (
-                            <span className={styles.price}>от {fakeApi.library.books.getPrice(b)} ₽</span>
+                            <span className={styles.price}>
+                                от {fakeApi.library.books.getPrice(b)} ₽
+                            </span>
                         )}
                         <Link to={`/book/${b.id}`} title={title} className={styles.title}>
                             {string.textOverflow(title, 50)}
