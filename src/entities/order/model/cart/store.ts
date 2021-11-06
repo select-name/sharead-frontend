@@ -74,7 +74,7 @@ export const $cart = combine($books, $durations, (books, durations) => {
     const viewer = fakeApi.users.getViewer();
     const newOrders: Order[] = state.books.map((aBookId, i) => {
         return fakeApi.orders.createOrder({
-            bookId: fakeApi.users.shuffleByABook(aBookId).id,
+            bookId: fakeApi.userBooks.shuffleByABook(aBookId).id,
             userId: viewer.id,
             status: "WAITING_TRANSFER",
             startDelta: 0,

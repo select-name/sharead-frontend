@@ -42,7 +42,7 @@ const getRentStats = (userBooks: Book[]) => {
  */
 // eslint-disable-next-line max-lines-per-function
 export const getRentInfo = (aBookId: number) => {
-    const userBooks = fakeApi.users.getUserBooksByABook(aBookId);
+    const userBooks = fakeApi.userBooks.getUserBooksByABook(aBookId);
     // CASE: Нет экземпляров
     if (!userBooks.length) {
         return {
