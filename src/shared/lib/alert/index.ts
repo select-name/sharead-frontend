@@ -5,14 +5,16 @@ import { notification } from "antd";
  * - упрощения API (более нормализированное и привычное)
  * - для стандартизации единого placement для всех алертов
  */
-const generateOpener = (type: import("antd/lib/notification").IconType) => (
-    message: any,
-    description?: any,
-    icon?: import("react").ReactNode,
-    // eslint-disable-next-line max-params
-) => {
-    notification.open({ type, message, description, placement: "bottomRight", icon });
-};
+const generateOpener =
+    (type: import("antd/lib/notification").IconType) =>
+    (
+        message: any,
+        description?: any,
+        icon?: import("react").ReactNode,
+        // eslint-disable-next-line max-params
+    ) => {
+        notification.open({ type, message, description, placement: "bottomRight", icon });
+    };
 
 const error = generateOpener("error");
 const success = generateOpener("success");
