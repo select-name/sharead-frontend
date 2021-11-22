@@ -1,0 +1,12 @@
+@import "shared/styles/mixins.scss";
+
+.books {
+    &Item {
+        // Хак, чтобы уменьшить ширину внутреннего контейнера
+        padding: 0 20px;
+
+        &Card {
+            height: 100%;
+        }
+    }
+}

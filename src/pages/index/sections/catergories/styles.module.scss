@@ -1,0 +1,49 @@
+@import "shared/styles/mixins.scss";
+
+.categories {
+  &Item {
+    position: relative;
+    // height: 145px !important;
+    height: 292px !important;
+    padding: 40px;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    background: var(--color-accent);
+    border-radius: 10px;
+    transition: 0.25s;
+
+    &:hover {
+      opacity: 0.8;
+
+      @include box-shadow-bottom();
+    }
+
+    &Text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 10;
+      color: #ffffff !important;
+      transform: translate(-50%, -50%);
+    }
+
+    &Cover {
+      position: absolute;
+      bottom: -100px;
+      left: 50%;
+      font-size: 200px;
+      transform: translateX(-50%);
+
+      img {
+        filter: brightness(0.3);
+        background-size: cover;
+      }
+    }
+  }
+}
+
+// !!! FIXME: temp!
+.text {
+  color: lightgray !important;
+}
