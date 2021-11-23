@@ -1,0 +1,14 @@
+@import "shared/styles/mixins.scss";
+
+.root {
+    &Section {
+        margin-bottom: 80px;
+
+        &Title {
+            padding-bottom: 30px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    }
+}
+

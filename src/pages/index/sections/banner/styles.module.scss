@@ -1,0 +1,24 @@
+@import "shared/styles/mixins.scss";
+
+.banner {
+  &Item {
+    position: relative;
+    height: 320px;
+    text-align: center;
+    // background: #364d79;
+
+    &Text {
+      position: absolute;
+      z-index: 10;
+      // line-height: 320px;
+      color: #ffffff !important;
+
+      @include align-center-absolute();
+    }
+  }
+}
+
+// !!! FIXME: temp!
+.text {
+  color: lightgray !important;
+}
