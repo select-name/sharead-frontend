@@ -1,11 +1,8 @@
 /** Разрешенные импорты (с публичными API) */
 const ALLOWED_PATH_GROUPS = [
     "pages/**",
-    "widgets", // FIXME: temp
     "widgets/**",
-    "features", // FIXME: temp
     "features/**",
-    "entities", // FIXME: temp
     "entities/**",
     "shared/**",
 ].map((pattern) => ({
