@@ -10845,6 +10845,11 @@ react-yandex-maps@^4.6.0:
     prop-types "^15.7.2"
     react-display-name "^0.2.5"
 
+react-yandex-metrika@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-yandex-metrika/-/react-yandex-metrika-2.6.0.tgz#9c935c8c7ea5505e34391b9b3e86deb6d50053c9"
+  integrity sha512-8K4wExsNZtY3DTxh1G8a+zWH9Pg8fw23MJcoJ4I/562qrHRnh7L5nteq3lnNL58dnNQbuuHIRoGgMjIo+r1GjA==
+
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
