@@ -1,6 +1,7 @@
 import { Input, Typography, Button, Form } from "antd";
 import cn from "classnames";
 import { useState } from "react";
+import ym from "react-yandex-metrika";
 
 import { viewerModel } from "entities/viewer";
 import styles from "./styles.module.scss";
@@ -41,6 +42,9 @@ const AddFundsForm = ({ className }: Props) => {
                 block
                 // href="#redirect-to-payment-service"
                 onClick={() => {
+                    // eslint-disable-next-line no-console
+                    console.debug("[DEBUG] reachGoal: APPLY_TRANSACTION");
+                    ym("reachGoal", "APPLY_TRANSACTION", { amount: money });
                     // eslint-disable-next-line no-restricted-globals
                     viewer.payment.applyTransaction(money).then(() => location.reload());
                 }}

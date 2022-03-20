@@ -1,6 +1,7 @@
 import { Badge, Empty, Layout, Row, Col, Radio, Typography } from "antd";
 import { BarsOutlined, AppstoreOutlined } from "@ant-design/icons";
 import pluralize from "plural-ru";
+import ym from "react-yandex-metrika";
 
 import { headerParams } from "widgets/header";
 import { Cart } from "features/cart";
@@ -98,7 +99,15 @@ const CatalogContent = () => {
                 </Row>
                 <Radio.Group
                     value={vtParam.viewType}
-                    onChange={(e) => vtParam.setViewType(e.target.value)}
+                    onChange={(e) => {
+                        // eslint-disable-next-line no-console
+                        console.debug("[DEBUG] reachGoal: CHANGE_CATALOG_VIEWTYPE");
+                        ym("reachGoal", "CHANGE_CATALOG_VIEWTYPE", {
+                            prevValue: vtParam.viewType,
+                            nextValue: e.target.value,
+                        });
+                        vtParam.setViewType(e.target.value);
+                    }}
                     className={styles.toolbarViews}
                     buttonStyle="solid"
                 >

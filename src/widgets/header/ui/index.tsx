@@ -8,7 +8,9 @@ import {
     MenuOutlined,
 } from "@ant-design/icons";
 // https://stackoverflow.com/questions/48223566/using-anchor-tags-in-react-router-4
+import { useLocation } from "react-router";
 import { HashLink } from "react-router-hash-link";
+import ym from "react-yandex-metrika";
 
 // !!! FIXME:
 import { Wallet } from "features/wallet";
@@ -80,6 +82,7 @@ const Header = (props: Props) => {
     const { className } = props;
     const orderTotal = orderModel.cart.useOrderBooks().length;
     const favTotal = viewerModel.useFavBooks().length;
+    const { pathname } = useLocation();
 
     const count: Record<ActionId, number> = {
         cart: orderTotal,
@@ -93,7 +96,15 @@ const Header = (props: Props) => {
         <>
             <LocationAlert />
             <Layout.Header className={cn(styles.root, className)}>
-                <HashLink className={styles.logo} to="/">
+                <HashLink
+                    className={styles.logo}
+                    to="/"
+                    onClick={() => {
+                        // eslint-disable-next-line no-console
+                        console.debug("[DEBUG] reachGoal: BACK_HOME");
+                        ym("reachGoal", "BACK_HOME", { from: pathname });
+                    }}
+                >
                     <Logo width={24} />
                     <h1 className={styles.logoTitle}>sharead</h1>
                 </HashLink>
