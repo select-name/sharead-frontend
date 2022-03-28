@@ -62,7 +62,7 @@
     ]
   },
   "engines": {
-    "node": "14.X"
+    "node": "<=14.X"
   },
   "devDependencies": {
     "@types/compose-function": "0.0.30",
