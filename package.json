@@ -62,7 +62,7 @@
     ]
   },
   "engines": {
-    "node": "12.18.0"
+    "node": "14.X"
   },
   "devDependencies": {
     "@types/compose-function": "0.0.30",
